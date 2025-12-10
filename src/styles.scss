@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&family=Press+Start+2P&family=DotGothic16&family=Roboto+Mono:wght@400;700&display=swap');
+
+// ============================================
+// DESIGN TOKENS
+// CSS Variables for Design System
+// ============================================
+@import './styles/tokens/index.scss';
+
+// ============================================
+// TAILWIND CSS
+// ============================================
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// ============================================
+// TYPOGRAPHY UTILITIES
+// ============================================
+@layer components {
+	.text-title-l {
+		font-family: var(--pb-font-display);
+		font-size: var(--pb-font-size-title-l);
+		line-height: var(--pb-line-height-tight);
+		letter-spacing: var(--pb-letter-spacing-tight);
+		font-weight: var(--pb-font-weight-bold);
+	}
+
+	.text-title-m {
+		font-family: var(--pb-font-display);
+		font-size: var(--pb-font-size-title-m);
+		line-height: var(--pb-line-height-normal);
+		font-weight: var(--pb-font-weight-bold);
+	}
+
+	.text-title-s {
+		font-family: var(--pb-font-display);
+		font-size: var(--pb-font-size-title-s);
+		line-height: var(--pb-line-height-normal);
+		font-weight: var(--pb-font-weight-bold);
+	}
+
+	.text-body-md {
+		font-family: var(--pb-font-sans);
+		font-size: var(--pb-font-size-body-md);
+		line-height: var(--pb-line-height-relaxed);
+		font-weight: var(--pb-font-weight-regular);
+	}
+
+	.text-body-md-bold {
+		font-family: var(--pb-font-sans);
+		font-size: var(--pb-font-size-body-md);
+		line-height: var(--pb-line-height-relaxed);
+		font-weight: var(--pb-font-weight-bold);
+	}
+
+	.text-body-sm {
+		font-family: var(--pb-font-sans);
+		font-size: var(--pb-font-size-body-sm);
+		line-height: var(--pb-line-height-relaxed);
+		font-weight: var(--pb-font-weight-regular);
+	}
+
+	.text-body-sm-bold {
+		font-family: var(--pb-font-sans);
+		font-size: var(--pb-font-size-body-sm);
+		line-height: var(--pb-line-height-relaxed);
+		font-weight: var(--pb-font-weight-bold);
+	}
+}

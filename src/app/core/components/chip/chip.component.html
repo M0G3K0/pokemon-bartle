@@ -1,0 +1,9 @@
+@if ((withIcon || iconOnly) && getType()) {
+<div class="icon-wrapper">
+	<pb-type-icon [type]="getType()!" [size]="size === 'm' ? 'm' : 's'"></pb-type-icon>
+</div>
+}
+
+@if (!iconOnly) {
+<span class="label">{{ label }}</span>
+}

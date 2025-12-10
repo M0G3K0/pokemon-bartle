@@ -1,0 +1,95 @@
+/* ============================================
+ * CATALOG ITEM COMPONENT STYLES
+ * Using CSS Variables from Design Tokens
+ * ============================================ */
+
+/* Base Catalog Item */
+:host {
+	display: block;
+}
+
+/* Default Variant */
+:host.default {
+	width: 100%;
+}
+
+/* Compact Variant */
+:host.compact {
+	width: fit-content;
+}
+
+/* Container */
+.container {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--pb-spacing-md);
+	padding: var(--pb-spacing-sm);
+	border-radius: var(--pb-radius-sm);
+	transition: background-color 0.2s ease-in-out;
+
+	&:hover {
+		background: var(--pb-background-subtle);
+	}
+}
+
+/* Compact Container */
+:host.compact .container {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Preview Area */
+.preview {
+	flex-shrink: 0;
+	max-width: 100%;
+}
+
+/* Color Box (Default Preview) */
+.color-box {
+	width: 48px;
+	height: 48px;
+	flex-shrink: 0;
+	border-radius: var(--pb-radius-sm);
+	border: 2px solid var(--pb-border-default);
+}
+
+/* Content Area */
+.content {
+	flex: 1;
+	min-width: 0;
+}
+
+.name {
+	font-family: var(--pb-font-sans);
+	font-size: var(--pb-font-size-body-md);
+	font-weight: var(--pb-font-weight-bold);
+	line-height: var(--pb-line-height-relaxed);
+	color: var(--pb-text-primary);
+	margin: 0;
+}
+
+.description {
+	font-family: var(--pb-font-sans);
+	font-size: var(--pb-font-size-body-sm);
+	line-height: var(--pb-line-height-relaxed);
+	color: var(--pb-text-secondary);
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Meta Information */
+.meta {
+	font-family: var(--pb-font-sans);
+	font-size: var(--pb-font-size-body-sm);
+	line-height: var(--pb-line-height-relaxed);
+	color: var(--pb-text-tertiary);
+	display: none;
+
+	.container:hover & {
+		display: block;
+	}
+}

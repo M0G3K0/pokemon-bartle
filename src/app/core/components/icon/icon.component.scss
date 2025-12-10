@@ -1,0 +1,17 @@
+/* ============================================
+ * ICON COMPONENT STYLES
+ * Using CSS Variables from Design Tokens
+ * ============================================ */
+
+:host {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.icon-img {
+	width: 100%;
+	height: 100%;
+	display: block;
+}

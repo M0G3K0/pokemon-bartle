@@ -1,0 +1,69 @@
+// ============================================
+// COMPONENT TOKENS
+// コンポーネント固有のトークン - Semantic Tokensを参照
+// ============================================
+
+:root {
+	// ----------------------------------------
+	// Button Component - Primary
+	// ----------------------------------------
+	--pb-button-primary-bg: var(--pb-action-primary);
+	--pb-button-primary-bg-hover: var(--pb-action-primary-hover);
+	--pb-button-primary-bg-active: var(--pb-action-primary-active);
+	--pb-button-primary-text: var(--pb-action-primary-foreground);
+
+	// ----------------------------------------
+	// Button Component - Secondary
+	// ----------------------------------------
+	--pb-button-secondary-bg: var(--pb-action-secondary);
+	--pb-button-secondary-bg-hover: var(--pb-action-secondary-hover);
+	--pb-button-secondary-bg-active: var(--pb-action-secondary-active);
+	--pb-button-secondary-text: var(--pb-action-secondary-foreground);
+
+	// ----------------------------------------
+	// Button Component - Ghost
+	// ----------------------------------------
+	--pb-button-ghost-bg-hover: var(--pb-action-ghost-hover);
+	--pb-button-ghost-bg-active: var(--pb-action-ghost-active);
+	--pb-button-ghost-text: var(--pb-action-ghost-foreground);
+
+	// ----------------------------------------
+	// Button Component - Outline
+	// ----------------------------------------
+	--pb-button-outline-bg-hover: var(--pb-action-outline-hover);
+	--pb-button-outline-bg-active: var(--pb-action-outline-active);
+	--pb-button-outline-border: var(--pb-action-outline-border);
+	--pb-button-outline-text: var(--pb-action-outline-foreground);
+
+	// ----------------------------------------
+	// Button Component - Danger
+	// ----------------------------------------
+	--pb-button-danger-bg: var(--pb-result-lose-text);
+	--pb-button-danger-bg-hover: var(--pb-color-lose-700);
+	--pb-button-danger-bg-active: var(--pb-color-lose-800);
+	--pb-button-danger-text: #ffffff;
+
+	// ----------------------------------------
+	// Card Component
+	// ----------------------------------------
+	--pb-card-bg: var(--pb-background-surface);
+	--pb-card-bg-subtle: var(--pb-background-subtle);
+	--pb-card-border: var(--pb-border-default);
+	--pb-card-border-subtle: var(--pb-border-subtle);
+
+	// ----------------------------------------
+	// Modal Component
+	// ----------------------------------------
+	--pb-modal-bg: var(--pb-background-surface);
+	--pb-modal-overlay: var(--pb-background-overlay);
+	--pb-modal-border: var(--pb-border-default);
+
+	// ----------------------------------------
+	// Input Component
+	// ----------------------------------------
+	--pb-input-bg: var(--pb-background-surface);
+	--pb-input-border: var(--pb-border-default);
+	--pb-input-border-focus: var(--pb-border-focus);
+	--pb-input-text: var(--pb-text-primary);
+	--pb-input-placeholder: var(--pb-text-tertiary);
+}

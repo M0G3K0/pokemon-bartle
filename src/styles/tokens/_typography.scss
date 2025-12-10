@@ -1,0 +1,45 @@
+// ============================================
+// TYPOGRAPHY TOKENS
+// タイポグラフィ（フォント）のトークン
+// ============================================
+
+:root {
+	// ----------------------------------------
+	// Font Families
+	// ----------------------------------------
+	--pb-font-sans: "Roboto Mono", "BIZ UDGothic", monospace;
+	--pb-font-display: "Press Start 2P", "DotGothic16", cursive;
+
+	// ----------------------------------------
+	// Font Sizes - Titles
+	// ----------------------------------------
+	--pb-font-size-title-l: 15px;
+	--pb-font-size-title-m: 14px;
+	--pb-font-size-title-s: 13px;
+
+	// ----------------------------------------
+	// Font Sizes - Body
+	// ----------------------------------------
+	--pb-font-size-body-md: 14px;
+	--pb-font-size-body-sm: 12px;
+
+	// ----------------------------------------
+	// Line Heights
+	// ----------------------------------------
+	--pb-line-height-tight: 1.2;
+	--pb-line-height-normal: 1.4;
+	--pb-line-height-relaxed: 1.5;
+
+	// ----------------------------------------
+	// Font Weights
+	// ----------------------------------------
+	--pb-font-weight-regular: 400;
+	--pb-font-weight-bold: 700;
+
+	// ----------------------------------------
+	// Letter Spacing
+	// ----------------------------------------
+	--pb-letter-spacing-tight: 0.05em;
+	--pb-letter-spacing-normal: 0;
+	--pb-letter-spacing-wide: 0.1em;
+}

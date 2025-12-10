@@ -1,0 +1,88 @@
+/* ============================================
+ * TOAST COMPONENT STYLES
+ * Using CSS Variables from Design Tokens
+ * ============================================ */
+
+/* Base Toast */
+:host {
+	position: fixed;
+	top: 24px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 9999;
+
+	display: flex;
+	align-items: center;
+	min-width: 280px;
+	max-width: 420px;
+	padding: var(--pb-spacing-md) var(--pb-spacing-lg);
+	border-radius: var(--pb-radius-sm);
+	box-shadow: var(--pb-shadow-lg);
+	font-family: var(--pb-font-sans);
+	font-size: var(--pb-font-size-body-md);
+	line-height: var(--pb-line-height-relaxed);
+	animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Toast Content */
+.toast-content {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--pb-spacing-md);
+	width: 100%;
+}
+
+.message {
+	flex: 1;
+	margin: 0;
+	font-weight: var(--pb-font-weight-medium);
+}
+
+/* ============================================
+ * TYPE VARIANTS
+ * ============================================ */
+
+/* Success - Same colors as primary button */
+:host.success {
+	background: var(--pb-button-primary-bg);
+	color: var(--pb-button-primary-text);
+	border: 2px solid var(--pb-button-primary-bg);
+}
+
+/* Error */
+:host.error {
+	background: var(--pb-color-red-50);
+	color: var(--pb-color-red-900);
+	border: 2px solid var(--pb-color-red-500);
+}
+
+/* Info */
+:host.info {
+	background: var(--pb-color-blue-50);
+	color: var(--pb-color-blue-900);
+	border: 2px solid var(--pb-color-blue-500);
+}
+
+/* Warning */
+:host.warning {
+	background: var(--pb-color-lose-50);
+	color: var(--pb-color-lose-900);
+	border: 2px solid var(--pb-color-lose-500);
+}
+
+/* ============================================
+ * ANIMATIONS
+ * ============================================ */
+
+@keyframes slideIn {
+	from {
+		transform: translate(-50%, -20px);
+		opacity: 0;
+	}
+
+	to {
+		transform: translate(-50%, 0);
+		opacity: 1;
+	}
+}

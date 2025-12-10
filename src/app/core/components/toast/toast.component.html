@@ -1,0 +1,6 @@
+<div class="toast-content">
+	<p class="message">{{ message }}</p>
+	@if (dismissible) {
+	<pb-icon-button icon="x" label="Close" (action)="handleDismiss()"></pb-icon-button>
+	}
+</div>

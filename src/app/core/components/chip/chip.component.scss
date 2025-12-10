@@ -1,0 +1,126 @@
+/* ============================================
+ * CHIP COMPONENT STYLES
+ * Using CSS Variables from Design Tokens
+ * For both Label Chip and Action Chip
+ * ============================================ */
+
+/* Base Chip */
+:host {
+	/* Layout */
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--pb-spacing-sm);
+	/* 8px - Default spacing */
+	white-space: nowrap;
+
+	/* Typography */
+	font-family: var(--pb-font-sans);
+	font-weight: var(--pb-font-weight-bold);
+	text-transform: uppercase;
+	letter-spacing: var(--pb-letter-spacing-wide);
+
+	/* Visual */
+	border: none;
+	outline: none;
+
+	/* Interaction */
+	user-select: none;
+	transition: all 0.2s ease-in-out;
+}
+
+/* Action Chip specific - button element */
+button:host {
+	cursor: pointer;
+	transition: filter 0.2s ease-in-out;
+
+	&:hover {
+		filter: brightness(1.15);
+	}
+
+	&:active {
+		filter: brightness(1.05);
+	}
+
+	&:focus-visible {
+		outline: 2px solid var(--pb-border-focus);
+		outline-offset: 2px;
+	}
+}
+
+/* ============================================
+ * SIZE VARIANTS
+ * ============================================ */
+
+/* Medium Size */
+:host.size-m {
+	height: 40px;
+	font-size: var(--pb-font-size-body-md);
+	/* 14px */
+	line-height: var(--pb-line-height-relaxed);
+	padding: 0 var(--pb-spacing-lg);
+	/* 16px */
+}
+
+:host.size-m.icon-only {
+	width: 40px;
+	padding: 0;
+}
+
+/* Small Size */
+:host.size-s {
+	height: 24px;
+	font-size: var(--pb-font-size-body-sm);
+	/* 12px */
+	line-height: var(--pb-line-height-relaxed);
+	padding: 0 var(--pb-spacing-sm);
+	/* 8px */
+	gap: var(--pb-spacing-xs);
+	/* 4px - Tighter spacing for small size */
+}
+
+:host.size-s.icon-only {
+	width: 24px;
+	padding: 0;
+}
+
+/* ============================================
+ * RADIUS VARIANTS
+ * ============================================ */
+
+:host.radius-sm {
+	border-radius: var(--pb-radius-sm);
+}
+
+:host.radius-full {
+	border-radius: var(--pb-radius-full);
+}
+
+/* ============================================
+ * ICON WRAPPER
+ * ============================================ */
+
+.icon-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Icon Sizes */
+:host.size-m .icon-wrapper {
+	width: 20px;
+	height: 20px;
+}
+
+:host.size-s .icon-wrapper {
+	width: 16px;
+	height: 16px;
+}
+
+/* ============================================
+ * LABEL
+ * ============================================ */
+
+.label {
+	display: block;
+}

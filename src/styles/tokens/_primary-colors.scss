@@ -1,0 +1,321 @@
+// ============================================
+// PRIMARY COLOR TOKENS
+// 基本色パレット - すべての色の源泉
+// ============================================
+
+:root {
+	// ----------------------------------------
+	// Neutral Colors (Gray Scale)
+	// ----------------------------------------
+	--pb-color-gray-50: #f9fafb;
+	--pb-color-gray-100: #f3f4f6;
+	--pb-color-gray-200: #e5e7eb;
+	--pb-color-gray-300: #d1d5db;
+	--pb-color-gray-400: #9ca3af;
+	--pb-color-gray-500: #6b7280;
+	--pb-color-gray-600: #4b5563;
+	--pb-color-gray-700: #374151;
+	--pb-color-gray-800: #1f2937;
+	--pb-color-gray-900: #111827;
+	--pb-color-gray-950: #030712;
+
+	// ----------------------------------------
+	// Result Colors - Win (Lime Scale)
+	// ----------------------------------------
+	--pb-color-win-50: #f7fee7;
+	--pb-color-win-100: #ecfccb;
+	--pb-color-win-200: #d9f99d;
+	--pb-color-win-300: #bef264;
+	--pb-color-win-400: #a3e635;
+	--pb-color-win-500: #84cc16;
+	--pb-color-win-600: #65a30d;
+	--pb-color-win-700: #4d7c0f;
+	--pb-color-win-800: #3f6212;
+	--pb-color-win-900: #365314;
+	--pb-color-win-950: #1a2e05;
+
+	// ----------------------------------------
+	// Result Colors - Lose (Red Scale)
+	// ----------------------------------------
+	--pb-color-lose-50: #fef2f2;
+	--pb-color-lose-100: #fee2e2;
+	--pb-color-lose-200: #fecaca;
+	--pb-color-lose-300: #fca5a5;
+	--pb-color-lose-400: #f87171;
+	--pb-color-lose-500: #ef4444;
+	--pb-color-lose-600: #dc2626;
+	--pb-color-lose-700: #b91c1c;
+	--pb-color-lose-800: #991b1b;
+	--pb-color-lose-900: #7f1d1d;
+	--pb-color-lose-950: #450a0a;
+
+	// ----------------------------------------
+	// Pokemon Type: Normal
+	// ----------------------------------------
+	--pb-color-type-normal-50: #f6f6f2;
+	--pb-color-type-normal-100: #ecece4;
+	--pb-color-type-normal-200: #d8d7c6;
+	--pb-color-type-normal-300: #c4c3a9;
+	--pb-color-type-normal-400: #b0af8b;
+	--pb-color-type-normal-500: #A8A77A;
+	--pb-color-type-normal-600: #868662;
+	--pb-color-type-normal-700: #656449;
+	--pb-color-type-normal-800: #434331;
+	--pb-color-type-normal-900: #222118;
+	--pb-color-type-normal-950: #11110c;
+
+	// ----------------------------------------
+	// Pokemon Type: Fire
+	// ----------------------------------------
+	--pb-color-type-fire-50: #fef2ea;
+	--pb-color-type-fire-100: #fce6d5;
+	--pb-color-type-fire-200: #f9ccac;
+	--pb-color-type-fire-300: #f5b282;
+	--pb-color-type-fire-400: #f29959;
+	--pb-color-type-fire-500: #EE8130;
+	--pb-color-type-fire-600: #be6726;
+	--pb-color-type-fire-700: #8f4d1d;
+	--pb-color-type-fire-800: #5f3413;
+	--pb-color-type-fire-900: #301a0a;
+	--pb-color-type-fire-950: #180d05;
+
+	// ----------------------------------------
+	// Pokemon Type: Water
+	// ----------------------------------------
+	--pb-color-type-water-50: #eff4fe;
+	--pb-color-type-water-100: #e0e9fc;
+	--pb-color-type-water-200: #c1d2fa;
+	--pb-color-type-water-300: #a1bcf7;
+	--pb-color-type-water-400: #82a6f4;
+	--pb-color-type-water-500: #6390F0;
+	--pb-color-type-water-600: #4f73c0;
+	--pb-color-type-water-700: #3b5690;
+	--pb-color-type-water-800: #283a60;
+	--pb-color-type-water-900: #141d30;
+	--pb-color-type-water-950: #0a0e18;
+
+	// ----------------------------------------
+	// Pokemon Type: Electric
+	// ----------------------------------------
+	--pb-color-type-electric-50: #fefbea;
+	--pb-color-type-electric-100: #fef6d5;
+	--pb-color-type-electric-200: #fdecaa;
+	--pb-color-type-electric-300: #fce280;
+	--pb-color-type-electric-400: #fad956;
+	--pb-color-type-electric-500: #F7D02C;
+	--pb-color-type-electric-600: #c6a623;
+	--pb-color-type-electric-700: #947d1a;
+	--pb-color-type-electric-800: #635312;
+	--pb-color-type-electric-900: #312a09;
+	--pb-color-type-electric-950: #191504;
+
+	// ----------------------------------------
+	// Pokemon Type: Grass
+	// ----------------------------------------
+	--pb-color-type-grass-50: #f2f9ed;
+	--pb-color-type-grass-100: #e4f4db;
+	--pb-color-type-grass-200: #c9e9b8;
+	--pb-color-type-grass-300: #aede94;
+	--pb-color-type-grass-400: #94d371;
+	--pb-color-type-grass-500: #7AC74C;
+	--pb-color-type-grass-600: #629f3d;
+	--pb-color-type-grass-700: #49772e;
+	--pb-color-type-grass-800: #314f1e;
+	--pb-color-type-grass-900: #18280f;
+	--pb-color-type-grass-950: #0c1408;
+
+	// ----------------------------------------
+	// Pokemon Type: Ice
+	// ----------------------------------------
+	--pb-color-type-ice-50: #f4fbfb;
+	--pb-color-type-ice-100: #eaf7f7;
+	--pb-color-type-ice-200: #d5efee;
+	--pb-color-type-ice-300: #c0e7e5;
+	--pb-color-type-ice-400: #abe0dd;
+	--pb-color-type-ice-500: #96D9D6;
+	--pb-color-type-ice-600: #78aeab;
+	--pb-color-type-ice-700: #5a8280;
+	--pb-color-type-ice-800: #3c5756;
+	--pb-color-type-ice-900: #1e2b2b;
+	--pb-color-type-ice-950: #0f1616;
+
+	// ----------------------------------------
+	// Pokemon Type: Fighting
+	// ----------------------------------------
+	--pb-color-type-fighting-50: #f9eaeb;
+	--pb-color-type-fighting-100: #f3d5d6;
+	--pb-color-type-fighting-200: #e7abad;
+	--pb-color-type-fighting-300: #db8285;
+	--pb-color-type-fighting-400: #cf585c;
+	--pb-color-type-fighting-500: #C22E28;
+	--pb-color-type-fighting-600: #9b2520;
+	--pb-color-type-fighting-700: #741c18;
+	--pb-color-type-fighting-800: #4e1210;
+	--pb-color-type-fighting-900: #270908;
+	--pb-color-type-fighting-950: #130504;
+
+	// ----------------------------------------
+	// Pokemon Type: Poison
+	// ----------------------------------------
+	--pb-color-type-poison-50: #f6ecf6;
+	--pb-color-type-poison-100: #edd8ec;
+	--pb-color-type-poison-200: #dbb2da;
+	--pb-color-type-poison-300: #c98cc7;
+	--pb-color-type-poison-400: #b765b5;
+	--pb-color-type-poison-500: #A33EA1;
+	--pb-color-type-poison-600: #823281;
+	--pb-color-type-poison-700: #622561;
+	--pb-color-type-poison-800: #411940;
+	--pb-color-type-poison-900: #210c20;
+	--pb-color-type-poison-950: #100610;
+
+	// ----------------------------------------
+	// Pokemon Type: Ground
+	// ----------------------------------------
+	--pb-color-type-ground-50: #fcf9f0;
+	--pb-color-type-ground-100: #f9f2e0;
+	--pb-color-type-ground-200: #f3e6c1;
+	--pb-color-type-ground-300: #edd9a3;
+	--pb-color-type-ground-400: #e7cd84;
+	--pb-color-type-ground-500: #E2BF65;
+	--pb-color-type-ground-600: #b59951;
+	--pb-color-type-ground-700: #88733d;
+	--pb-color-type-ground-800: #5a4c28;
+	--pb-color-type-ground-900: #2d2614;
+	--pb-color-type-ground-950: #17130a;
+
+	// ----------------------------------------
+	// Pokemon Type: Flying
+	// ----------------------------------------
+	--pb-color-type-flying-50: #f6f4fe;
+	--pb-color-type-flying-100: #ede9fc;
+	--pb-color-type-flying-200: #dbd2f9;
+	--pb-color-type-flying-300: #c9bcf6;
+	--pb-color-type-flying-400: #b7a5f3;
+	--pb-color-type-flying-500: #A98FF3;
+	--pb-color-type-flying-600: #8772c2;
+	--pb-color-type-flying-700: #655692;
+	--pb-color-type-flying-800: #443961;
+	--pb-color-type-flying-900: #221d31;
+	--pb-color-type-flying-950: #110e18;
+
+	// ----------------------------------------
+	// Pokemon Type: Psychic
+	// ----------------------------------------
+	--pb-color-type-psychic-50: #ffeef3;
+	--pb-color-type-psychic-100: #ffdde7;
+	--pb-color-type-psychic-200: #ffbbce;
+	--pb-color-type-psychic-300: #ff99b6;
+	--pb-color-type-psychic-400: #fb779e;
+	--pb-color-type-psychic-500: #F95587;
+	--pb-color-type-psychic-600: #c7446c;
+	--pb-color-type-psychic-700: #953351;
+	--pb-color-type-psychic-800: #642236;
+	--pb-color-type-psychic-900: #32111b;
+	--pb-color-type-psychic-950: #19080d;
+
+	// ----------------------------------------
+	// Pokemon Type: Bug
+	// ----------------------------------------
+	--pb-color-type-bug-50: #f6f8e8;
+	--pb-color-type-bug-100: #edf1d1;
+	--pb-color-type-bug-200: #dce4a3;
+	--pb-color-type-bug-300: #cad676;
+	--pb-color-type-bug-400: #b8c948;
+	--pb-color-type-bug-500: #A6B91A;
+	--pb-color-type-bug-600: #859415;
+	--pb-color-type-bug-700: #646f10;
+	--pb-color-type-bug-800: #424a0b;
+	--pb-color-type-bug-900: #212505;
+	--pb-color-type-bug-950: #101203;
+
+	// ----------------------------------------
+	// Pokemon Type: Rock
+	// ----------------------------------------
+	--pb-color-type-rock-50: #f8f6eb;
+	--pb-color-type-rock-100: #f1ecd7;
+	--pb-color-type-rock-200: #e3d9af;
+	--pb-color-type-rock-300: #d5c687;
+	--pb-color-type-rock-400: #c6b35e;
+	--pb-color-type-rock-500: #B6A136;
+	--pb-color-type-rock-600: #92812b;
+	--pb-color-type-rock-700: #6d6120;
+	--pb-color-type-rock-800: #494016;
+	--pb-color-type-rock-900: #24200b;
+	--pb-color-type-rock-950: #121005;
+
+	// ----------------------------------------
+	// Pokemon Type: Ghost
+	// ----------------------------------------
+	--pb-color-type-ghost-50: #f1eef5;
+	--pb-color-type-ghost-100: #e3deeb;
+	--pb-color-type-ghost-200: #c7bdd6;
+	--pb-color-type-ghost-300: #ab9cc2;
+	--pb-color-type-ghost-400: #8f7bad;
+	--pb-color-type-ghost-500: #735797;
+	--pb-color-type-ghost-600: #5c4679;
+	--pb-color-type-ghost-700: #45345b;
+	--pb-color-type-ghost-800: #2e233c;
+	--pb-color-type-ghost-900: #17111e;
+	--pb-color-type-ghost-950: #0b090f;
+
+	// ----------------------------------------
+	// Pokemon Type: Dragon
+	// ----------------------------------------
+	--pb-color-type-dragon-50: #f1ebfe;
+	--pb-color-type-dragon-100: #e2d7fe;
+	--pb-color-type-dragon-200: #c6affd;
+	--pb-color-type-dragon-300: #a986fc;
+	--pb-color-type-dragon-400: #8d5dfc;
+	--pb-color-type-dragon-500: #6F35FC;
+	--pb-color-type-dragon-600: #592aca;
+	--pb-color-type-dragon-700: #431f97;
+	--pb-color-type-dragon-800: #2c1565;
+	--pb-color-type-dragon-900: #160b32;
+	--pb-color-type-dragon-950: #0b0519;
+
+	// ----------------------------------------
+	// Pokemon Type: Steel
+	// ----------------------------------------
+	--pb-color-type-steel-50: #f8f8fa;
+	--pb-color-type-steel-100: #f1f1f5;
+	--pb-color-type-steel-200: #e2e2eb;
+	--pb-color-type-steel-300: #d4d4e1;
+	--pb-color-type-steel-400: #c5c5d8;
+	--pb-color-type-steel-500: #B7B7CE;
+	--pb-color-type-steel-600: #9292a5;
+	--pb-color-type-steel-700: #6e6e7c;
+	--pb-color-type-steel-800: #494952;
+	--pb-color-type-steel-900: #252529;
+	--pb-color-type-steel-950: #121215;
+
+	// ----------------------------------------
+	// Pokemon Type: Dark
+	// ----------------------------------------
+	--pb-color-type-dark-50: #f1eeed;
+	--pb-color-type-dark-100: #e3dedb;
+	--pb-color-type-dark-200: #c6bcb7;
+	--pb-color-type-dark-300: #a99b93;
+	--pb-color-type-dark-400: #8d796e;
+	--pb-color-type-dark-500: #705746;
+	--pb-color-type-dark-600: #5a4638;
+	--pb-color-type-dark-700: #43342a;
+	--pb-color-type-dark-800: #2d231c;
+	--pb-color-type-dark-900: #16110e;
+	--pb-color-type-dark-950: #0b0907;
+
+	// ----------------------------------------
+	// Pokemon Type: Fairy
+	// ----------------------------------------
+	--pb-color-type-fairy-50: #fbf3f7;
+	--pb-color-type-fairy-100: #f7e7ee;
+	--pb-color-type-fairy-200: #efcedd;
+	--pb-color-type-fairy-300: #e7b6cc;
+	--pb-color-type-fairy-400: #df9dba;
+	--pb-color-type-fairy-500: #D685AD;
+	--pb-color-type-fairy-600: #ab6a8a;
+	--pb-color-type-fairy-700: #805068;
+	--pb-color-type-fairy-800: #563545;
+	--pb-color-type-fairy-900: #2b1b23;
+	--pb-color-type-fairy-950: #150d11;
+}

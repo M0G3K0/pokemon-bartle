@@ -1,0 +1,103 @@
+/* ============================================
+ * ICON BUTTON COMPONENT STYLES
+ * Using CSS Variables from Design Tokens
+ * ============================================ */
+
+/* Base Icon Button Styles */
+:host {
+	/* Box Model */
+	box-sizing: border-box;
+
+	/* Layout */
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	cursor: pointer;
+
+	/* Spacing */
+	padding: var(--pb-spacing-xs);
+
+	/* Visual */
+	border: 2px solid transparent;
+	background: transparent;
+	transition: all 0.2s ease-in-out;
+
+	/* Remove default button styles */
+	outline: none;
+
+	&:focus-visible {
+		outline: 2px solid var(--pb-border-focus);
+		outline-offset: 2px;
+	}
+}
+
+/* ============================================
+ * VARIANT STYLES
+ * ============================================ */
+
+/* Ghost Variant */
+:host.ghost {
+	color: var(--pb-button-ghost-text);
+
+	&:hover {
+		background: var(--pb-button-ghost-bg-hover);
+	}
+
+	&:active {
+		background: var(--pb-button-ghost-bg-active);
+	}
+}
+
+/* Outline Variant */
+:host.outline {
+	color: var(--pb-button-outline-text);
+	border-color: currentColor;
+
+	&:hover {
+		background: var(--pb-button-outline-bg-hover);
+	}
+
+	&:active {
+		background: var(--pb-button-outline-bg-active);
+	}
+}
+
+/* ============================================
+ * SHAPE STYLES
+ * ============================================ */
+
+/* Circle Shape */
+:host.circle {
+	border-radius: var(--pb-radius-full);
+}
+
+/* Square Shape */
+:host.square {
+	border-radius: var(--pb-radius-sm);
+}
+
+/* ============================================
+ * SIZE STYLES
+ * ============================================ */
+
+/* Medium Size (default) */
+:host.size-m .icon {
+	width: 20px;
+	height: 20px;
+}
+
+/* Small Size */
+:host.size-s .icon {
+	width: 16px;
+	height: 16px;
+}
+
+/* ============================================
+ * ICON STYLES
+ * ============================================ */
+
+.icon {
+	display: block;
+	flex-shrink: 0;
+}

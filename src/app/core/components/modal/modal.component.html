@@ -1,0 +1,24 @@
+<dialog #dialog (close)="onNativeClose()" (click)="handleBackdropClick($event)">
+	<div class="pb-modal-container" (click)="$event.stopPropagation()">
+		<!-- Header -->
+		@if (showHeader) {
+		<div class="pb-modal-header">
+			<h2>{{ title }}</h2>
+			<pb-icon-button label="Close" icon="x" shape="circle" (action)="closeModal()"></pb-icon-button>
+		</div>
+		}
+
+		<!-- Body -->
+		<div class="pb-modal-body">
+			<ng-content></ng-content>
+		</div>
+
+		<!-- Footer -->
+		@if (showFooter) {
+		<div class="pb-modal-footer">
+			<ng-content select="[footer]"></ng-content>
+		</div>
+		}
+	</div>
+	<ng-content select="[overlay]"></ng-content>
+</dialog>

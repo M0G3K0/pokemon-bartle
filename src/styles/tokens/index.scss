@@ -1,0 +1,25 @@
+// ============================================
+// DESIGN TOKENS INDEX
+// すべてのデザイントークンをインポート
+// ============================================
+
+// 1. Primary Tokens - 基本色パレット
+@import './primary-colors';
+
+// 2. Semantic Tokens - 意味的な色
+@import './semantic-tokens';
+
+// 3. Component Tokens - コンポーネント固有のトークン
+@import './component-tokens';
+
+// 4. Spacing Tokens - スペーシング
+@import './spacing';
+
+// 5. Typography Tokens - タイポグラフィ
+@import './typography';
+
+// 6. Border Radius Tokens - 角丸
+@import './border-radius';
+
+// 7. Shadow Tokens - シャドウ
+@import './shadows';

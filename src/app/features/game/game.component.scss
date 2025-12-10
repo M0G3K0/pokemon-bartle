@@ -1,0 +1,169 @@
+/* ============================================
+ * GAME COMPONENT CUSTOM STYLES
+ * Using CSS Variables from Design Tokens
+ * ============================================ */
+
+/* Selected Type Style - Each type has its own outline color (600 shade) */
+.type-chip.selected {
+	outline: 2px solid var(--pb-color-gray-600);
+	outline-offset: -1px;
+}
+
+/* Type-specific outlines - Using SCSS @each for DRY principle */
+$pokemon-types: normal, fire, water, electric, grass, ice, fighting, poison, ground, flying, psychic, bug, rock, ghost, dragon, dark, steel, fairy;
+
+@each $type in $pokemon-types {
+	button.type-chip.selected[data-pokemon-type="#{$type}"] {
+		outline-color: var(--pb-color-type-#{$type}-700);
+	}
+}
+
+/* Feedback fade-out animation for select-type card */
+pb-card[type="select-type"] {
+
+	/* Smooth transitions for background and content */
+	&>* {
+		transition: opacity 0.3s ease-out;
+	}
+
+	/* When feedback is ending, fade out the content */
+	&.fade-out>* {
+		opacity: 0;
+	}
+}
+
+/* Selected Difficulty Style */
+.difficulty-card.selected {
+	outline: 3px solid var(--pb-color-gray-700);
+	outline-offset: -3px;
+}
+
+/* History Card Elements */
+.history-icon {
+	width: var(--pb-spacing-2xl);
+	flex-shrink: 0;
+	display: flex;
+	justify-content: center;
+	font-size: var(--pb-font-size-display);
+	line-height: 1;
+}
+
+.history-arrow {
+	width: var(--pb-spacing-2xl);
+	height: var(--pb-spacing-2xl);
+	flex-shrink: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.history-arrow img {
+	width: 100%;
+	height: 100%;
+}
+
+.history-outcome {
+	width: 24px;
+	flex-shrink: 0;
+	display: flex;
+	justify-content: center;
+	font-size: var(--pb-font-size-display);
+	line-height: 1;
+}
+
+/* Mobile Optimization - 800px height limit */
+@media (max-height: 850px) {
+	.game-container {
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.history-section {
+		flex-shrink: 1;
+		overflow-y: auto;
+		min-height: 0;
+	}
+
+	.select-section {
+		flex-shrink: 0;
+	}
+}
+
+/* Result Colors (Using tokens directly via classes to match HTML bindings) */
+.bg-result-win-bg {
+	background-color: var(--pb-result-win-bg);
+}
+
+.bg-result-lose-bg {
+	background-color: var(--pb-result-lose-bg);
+}
+
+.text-result-win-text {
+	color: var(--pb-result-win-text);
+}
+
+.text-result-lose-text {
+	color: var(--pb-result-lose-text);
+}
+
+/* ============================================
+ * HISTORY AREA: Absolute Positioning
+ * ============================================ */
+
+/* Chip positioning classes */
+pb-card[type="compact-row"] {
+	pb-label-chip.history-chip-1 {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: calc(50% + 22%);
+	}
+
+	pb-label-chip.history-chip-2 {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: calc(50% + 8%);
+	}
+}
+
+/* ============================================
+ * RESPONSIVE: Small Screens
+ * Reduce chip and emoji sizes for narrow screens
+ * ============================================ */
+@media (max-width: 450px) {
+
+	/* Reduce chip size in history area - use absolute values to avoid decimals */
+	pb-card[type="compact-row"] {
+		pb-label-chip {
+			/* Override S size: 24px → 20px */
+			height: 20px !important;
+			width: 20px !important;
+
+			/* Icon size: 16px × 1.4 scale ≈ 22px, but reduce to fit */
+			.icon-wrapper {
+				width: 22px !important;
+				height: 22px !important;
+
+				img {
+					/* Adjust for 1.4x scale: 22px / 1.4 ≈ 16px base */
+					max-width: 100%;
+					max-height: 100%;
+				}
+			}
+		}
+	}
+
+	/* Reduce all emoji/icon sizes (mode icons, outcome emojis) */
+	pb-card[type="compact-row"] {
+		.text-lg {
+			font-size: 14px !important;
+		}
+
+		/* Specifically target outcome emojis */
+		span.text-lg.leading-none {
+			font-size: 14px !important;
+		}
+	}
+}

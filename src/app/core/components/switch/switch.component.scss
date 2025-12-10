@@ -1,0 +1,109 @@
+/* ============================================
+ * SWITCH COMPONENT STYLES
+ * Using CSS Variables from Design Tokens
+ * ============================================ */
+
+/* Base Switch */
+:host {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--pb-spacing-sm);
+	cursor: pointer;
+	user-select: none;
+	width: 44px;
+	/* Match track width */
+	height: 24px;
+	/* Match track height */
+	flex-shrink: 0;
+}
+
+:host.size-sm {
+	width: 36px;
+	/* Match small track width */
+	height: 20px;
+	/* Match small track height */
+}
+
+:host.disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+/* Switch Track */
+.switch-track {
+	position: relative;
+	width: 44px;
+	height: 24px;
+	background: var(--pb-color-gray-300);
+	border-radius: var(--pb-radius-full);
+	transition: background-color 0.2s ease-in-out;
+	flex-shrink: 0;
+}
+
+:host.checked .switch-track {
+	background: var(--pb-color-win-500);
+	/* Use win-500 (lighter green) */
+}
+
+/* Switch Thumb */
+.switch-thumb {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 20px;
+	height: 20px;
+	background: white;
+	border-radius: var(--pb-radius-full);
+	box-shadow: var(--pb-shadow-sm);
+	transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:host.checked .switch-thumb {
+	transform: translateX(20px);
+}
+
+/* Small Size Variant */
+:host.size-sm .switch-track {
+	width: 36px;
+	height: 20px;
+}
+
+:host.size-sm .switch-thumb {
+	width: 16px;
+	height: 16px;
+}
+
+:host.size-sm.checked .switch-thumb {
+	transform: translateX(16px);
+}
+
+/* Switch Label */
+.switch-label {
+	font-family: var(--pb-font-sans);
+	font-size: var(--pb-font-size-body-md);
+	line-height: var(--pb-line-height-relaxed);
+	font-weight: var(--pb-font-weight-medium);
+	color: var(--pb-text-primary);
+}
+
+:host.size-sm .switch-label {
+	font-size: var(--pb-font-size-body-sm);
+}
+
+/* Hover & Focus States */
+:host:not(.disabled):not(.checked):hover .switch-track {
+	background: var(--pb-color-gray-400);
+}
+
+:host.checked:not(.disabled):hover .switch-track {
+	background: var(--pb-color-win-600);
+	/* Slightly darker green on hover */
+}
+
+:host:focus-visible {
+	outline: 2px solid var(--pb-border-focus);
+	outline-offset: 2px;
+	border-radius: var(--pb-radius-sm);
+}

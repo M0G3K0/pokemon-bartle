@@ -1,0 +1,165 @@
+/* ============================================
+ * BUTTON COMPONENT STYLES
+ * Using CSS Variables from Design Tokens
+ * ============================================ */
+
+/* Base Button Styles */
+:host {
+	/* Box Model */
+	box-sizing: border-box;
+
+	/* Layout */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+
+	/* Spacing */
+	padding: 6px var(--pb-spacing-md);
+
+	/* Typography */
+	font-family: var(--pb-font-sans);
+	font-size: 14px;
+	line-height: 1.5;
+	font-weight: var(--pb-font-weight-bold);
+	text-transform: uppercase;
+	letter-spacing: var(--pb-letter-spacing-wide);
+
+	/* Visual */
+	border: 0 !important;
+	/* Force remove physical border */
+	outline: none;
+	/* Ensure no default interactive outline */
+	border-radius: var(--pb-radius-sm);
+	transition: all 0.2s ease-in-out;
+
+	/* Disabled State */
+	&[disabled] {
+		opacity: 0.5;
+		cursor: not-allowed;
+		pointer-events: none;
+	}
+
+	/* Focus Visible */
+	&:focus-visible {
+		outline: 3px solid var(--pb-color-gray-400) !important;
+		outline-offset: 0;
+	}
+}
+
+/* ============================================
+ * FILLED VARIANT
+ * ============================================ */
+
+/* Primary Filled */
+:host.filled.primary {
+	background: var(--pb-button-primary-bg);
+	color: var(--pb-button-primary-text);
+
+	&:hover {
+		background: var(--pb-button-primary-bg-hover);
+	}
+
+	&:active {
+		background: var(--pb-button-primary-bg-active);
+		transform: scale(0.95);
+	}
+}
+
+/* Secondary Filled */
+:host.filled.secondary {
+	background: var(--pb-button-secondary-bg);
+	color: var(--pb-button-secondary-text);
+
+	&:hover {
+		background: var(--pb-button-secondary-bg-hover);
+	}
+
+	&:active {
+		background: var(--pb-button-secondary-bg-active);
+	}
+}
+
+/* Danger Filled */
+:host.filled.danger {
+	background: var(--pb-button-danger-bg);
+	color: var(--pb-button-danger-text);
+
+	&:hover {
+		background: var(--pb-button-danger-bg-hover);
+	}
+
+	&:active {
+		background: var(--pb-button-danger-bg-active);
+	}
+}
+
+/* ============================================
+ * OUTLINE VARIANT
+ * ============================================ */
+
+/* Outline - All Colors */
+:host.outline {
+	background: transparent;
+	border: 0 !important;
+	/* Force remove border */
+
+	&:hover {
+		background: var(--pb-button-outline-bg-hover);
+	}
+
+	&:active {
+		background: var(--pb-button-outline-bg-active);
+	}
+}
+
+/* Primary Outline */
+:host.outline.primary {
+	/* Use inset box-shadow instead of border */
+	/* If shadow class is present, we need to be careful. Ideally use a dedicated element for border or combine shadows */
+	box-shadow: inset 0 0 0 2px var(--pb-action-primary);
+	color: var(--pb-action-primary);
+
+	&:hover {
+		background: var(--pb-action-ghost-hover);
+	}
+}
+
+/* Secondary Outline */
+:host.outline.secondary {
+	/* Use inset box-shadow instead of border */
+	box-shadow: inset 0 0 0 2px var(--pb-border-default);
+	color: var(--pb-text-secondary);
+
+	&:hover {
+		background: var(--pb-action-ghost-hover);
+	}
+}
+
+/* ============================================
+ * GHOST VARIANT
+ * ============================================ */
+
+/* Ghost - All Colors */
+:host.ghost {
+	background: transparent;
+	border: none;
+
+	&:hover {
+		background: var(--pb-button-ghost-bg-hover);
+	}
+
+	&:active {
+		background: var(--pb-button-ghost-bg-active);
+	}
+}
+
+/* Primary Ghost */
+:host.ghost.primary {
+	color: var(--pb-action-primary);
+}
+
+/* Secondary Ghost */
+:host.ghost.secondary {
+	color: var(--pb-button-ghost-text);
+}

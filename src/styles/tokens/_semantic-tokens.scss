@@ -1,0 +1,81 @@
+// ============================================
+// SEMANTIC TOKENS
+// 意味的な色 - Primary Tokensを参照
+// ============================================
+
+:root {
+	// ----------------------------------------
+	// Text Colors
+	// ----------------------------------------
+	--pb-text-primary: var(--pb-color-gray-900); // #111827: Main text
+	--pb-text-secondary: var(--pb-color-gray-600); // #4b5563: Descriptions, helpers
+	--pb-text-tertiary: var(--pb-color-gray-400); // #9ca3af: Placeholders, disabled
+	--pb-text-inverse: #ffffff; // white: Text on dark backgrounds
+
+	// ----------------------------------------
+	// Background Colors
+	// ----------------------------------------
+	--pb-background-canvas: var(--pb-color-gray-50); // #f9fafb: Page background
+	--pb-background-surface: #ffffff; // white: Cards, Modals, Components
+	--pb-background-subtle: var(--pb-color-gray-100); // #f3f4f6: Secondary areas, hover states
+	--pb-background-overlay: rgba(0, 0, 0, 0.5); // Semi-transparent black: Modal overlays
+
+	// ----------------------------------------
+	// Border Colors
+	// ----------------------------------------
+	--pb-border-default: var(--pb-color-gray-200); // #e5e7eb: Standard borders
+	--pb-border-subtle: var(--pb-color-gray-100); // #f3f4f6: Subtle dividers
+	--pb-border-focus: var(--pb-color-gray-700); // #374151: Input focus rings
+
+	// ----------------------------------------
+	// Icon Colors
+	// ----------------------------------------
+	--pb-icon-default: var(--pb-color-gray-600); // #4b5563: Default icons
+	--pb-icon-interactive: var(--pb-color-gray-700); // #374151: Interactive icons
+	--pb-icon-subtle: var(--pb-color-gray-400); // #9ca3af: Subtle/disabled icons
+
+	// ----------------------------------------
+	// Action Colors - Primary
+	// ----------------------------------------
+	--pb-action-primary: var(--pb-color-gray-800); // #1f2937: Default state
+	--pb-action-primary-hover: var(--pb-color-gray-700); // #374151: Hover state
+	--pb-action-primary-active: var(--pb-color-gray-900); // #111827: Active/pressed state
+	--pb-action-primary-foreground: #ffffff; // white: Text on primary buttons
+
+	// ----------------------------------------
+	// Action Colors - Secondary
+	// ----------------------------------------
+	--pb-action-secondary: var(--pb-color-gray-200); // #e5e7eb: Default state
+	--pb-action-secondary-hover: var(--pb-color-gray-300); // #d1d5db: Hover state
+	--pb-action-secondary-active: var(--pb-color-gray-400); // #9ca3af: Active/pressed state
+	--pb-action-secondary-foreground: var(--pb-color-gray-800); // #1f2937: Text on secondary buttons
+
+	// ----------------------------------------
+	// Action Colors - Ghost
+	// ----------------------------------------
+	--pb-action-ghost-hover: var(--pb-color-gray-100); // #f3f4f6: Hover state
+	--pb-action-ghost-active: var(--pb-color-gray-200); // #e5e7eb: Active/pressed state
+	--pb-action-ghost-foreground: var(--pb-color-gray-600); // #4b5563: Text on ghost buttons
+
+	// ----------------------------------------
+	// Action Colors - Outline
+	// ----------------------------------------
+	--pb-action-outline-hover: var(--pb-color-gray-100); // #f3f4f6: Hover state
+	--pb-action-outline-active: var(--pb-color-gray-200); // #e5e7eb: Active/pressed state
+	--pb-action-outline-border: var(--pb-color-gray-200); // #e5e7eb: Border color
+	--pb-action-outline-foreground: var(--pb-color-gray-400); // #9ca3af: Text on outline buttons
+
+	// ----------------------------------------
+	// Result Colors - Win
+	// ----------------------------------------
+	--pb-result-win-bg: var(--pb-color-win-100); // #dcfce7: Success background
+	--pb-result-win-text: var(--pb-color-win-500); // #22c55e: Success text/icon
+	--pb-result-win: var(--pb-color-win-500); // #22c55e: Default success color
+
+	// ----------------------------------------
+	// Result Colors - Lose
+	// ----------------------------------------
+	--pb-result-lose-bg: var(--pb-color-lose-100); // #fef9c3: Warning/lose background (yellow-green)
+	--pb-result-lose-text: var(--pb-color-lose-600); // #ca8a04: Warning/lose text/icon (yellow-green)
+	--pb-result-lose: var(--pb-color-lose-600); // #ca8a04: Default lose color
+}

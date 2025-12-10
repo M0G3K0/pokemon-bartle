@@ -1,0 +1,44 @@
+/* ============================================
+ * GLOBAL HEADER COMPONENT STYLES
+ * Using CSS Variables from Design Tokens
+ * ============================================ */
+
+/* Base Header */
+:host {
+	display: block;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--pb-spacing-md);
+	padding: var(--pb-spacing-lg);
+	border-bottom: 2px solid var(--pb-border-default);
+}
+
+/* Title Section */
+.title-section h1 {
+	font-family: var(--pb-font-display);
+	font-size: var(--pb-font-size-title-l);
+	font-weight: var(--pb-font-weight-bold);
+	line-height: var(--pb-line-height-normal);
+	color: var(--pb-text-primary);
+	margin: 0;
+}
+
+.title-section p {
+	font-family: var(--pb-font-sans);
+	font-size: var(--pb-font-size-body-md);
+	line-height: var(--pb-line-height-relaxed);
+	color: var(--pb-text-secondary);
+	margin: var(--pb-spacing-xs) 0 0 0;
+}
+
+/* Actions Section */
+.actions {
+	display: flex;
+	align-items: center;
+	gap: var(--pb-spacing-sm);
+	flex-shrink: 0;
+}

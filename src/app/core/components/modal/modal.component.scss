@@ -1,0 +1,107 @@
+/* ============================================
+ * MODAL COMPONENT STYLES
+ * Using CSS Variables from Design Tokens
+ * ============================================ */
+
+/* Native Dialog Reset & Backdrop */
+dialog {
+	padding: 0;
+	background: transparent;
+	border: none;
+	max-width: 100vw;
+	max-height: 100vh;
+	overflow: hidden;
+	/* Prevent scrollbar during animation */
+
+	/* Backdrop Styles */
+	&::backdrop {
+		background: var(--pb-modal-overlay);
+		backdrop-filter: blur(0px);
+		animation: backdropFadeIn 0.25s ease-out forwards;
+	}
+}
+
+/* Keyframes for backdrop */
+@keyframes backdropFadeIn {
+	from {
+		opacity: 0;
+		backdrop-filter: blur(0px);
+	}
+
+	to {
+		opacity: 1;
+		backdrop-filter: blur(4px);
+	}
+}
+
+/* Modal Container */
+.pb-modal-container {
+	position: relative;
+	width: 90vw;
+	max-width: 28rem;
+	/* ~448px */
+	margin: 0 auto;
+	background: var(--pb-modal-bg);
+	border-radius: var(--pb-radius-sm);
+	box-shadow: var(--pb-shadow-xl);
+	overflow: hidden;
+
+	/* Subtle scale and fade animation - no translate to avoid scrollbar */
+	animation: scaleUpFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+	transform-origin: center center;
+}
+
+/* Scale up and fade animation */
+@keyframes scaleUpFade {
+	from {
+		transform: scale(0.92);
+		opacity: 0;
+	}
+
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+/* Header */
+.pb-modal-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: var(--pb-spacing-sm) var(--pb-spacing-md);
+	border-bottom: 2px solid var(--pb-modal-border);
+	background: var(--pb-background-subtle);
+
+	h2 {
+		font-family: var(--pb-font-display);
+		font-size: var(--pb-font-size-title-s);
+		line-height: var(--pb-line-height-normal);
+		font-weight: var(--pb-font-weight-bold);
+		color: var(--pb-text-primary);
+		margin: 0;
+	}
+}
+
+/* Body */
+.pb-modal-body {
+	padding: var(--pb-spacing-md);
+	max-height: 70vh;
+	overflow-y: auto;
+	font-family: var(--pb-font-sans);
+	font-size: var(--pb-font-size-body-sm);
+	line-height: var(--pb-line-height-relaxed);
+	color: var(--pb-text-secondary);
+	white-space: pre-wrap;
+}
+
+/* Footer */
+.pb-modal-footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--pb-spacing-sm);
+	padding: var(--pb-spacing-sm) var(--pb-spacing-md);
+	background: var(--pb-background-subtle);
+	border-top: 2px solid var(--pb-modal-border);
+}

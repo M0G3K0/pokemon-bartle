@@ -1,0 +1,387 @@
+<div class="p-2xl space-y-2xl bg-background-canvas min-h-screen text-text-primary text-body-md">
+	<pb-global-header [title]="sectionTitles.appTitle" [description]="sectionTitles.appDesc">
+		<div actions class="flex items-center gap-sm">
+			<pb-icon-button icon="settings"></pb-icon-button>
+			<pb-icon-button icon="help-circle"></pb-icon-button>
+		</div>
+	</pb-global-header>
+
+	<section class="space-y-xl">
+		<pb-section-header [title]="sectionTitles.typography"></pb-section-header>
+
+		<div class="space-y-md">
+			<!-- Titles -->
+			<pb-layout type="stack" gap="m">
+				<pb-sub-section-header [title]="sectionTitles.titles"></pb-sub-section-header>
+				@for (item of typography.titles; track item.name) {
+				<pb-layout type="stack" gap="s">
+					<p [class]="item.class">{{ item.name }}</p>
+					<p class="text-body-sm text-text-tertiary">{{ item.desc }}</p>
+				</pb-layout>
+				}
+			</pb-layout>
+
+			<!-- Body -->
+			<!-- Body -->
+			<pb-layout type="stack" gap="m">
+				<pb-sub-section-header [title]="sectionTitles.body"></pb-sub-section-header>
+				@for (item of typography.body; track item.name) {
+				<pb-layout type="stack" gap="s">
+					<p [class]="item.class">{{ item.name }}</p>
+					<p class="text-body-sm text-text-tertiary">{{ item.desc }}</p>
+				</pb-layout>
+				}
+			</pb-layout>
+		</div>
+	</section>
+
+	<!-- 2. Primitive Tokens -->
+	<section class="space-y-xl">
+		<pb-section-header [title]="sectionTitles.primitiveTokens"></pb-section-header>
+
+		<!-- Gray -->
+		<pb-layout type="stack" gap="s">
+			<pb-sub-section-header [title]="sectionTitles.gray"></pb-sub-section-header>
+			<!-- Grid with auto-fill for perfect responsive wrapping -->
+			<div class="w-full grid gap-xs grid-cols-[repeat(auto-fill,minmax(48px,1fr))]">
+				@for (scale of primitiveScales; track scale) {
+				<pb-catalog-item variant="compact">
+					<div preview [class]="'w-[48px] h-[48px] rounded border border-border-default bg-gray-' + scale"
+						[title]="'gray-' + scale"></div>
+				</pb-catalog-item>
+				}
+			</div>
+		</pb-layout>
+
+		<!-- Pokemon Types -->
+		@for (type of pokemonTypes; track type) {
+		<pb-layout type="stack" gap="s">
+			<pb-sub-section-header [title]="type | titlecase"></pb-sub-section-header>
+			<!-- Grid with auto-fill for perfect responsive wrapping -->
+			<div class="w-full grid gap-xs grid-cols-[repeat(auto-fill,minmax(48px,1fr))]">
+				@for (scale of primitiveScales; track scale) {
+				<pb-catalog-item variant="compact">
+					<div preview
+						[class]="'w-[48px] h-[48px] rounded border border-border-default bg-type-' + type + '-' + scale"
+						[title]="type + '-' + scale"></div>
+				</pb-catalog-item>
+				}
+			</div>
+		</pb-layout>
+		}
+	</section>
+
+	<!-- 3. Semantic Tokens -->
+	<section class="space-y-xl">
+		<pb-section-header [title]="sectionTitles.semanticTokens"></pb-section-header>
+
+		<div class="space-y-2xl">
+			<!-- Colors -->
+			<pb-sub-section-header title="Colors"></pb-sub-section-header>
+			<pb-layout type="grid" [columns]="1" [lgColumns]="3" gap="l">
+				@for (category of colorCategories; track category.title) {
+				<pb-layout type="stack" gap="m">
+					<h4 class="text-title-s text-text-secondary">{{ category.title }}</h4>
+					<pb-layout type="stack" gap="s">
+						@for (token of category.tokens; track token.name) {
+						<pb-catalog-item [name]="token.name" [description]="token.desc" [meta]="token.hex"
+							[defaultColorHex]="token.hex" defaultColorClass="border border-border-default">
+						</pb-catalog-item>
+						}
+					</pb-layout>
+				</pb-layout>
+				}
+			</pb-layout>
+		</div>
+
+		<!-- Structure -->
+		<pb-sub-section-header [title]="sectionTitles.structure"></pb-sub-section-header>
+		<div class="space-y-xl">
+			@for (category of structureCategories; track category.title) {
+			<div class="space-y-sm">
+				<h4 class="text-title-s text-text-secondary">{{ category.title }}</h4>
+				<pb-layout type="grid" [columns]="1" [lgColumns]="3" gap="l">
+					@for (token of category.tokens; track token.name) {
+					<pb-catalog-item [name]="token.name" [description]="token.desc">
+						<div preview
+							class="w-[48px] h-[48px] flex-shrink-0 flex items-center justify-center bg-background-canvas border border-border-default rounded">
+							<!-- Radius -->
+							@if (category.type === 'radius') {
+							<div [class]="'w-full h-full bg-type-fire-500 ' + token.class"></div>
+							}
+							<!-- Border -->
+							@if (category.type === 'border') {
+							<div [class]="'w-full h-full bg-type-fire-500 border-white ' + token.class"></div>
+							}
+							<!-- Spacing -->
+							@if (category.type === 'spacing') {
+							<div [class]="'flex bg-type-fire-200 ' + token.class">
+								<div class="flex-1 h-lg bg-type-fire-500"></div>
+								<div class="flex-1 h-lg bg-type-fire-500"></div>
+							</div>
+							}
+							<!-- Z-Index -->
+							@if (category.type === 'z-index') {
+							<div
+								class="relative w-full h-full bg-background-subtle border border-border-subtle flex items-center justify-center">
+								<div
+									[class]="'w-lg h-lg bg-type-fire-500 border border-white shadow-sm ' + token.class">
+								</div>
+							</div>
+							}
+						</div>
+					</pb-catalog-item>
+					}
+				</pb-layout>
+			</div>
+			}
+		</div>
+	</section>
+
+	<!-- 4. Icons -->
+	<section class="space-y-2xl">
+		<pb-section-header [title]="sectionTitles.icons"></pb-section-header>
+		<pb-layout type="grid" [columns]="1" [lgColumns]="3" gap="m">
+			@for (icon of uiIcons; track icon.name) {
+			<pb-catalog-item [name]="icon.desc" [description]="icon.name"
+				[meta]="'assets/icons/ui/' + icon.name + '.svg'">
+				<div preview
+					class="w-[48px] h-[48px] flex-shrink-0 flex items-center justify-center bg-background-canvas border border-border-default rounded">
+					<pb-icon-button [icon]="icon.name" variant="ghost"></pb-icon-button>
+				</div>
+			</pb-catalog-item>
+			}
+		</pb-layout>
+	</section>
+
+	<!-- 5. Type Identity -->
+	<section class="space-y-2xl">
+		<pb-section-header [title]="sectionTitles.typeIdentity"></pb-section-header>
+
+		<pb-layout type="grid" [columns]="1" [lgColumns]="3" gap="m" class="gap-y-2xl">
+			@for (type of pokemonTypes; track type) {
+			<pb-layout type="stack" gap="s">
+				<pb-sub-section-header [title]="type | titlecase"></pb-sub-section-header>
+
+				<!-- Base Color -->
+				<pb-catalog-item name="Base" [description]="typeTranslations[type] + 'タイプのベースカラー。アイコンの色調表示に使用。'"
+					[meta]="'.bg-type-' + type + '-500'">
+					<div preview
+						[class]="'w-[48px] h-[48px] rounded bg-type-' + type + '-500 border border-border-default flex items-center justify-center text-white'">
+						<pb-type-icon [type]="type" size="m"></pb-type-icon>
+					</div>
+				</pb-catalog-item>
+
+				<!-- Surface Color -->
+				<pb-catalog-item name="Surface" [description]="typeTranslations[type] + 'タイプの背景カラー。カード背景などに使用。'"
+					[meta]="'.bg-type-' + type + '-200'">
+					<div preview
+						[class]="'w-[48px] h-[48px] rounded border border-border-default bg-type-' + type + '-200'">
+					</div>
+				</pb-catalog-item>
+			</pb-layout>
+			}
+		</pb-layout>
+	</section>
+
+	<!-- 6. UI Components -->
+	<section class="space-y-2xl">
+		<pb-section-header [title]="sectionTitles.uiComponents"></pb-section-header>
+
+		<!-- Button -->
+		<pb-layout type="grid" [columns]="1" [lgColumns]="3" gap="m" class="border-border-subtle">
+			<div class="lg:col-span-2 space-y-xl">
+				<pb-sub-section-header [title]="sectionTitles.button"></pb-sub-section-header>
+				<pb-layout type="grid" [columns]="1" [lgColumns]="2" gap="s">
+					@for (btn of buttons; track btn.name) {
+					<pb-catalog-item [name]="btn.name" [description]="btn.desc" [meta]="btn.meta">
+						<div preview class="flex items-center justify-center p-md">
+							<!-- Since we changed the button component to attribute selector, we need to adapt usage here -->
+							<!-- Mapping old variant names to new color/pattern logic is tricky blindly, but for style guide let's assume direct mapping if possible or manual fix -->
+							<!-- Actually, style guide data 'buttons' array probably has old 'variant' property strings like 'primary', 'secondary', 'outline'. -->
+							<!-- We need to map: 'primary' -> color='primary' pattern='filled', 'secondary' -> color='secondary' pattern='filled'?, 'outline' -> color='secondary' pattern='outline' -->
+
+							<button pb-button [color]="btn.variant === 'primary' ? 'primary' : 'secondary'"
+								[pattern]="btn.variant === 'outline' ? 'outline' : 'filled'"
+								[disabled]="btn.disabled || false">
+								{{ btn.label }}
+							</button>
+						</div>
+					</pb-catalog-item>
+					}
+				</pb-layout>
+			</div>
+
+			<div class="space-y-lg">
+				<pb-sub-section-header [title]="sectionTitles.iconButtons"></pb-sub-section-header>
+				<pb-catalog-item name="Settings Icon" description="アイコンのみのボタン"
+					meta='<pb-icon-button ...></pb-icon-button>'>
+					<div preview class="flex items-center justify-center p-md">
+						<pb-icon-button label="Settings" icon="settings">
+						</pb-icon-button>
+					</div>
+				</pb-catalog-item>
+			</div>
+		</pb-layout>
+
+		<!-- Icon Component -->
+		<div class="space-y-lg">
+			<pb-sub-section-header title="Icon Component"></pb-sub-section-header>
+			<pb-layout type="grid" [columns]="1" [lgColumns]="2" gap="s">
+				<pb-catalog-item name="Small Icon" description="16px サイズのアイコン" meta='<pb-icon name="..." size="sm">'>
+					<div preview class="flex items-center justify-center p-md">
+						<pb-icon name="settings" size="sm"></pb-icon>
+					</div>
+				</pb-catalog-item>
+
+				<pb-catalog-item name="Medium Icon" description="20px サイズのアイコン（デフォルト）"
+					meta='<pb-icon name="..." size="md">'>
+					<div preview class="flex items-center justify-center p-md">
+						<pb-icon name="help-circle" size="md"></pb-icon>
+					</div>
+				</pb-catalog-item>
+
+				<pb-catalog-item name="Large Icon" description="24px サイズのアイコン" meta='<pb-icon name="..." size="lg">'>
+					<div preview class="flex items-center justify-center p-md">
+						<pb-icon name="share-2" size="lg"></pb-icon>
+					</div>
+				</pb-catalog-item>
+
+				<pb-catalog-item name="Extra Large Icon" description="32px サイズのアイコン"
+					meta='<pb-icon name="..." size="xl">'>
+					<div preview class="flex items-center justify-center p-md">
+						<pb-icon name="info" size="xl"></pb-icon>
+					</div>
+				</pb-catalog-item>
+			</pb-layout>
+		</div>
+
+		<!-- Label Chips -->
+		<pb-layout type="grid" [columns]="1" [lgColumns]="3" gap="m" class="border-border-subtle">
+			<pb-sub-section-header [title]="sectionTitles.labelChip"></pb-sub-section-header>
+			<pb-layout type="grid" [columns]="1" [lgColumns]="1" gap="s">
+				@for (group of labelChips; track group.title) {
+				<h4 class="text-title-s text-text-secondary" [class.mt-md]="group.title === 'Medium'">{{ group.title }}
+				</h4>
+				<pb-layout type="flex" gap="m" [inline]="true">
+					@for (chip of group.items; track chip.name) {
+					<pb-catalog-item [name]="chip.name" [description]="chip.desc" [meta]="chip.meta">
+						<div preview class="p-xs">
+							<pb-label-chip [label]="chip.props.label || ''" [type]="chip.props.type"
+								[withIcon]="chip.props.withIcon || false" [iconOnly]="chip.props.iconOnly || false"
+								[radius]="$any(chip.props.radius)" [size]="$any(chip.props.size || 's')">
+							</pb-label-chip>
+						</div>
+					</pb-catalog-item>
+					}
+				</pb-layout>
+				}
+			</pb-layout>
+		</pb-layout>
+
+		<!-- Cards -->
+		<pb-layout type="grid" [columns]="1" [lgColumns]="3" gap="m" class="border-border-subtle">
+			<pb-sub-section-header [title]="sectionTitles.card"></pb-sub-section-header>
+			<pb-catalog-item [name]="cardText.filled.name" [description]="cardText.filled.desc"
+				meta='type="compact-row" + content'>
+				<div preview class="w-full">
+					<pb-card type="compact-row" padding="auto">
+						<!-- Icon -->
+						<div class="w-xl flex-shrink-0 flex justify-center text-xl">⚔️</div>
+						<!-- Label Chip -->
+						<div class="w-2xl flex-shrink-0 flex justify-center">
+							<pb-label-chip type="ground" [iconOnly]="true"></pb-label-chip>
+						</div>
+						<!-- Arrow -->
+						<div class="w-xl flex-shrink-0 text-text-tertiary flex justify-center">
+							<img src="assets/icons/ui/chevron-right.svg" class="w-xl h-xl" alt="To">
+						</div>
+						<!-- Outcome -->
+						<div class="w-[24px] flex-shrink-0 flex justify-center text-xl">❓</div>
+					</pb-card>
+				</div>
+			</pb-catalog-item>
+
+
+
+			<!-- Action Chips -->
+			<pb-section-header title="Action Chips"></pb-section-header>
+
+			<pb-catalog-item name="Action Chip" description="" meta='<button pb-action-chip ...></button>'>
+				<div preview class="flex gap-sm flex-wrap">
+					<button pb-action-chip type="fire" label="火" size="m"></button>
+					<button pb-action-chip type="water" label="水" size="m"></button>
+					<button pb-action-chip type="grass" label="草" size="s"></button>
+					<button pb-action-chip type="electric" label="電" size="s"></button>
+				</div>
+			</pb-catalog-item>
+
+
+
+
+			<pb-catalog-item [name]="cardText.empty.name" [description]="cardText.empty.desc" meta='type="compact-row"'>
+				<div preview class="w-full">
+					<pb-card type="compact-row" padding="auto">
+						<!-- Left Placeholder (Icon) -->
+						<div class="w-xl flex-shrink-0"></div>
+						<!-- Middle Placeholder (Chip) -->
+						<div class="w-2xl h-2xl flex-shrink-0"></div>
+						<!-- Arrow (Filled) -->
+						<div class="w-xl flex-shrink-0 text-text-tertiary flex justify-center">
+							<img src="assets/icons/ui/chevron-right.svg" class="w-xl h-xl" alt="To">
+						</div>
+						<!-- Right Placeholder (Outcome) -->
+						<div class="w-[24px] flex-shrink-0"></div>
+					</pb-card>
+				</div>
+			</pb-catalog-item>
+		</pb-layout>
+
+		<!-- Dialogs -->
+		<pb-layout type="grid" [columns]="1" [lgColumns]="3" gap="m" class="border-border-subtle">
+			<pb-sub-section-header [title]="sectionTitles.dialogs"></pb-sub-section-header>
+
+			<div class="lg:col-span-2 flex flex-col gap-l">
+				<pb-catalog-item [name]="cardText.liveModal.name" [description]="cardText.liveModal.desc"
+					meta='<pb-modal [isOpen]="isOpen" ...>'>
+					<div preview class="flex items-center justify-center p-md">
+						<button pb-button (click)="openModal()">Open Modal</button>
+					</div>
+				</pb-catalog-item>
+
+				<pb-catalog-item [name]="cardText.staticModal.name" [description]="cardText.staticModal.desc">
+					<div preview
+						class="w-full max-w-full p-2xl bg-black/50 flex justify-center rounded overflow-hidden">
+						<div class="relative w-[90%] max-w-md mx-auto bg-white rounded-sm shadow-xl overflow-hidden">
+							<div
+								class="flex items-center justify-between px-md py-sm border-b border-border-default bg-gray-50">
+								<h2 class="text-title-s text-text-primary">{{ dialogText.title }}</h2>
+								<pb-icon-button label="Close" variant="outline" icon="x"
+									shape="circle"></pb-icon-button>
+							</div>
+							<div class="p-md text-body-sm text-text-secondary whitespace-pre-wrap">
+								<p class="mb-lg">{{ dialogText.body }}</p>
+							</div>
+							<div
+								class="px-md py-sm bg-gray-50border-border-default flex items-center justify-between gap-sm">
+								<button pb-button pattern="outline" color="secondary">{{ dialogText.close }}</button>
+								<button pb-button pattern="filled" color="primary">{{ dialogText.confirm }}</button>
+							</div>
+						</div>
+					</div>
+				</pb-catalog-item>
+			</div>
+		</pb-layout>
+	</section>
+
+	<pb-modal [isOpen]="isModalOpen" [title]="dialogText.exampleTitle" [showFooter]="true"
+		(close)="isModalOpen = false">
+		<p class="mb-lg">{{ dialogText.exampleBody1 }}</p>
+		<p>{{ dialogText.exampleBody2 }}</p>
+
+		<div footer class="w-full flex justify-between">
+			<button pb-button pattern="outline" color="secondary" (click)="isModalOpen = false">Close</button>
+			<button pb-button pattern="filled" color="primary" (click)="isModalOpen = false">Confirm</button>
+		</div>
+	</pb-modal>
+</div>
