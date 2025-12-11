@@ -1,6 +1,6 @@
 
 📝 PRタイトルの命名規則:
-<type>: <description>
+[type]: [description]
 
 タイプ一覧:
 - feat: 新機能
