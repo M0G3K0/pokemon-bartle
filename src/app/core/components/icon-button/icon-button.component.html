@@ -1,2 +1,5 @@
-<img *ngIf="icon" [src]="'assets/icons/ui/' + icon + '.svg'" class="icon" [alt]="label">
-<ng-content *ngIf="!icon"></ng-content>
+@if (icon) {
+<img [src]="'assets/icons/ui/' + icon + '.svg'" class="icon" [alt]="label">
+} @else {
+<ng-content></ng-content>
+}

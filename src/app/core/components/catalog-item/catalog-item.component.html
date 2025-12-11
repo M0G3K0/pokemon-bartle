@@ -2,20 +2,27 @@
 	<!-- Preview Area -->
 	<div class="preview">
 		<!-- If color is provided, show default 48px square -->
-		<div *ngIf="defaultColorClass || defaultColorHex; else customPreview" class="color-box"
-			[class]="defaultColorClass" [style.backgroundColor]="defaultColorHex">
+		@if (defaultColorClass || defaultColorHex) {
+		<div class="color-box" [class]="defaultColorClass" [style.backgroundColor]="defaultColorHex">
 		</div>
-
+		} @else {
 		<!-- Else slot for custom preview -->
-		<ng-template #customPreview>
-			<ng-content select="[preview]"></ng-content>
-		</ng-template>
+		<ng-content select="[preview]"></ng-content>
+		}
 	</div>
 
-	<div class="content" *ngIf="name || description">
-		<p class="name" *ngIf="name">{{ name }}</p>
-		<p class="description" *ngIf="description">{{ description }}</p>
+	@if (name || description) {
+	<div class="content">
+		@if (name) {
+		<p class="name">{{ name }}</p>
+		}
+		@if (description) {
+		<p class="description">{{ description }}</p>
+		}
 	</div>
+	}
 
-	<span *ngIf="meta" class="meta">{{ meta }}</span>
+	@if (meta) {
+	<span class="meta">{{ meta }}</span>
+	}
 </div>

@@ -1,4 +1,6 @@
+<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events -->
 <dialog #dialog (close)="onNativeClose()" (click)="handleBackdropClick($event)">
+	<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events -->
 	<div class="pb-modal-container" (click)="$event.stopPropagation()">
 		<!-- Header -->
 		@if (showHeader) {
