@@ -37,6 +37,11 @@ yarn-error.log
 testem.log
 /typings
 
+# Lint debug files
+lint-errors.json
+lint-errors.txt
+lint-output.txt
+
 # Archive files
 /archive
 
