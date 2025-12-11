@@ -23,14 +23,16 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 	]
 })
 export class SwitchComponent implements ControlValueAccessor {
-	@Input() checked: boolean = false;
-	@Input() disabled: boolean = false;
-	@Input() label: string = '';
+	@Input() checked = false;
+	@Input() disabled = false;
+	@Input() label = '';
 	@Input() size: 'md' | 'sm' = 'md';
 
 	@Output() checkedChange = new EventEmitter<boolean>();
 
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	private onChange: (value: boolean) => void = () => { };
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	private onTouched: () => void = () => { };
 
 	toggle() {

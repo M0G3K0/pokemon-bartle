@@ -1,5 +1,4 @@
-import { Component, Input, booleanAttribute, HostBinding } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, booleanAttribute } from '@angular/core';
 
 export const AppButtonColors = ['primary', 'secondary', 'danger'] as const;
 export type AppButtonColor = (typeof AppButtonColors)[number];
@@ -10,7 +9,7 @@ export type AppButtonPattern = (typeof AppButtonPatterns)[number];
 @Component({
   selector: 'button[pb-button], a[pb-button]',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
   host: {
@@ -20,9 +19,8 @@ export type AppButtonPattern = (typeof AppButtonPatterns)[number];
 export class ButtonComponent {
   @Input() color: AppButtonColor = 'primary';
   @Input() pattern: AppButtonPattern = 'filled';
-  @Input({ transform: booleanAttribute }) disabled: boolean = false;
+  @Input({ transform: booleanAttribute }) disabled = false;
 
-  @HostBinding('class')
   get hostClasses(): string {
     const classes: string[] = [this.color, this.pattern];
     return classes.join(' ');

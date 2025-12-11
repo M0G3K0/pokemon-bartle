@@ -1,10 +1,9 @@
-import { Component, Input, HostBinding } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'pb-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
   host: {
@@ -15,7 +14,7 @@ export class CardComponent {
   @Input() type: 'default' | 'compact-row' | 'select-type' = 'default';
   @Input() background: 'white' | 'gray' = 'white';
   @Input() padding: 'none' | 'sm' | 'md' | 'lg' | 'auto' = 'auto';
-  @Input() borderThick: boolean = false;
+  @Input() borderThick = false;
 
   @Input() title?: string;
   @Input() description?: string;

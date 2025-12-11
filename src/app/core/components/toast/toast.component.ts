@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, signal } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 
@@ -16,10 +16,10 @@ export type ToastType = 'success' | 'error' | 'info' | 'warning';
 	}
 })
 export class ToastComponent implements OnInit {
-	@Input() message: string = '';
+	@Input() message = '';
 	@Input() type: ToastType = 'info';
-	@Input() duration: number = 3000; // Auto-dismiss after 3 seconds
-	@Input() dismissible: boolean = true;
+	@Input() duration = 3000; // Auto-dismiss after 3 seconds
+	@Input() dismissible = true;
 
 	@Output() dismiss = new EventEmitter<void>();
 

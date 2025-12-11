@@ -1,10 +1,9 @@
-import { Component, Input, HostBinding } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'pb-catalog-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './catalog-item.component.html',
   styleUrl: './catalog-item.component.scss',
   host: {
@@ -18,8 +17,8 @@ export class CatalogItemComponent {
   @Input() variant: 'default' | 'compact' = 'default';
 
   // Optional default preview inputs
-  @Input() defaultColorClass: string = '';
-  @Input() defaultColorHex: string = '';
+  @Input() defaultColorClass = '';
+  @Input() defaultColorHex = '';
 
   get hostClasses(): string {
     const classes: string[] = [this.variant];

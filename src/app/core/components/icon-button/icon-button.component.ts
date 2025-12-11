@@ -1,12 +1,11 @@
-import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export type IconButtonVariant = 'ghost' | 'outline';
 
 @Component({
   selector: 'pb-icon-button',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './icon-button.component.html',
   styleUrl: './icon-button.component.scss',
   host: {
@@ -18,7 +17,7 @@ export type IconButtonVariant = 'ghost' | 'outline';
   }
 })
 export class IconButtonComponent {
-  @Input() label: string = 'Button';
+  @Input() label = 'Button';
   @Input() variant: IconButtonVariant = 'ghost';
   @Input() icon?: string;
   @Input() size: 's' | 'm' = 'm';
