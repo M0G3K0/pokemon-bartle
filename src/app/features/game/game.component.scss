@@ -3,6 +3,84 @@
  * Using CSS Variables from Design Tokens
  * ============================================ */
 
+@use '../../../styles/mixins' as *;
+
+/* ============================================
+ * HEADER STYLES
+ * ============================================ */
+
+/* Difficulty Badge - Desktop header indicator */
+.difficulty-badge {
+	background: var(--pb-background-subtle);
+	padding: var(--pb-spacing-xs) var(--pb-spacing-sm);
+	border-radius: var(--pb-radius-sm);
+	font-size: var(--pb-font-size-body-sm);
+	font-weight: var(--pb-font-weight-bold);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+/* Desktop difficulty indicator wrapper */
+.difficulty-indicator {
+	display: none;
+	align-items: center;
+	gap: var(--pb-spacing-xs);
+	color: var(--pb-text-secondary);
+
+	@include desktop-layout {
+		display: flex;
+	}
+}
+
+/* Sound switch group */
+.sound-switch-group {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.sound-label {
+	color: var(--pb-text-secondary);
+	font-size: var(--pb-font-size-body-sm);
+	font-weight: var(--pb-font-weight-regular);
+}
+
+/* Mobile Status Bar */
+.mobile-status-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: var(--pb-background-subtle);
+	border-bottom: 1px solid var(--pb-border-subtle);
+	padding: var(--pb-spacing-xs) var(--pb-spacing-md);
+	font-size: var(--pb-font-size-body-sm);
+	color: var(--pb-text-secondary);
+
+	@include desktop-layout {
+		display: none;
+	}
+
+	span {
+		font-weight: var(--pb-font-weight-bold);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+}
+
+/* Game Root - Full screen canvas */
+.game-root {
+	background: var(--pb-background-canvas);
+	min-height: 100vh;
+	position: relative;
+}
+
+/* Header Actions Container */
+.header-actions {
+	display: flex;
+	align-items: center;
+	gap: var(--pb-spacing-sm);
+}
+
 /* Selected Type Style - Each type has its own outline color (600 shade) */
 .type-chip.selected {
 	outline: 2px solid var(--pb-color-gray-600);
