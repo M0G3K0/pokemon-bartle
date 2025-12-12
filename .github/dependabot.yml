@@ -5,10 +5,31 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "saturday"
     open-pull-requests-limit: 10
+    groups:
+      angular:
+        patterns:
+          - "@angular/*"
+          - "zone.js"
+          - "rxjs"
+      testing:
+        patterns:
+          - "jasmine-core"
+          - "karma"
+          - "karma-*"
+      typescript:
+        patterns:
+          - "typescript"
+          - "typescript-eslint"
+          - "@typescript-eslint/*"
+      eslint:
+        patterns:
+          - "eslint"
+          - "eslint-*"
     labels:
+      - "chore"
       - "dependencies"
-      - "automated"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -18,8 +39,14 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "saturday"
+    groups:
+      actions:
+        patterns:
+          - "*"
     labels:
+      - "ci"
       - "dependencies"
-      - "github-actions"
     commit-message:
       prefix: "ci"
+
