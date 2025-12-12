@@ -1,36 +1,30 @@
 <!-- Layout: Stack (Vertical) -->
-<pb-layout type="stack" gap="none" class="bg-background-canvas min-h-screen relative">
+<pb-layout type="stack" gap="none" class="game-root">
 
 	<!-- 1. Header (Sticky) -->
-	<div class="sticky top-0 z-20 bg-background-canvas/90 backdrop-blur-sm shadow-sm">
-		<pb-global-header title="Pokémon Bartle">
-			<div actions class="flex items-center gap-sm">
-				<!-- Status Indicators - First item -->
-				<div class="hidden sm:flex items-center gap-xs text-text-secondary">
-					<span class="px-sm py-xs bg-gray-100 rounded text-xs font-bold uppercase tracking-wider">{{
-						difficulty() }}</span>
-				</div>
-
-				<!-- Sound Switch with Label (Compact) -->
-				<div class="flex items-center gap-[4px]">
-					<span class="text-text-secondary"
-						style="font-size: var(--pb-font-size-body-sm); font-weight: var(--pb-font-weight-regular);"
-						[style.opacity]="audioService.soundEnabled() ? '1' : '0.5'">Sound</span>
-					<pb-switch size="sm" [checked]="audioService.soundEnabled()"
-						(checkedChange)="audioService.setSoundEnabled($event)">
-					</pb-switch>
-				</div>
-
-				<pb-icon-button icon="help-circle" label="Help" (action)="toggleHelp()"></pb-icon-button>
-				<pb-icon-button icon="settings" label="Settings" (action)="toggleSettings()"></pb-icon-button>
+	<pb-global-header title="Pokémon Bartle" variant="sticky">
+		<div actions class="header-actions">
+			<!-- Status Indicators - Desktop only -->
+			<div class="difficulty-indicator">
+				<span class="difficulty-badge">{{ difficulty() }}</span>
 			</div>
-		</pb-global-header>
 
-		<!-- Mobile Status Bar (Visible only on small screens) -->
-		<div
-			class="sm:hidden flex items-center justify-between px-md py-xs bg-gray-50 border-b border-gray-100 text-xs text-text-secondary">
-			<span class="font-bold uppercase tracking-wider">{{ difficulty() }}</span>
+			<!-- Sound Switch with Label -->
+			<div class="sound-switch-group">
+				<span class="sound-label" [style.opacity]="audioService.soundEnabled() ? '1' : '0.5'">Sound</span>
+				<pb-switch size="sm" [checked]="audioService.soundEnabled()"
+					(checkedChange)="audioService.setSoundEnabled($event)">
+				</pb-switch>
+			</div>
+
+			<pb-icon-button icon="help-circle" label="Help" (action)="toggleHelp()"></pb-icon-button>
+			<pb-icon-button icon="settings" label="Settings" (action)="toggleSettings()"></pb-icon-button>
 		</div>
+	</pb-global-header>
+
+	<!-- Mobile Status Bar -->
+	<div class="mobile-status-bar">
+		<span>{{ difficulty() }}</span>
 	</div>
 
 	<!-- Main Content -->
