@@ -78,4 +78,23 @@
 	--pb-result-lose-bg: var(--pb-color-lose-100); // #fef9c3: Warning/lose background (yellow-green)
 	--pb-result-lose-text: var(--pb-color-lose-600); // #ca8a04: Warning/lose text/icon (yellow-green)
 	--pb-result-lose: var(--pb-color-lose-600); // #ca8a04: Default lose color
+
+	// ----------------------------------------
+	// Layout Semantic Tokens
+	// ----------------------------------------
+	--pb-layout-game-width: 28rem; // 448px: ゲームコンテンツのデスクトップ用固定幅
+	// ※ ブレイクポイント(640px)はMixin内で管理（CSS変数は@mediaで使用不可のため）
+
+	// ----------------------------------------
+	// Z-Index Semantic Tokens
+	// ----------------------------------------
+	--pb-z-index-sticky: 20;
+	--pb-z-index-overlay: 40;
+	--pb-z-index-modal: 50;
+
+	// ----------------------------------------
+	// Backdrop Semantic Tokens
+	// ----------------------------------------
+	--pb-backdrop-blur: blur(8px);
+	--pb-backdrop-opacity: 0.9;
 }
