@@ -30,6 +30,7 @@ GitHubのCI失敗を修正するための以下のタスクを完了しました
 
 ### 3. Testの確認 ✅
 - `npm run test -- --watch=false --browsers=ChromeHeadless` がローカルで成功することを確認しました。
+- `app.component.spec.ts` に含まれていた、すでに存在しないタイトル要素（`h1`）をチェックするテストを削除しました。
 
 ### 4. CI環境依存の問題解決 ✅
 - CI上の `npm ci` で発生していた `package-lock.json` と `package.json` の不整合エラーを解決しました。
