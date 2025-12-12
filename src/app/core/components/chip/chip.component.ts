@@ -1,4 +1,4 @@
-import { Component, Input, signal, HostBinding, Output, EventEmitter } from '@angular/core';
+import { Component, Input, signal, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TypeIconComponent } from '../../../features/type-icon/type-icon.component';
 
@@ -16,9 +16,9 @@ import { TypeIconComponent } from '../../../features/type-icon/type-icon.compone
 	}
 })
 export class ChipComponent {
-	@Input() label: string = '';
-	@Input() withIcon: boolean = false;
-	@Input() iconOnly: boolean = false;
+	@Input() label = '';
+	@Input() withIcon = false;
+	@Input() iconOnly = false;
 	@Input() radius: 'sm' | 'full' = 'sm';
 	@Input() size: 's' | 'm' = 's';
 

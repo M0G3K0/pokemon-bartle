@@ -1,5 +1,11 @@
-<div *ngIf="title || description" class="card-header">
-	<h4 *ngIf="title" class="card-title">{{ title }}</h4>
-	<p *ngIf="description" class="card-description">{{ description }}</p>
+@if (title || description) {
+<div class="card-header">
+	@if (title) {
+	<h4 class="card-title">{{ title }}</h4>
+	}
+	@if (description) {
+	<p class="card-description">{{ description }}</p>
+	}
 </div>
+}
 <ng-content></ng-content>

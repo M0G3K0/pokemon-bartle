@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
 })
 export class IconComponent {
 	/** Icon name from assets/icons/ui directory (without .svg extension) */
-	@Input() name: string = 'circle';
+	@Input() name = 'circle';
 
 	/** Predefined size: sm (16px), md (20px), lg (24px), xl (32px) */
 	@Input() size: 'sm' | 'md' | 'lg' | 'xl' = 'md';

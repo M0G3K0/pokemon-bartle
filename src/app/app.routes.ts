@@ -3,6 +3,5 @@ import { StyleGuideComponent } from './features/style-guide/style-guide.componen
 
 export const routes: Routes = [
 	{ path: 'style-guide', component: StyleGuideComponent },
-	{ path: 'game', loadComponent: () => import('./features/game/game.component').then(m => m.GameComponent) },
-	{ path: '', redirectTo: 'game', pathMatch: 'full' },
+	{ path: '', loadComponent: () => import('./features/game/game.component').then(m => m.GameComponent) },
 ];

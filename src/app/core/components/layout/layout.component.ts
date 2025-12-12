@@ -12,7 +12,7 @@ export class LayoutComponent {
 	@Input() type: 'grid' | 'stack' | 'flex' = 'grid';
 
 	// Number of columns (Grid only)
-	@Input() columns: number = 1;
+	@Input() columns = 1;
 	@Input() lgColumns: number | undefined;
 
 	// Direction (Flex/Stack only)
@@ -25,7 +25,7 @@ export class LayoutComponent {
 	@Input() align: 'start' | 'center' | 'end' | 'stretch' | 'baseline' = 'stretch';
 	@Input() justify: 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly' = 'start';
 
-	@Input() inline: boolean = false;
+	@Input() inline = false;
 
 	layoutClass = computed(() => {
 		// Gap mapping

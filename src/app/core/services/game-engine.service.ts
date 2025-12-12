@@ -39,15 +39,12 @@ const TYPE_CHART: Record<PokemonType, Record<PokemonType, number>> = {
 })
 export class GameEngineService {
 
-	constructor() { }
-
 	/**
 	 * Generates a random target configuration (1 or 2 types).
 	 * Valid combinations: 171 total (18 single + 153 dual).
 	 */
 	generateTarget(): PokemonType[] {
-		const isDual = Math.random() > 0.105; // ~153/171 is approx 89.5% for dual? 
-		// Actually let's just pick strictly from the 171 pool to be uniform
+		// Pick strictly from the 171 pool to be uniform
 		// 18 single, 153 dual. Total 171.
 		// Index 0-170.
 		const index = Math.floor(Math.random() * 171);

@@ -269,7 +269,7 @@
 						<div preview class="p-xs">
 							<pb-label-chip [label]="chip.props.label || ''" [type]="chip.props.type"
 								[withIcon]="chip.props.withIcon || false" [iconOnly]="chip.props.iconOnly || false"
-								[radius]="$any(chip.props.radius)" [size]="$any(chip.props.size || 's')">
+								[radius]="chip.props.radius || 'sm'" [size]="chip.props.size || 's'">
 							</pb-label-chip>
 						</div>
 					</pb-catalog-item>

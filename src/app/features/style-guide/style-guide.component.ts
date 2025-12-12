@@ -106,7 +106,7 @@ export class StyleGuideComponent {
 
 	primitiveScales = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 
-	typeTranslations: { [key: string]: string } = {
+	typeTranslations: Record<string, string> = {
 		normal: 'ノーマル',
 		fire: 'ほのお',
 		water: 'みず',

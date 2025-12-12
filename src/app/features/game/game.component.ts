@@ -240,7 +240,7 @@ export class GameComponent implements OnInit {
       // Attack mode - check effectiveness
       const multiplier = this.gameEngine.calculateEffectiveness(type1, this.target);
       const label = this.gameEngine.getEffectivenessLabel(multiplier);
-      this.stagingOutcome.set(label as any);
+      this.stagingOutcome.set(label);
       this.stagingMultiplier.set(multiplier); // Store multiplier for easy mode
     }
   }
@@ -345,7 +345,7 @@ export class GameComponent implements OnInit {
     // We treat 'immune', 'resisted', 'neutral', 'effective', 'critical' as the keys
     const keys: (keyof typeof this.memoData)[] = ['immune', 'resisted', 'neutral', 'effective', 'critical'];
 
-    let newData = { ...this.memoData };
+    const newData = { ...this.memoData };
 
     keys.forEach(k => {
       newData[k] = newData[k].filter(t => t !== type);

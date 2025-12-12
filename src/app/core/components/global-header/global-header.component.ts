@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'pb-global-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './global-header.component.html',
   styleUrls: ['./global-header.component.scss']
 })
