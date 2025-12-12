@@ -42,3 +42,19 @@
 	gap: var(--pb-spacing-sm);
 	flex-shrink: 0;
 }
+
+/* ----------------------------------------
+ * Sticky Variant
+ * ---------------------------------------- */
+:host.sticky {
+	position: sticky;
+	top: 0;
+	z-index: var(--pb-z-index-sticky);
+
+	.header {
+		background: rgba(249, 250, 251, var(--pb-backdrop-opacity)); // bg-background-canvas with opacity
+		backdrop-filter: var(--pb-backdrop-blur);
+		box-shadow: var(--pb-shadow-sm);
+		border-bottom: none;
+	}
+}
