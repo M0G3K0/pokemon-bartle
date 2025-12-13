@@ -216,78 +216,74 @@
 
 		<!-- 4. Auto-Memo & Manual Memo Area -->
 		<pb-card type="default" background="white" [borderThick]="true" padding="sm">
-			<div class="flex flex-col gap-md">
+			<div class="memo-container">
 				<!-- Top: Validation History lines -->
-				<div class="flex-1 flex flex-col gap-xs pb-sm border-b border-gray-100">
-					<h3
-						class="text-center text-xs font-bold text-gray-400 mb-xs uppercase tracking-widest leading-none">
-						History</h3>
+				<div class="memo-section history-section">
+					<h3 class="memo-section-title">History</h3>
 
 					<!-- Critical/Effective -->
-					<div class="flex items-center gap-xs">
-						<div class="w-[16px] text-center text-xs leading-none">⭕</div>
-						<div class="flex-1 min-h-[1px] bg-gray-100"></div>
-						<div class="flex gap-[2px] flex-wrap justify-end max-w-[70%]">
-							@for (t of memoData.critical; track t) { <span class="w-2 h-2 rounded-full"
-								[ngClass]="'bg-type-' + t + '-500'"></span> }
-							@for (t of memoData.effective; track t) { <span class="w-2 h-2 rounded-full"
-								[ngClass]="'bg-type-' + t + '-500'"></span> }
+					<div class="history-row">
+						<div class="history-label">⭕</div>
+						<div class="history-separator"></div>
+						<div class="history-chips">
+							@for (t of memoData.critical; track t) {
+							<span class="mini-chip" [attr.data-type]="t"></span>
+							}
+							@for (t of memoData.effective; track t) {
+							<span class="mini-chip" [attr.data-type]="t"></span>
+							}
 						</div>
 					</div>
 					<!-- Neutral -->
-					<div class="flex items-center gap-xs">
-						<div class="w-[16px] text-center text-xs text-gray-400 leading-none">⚪</div>
-						<div class="flex-1 min-h-[1px] bg-gray-100"></div>
-						<div class="flex gap-[2px] flex-wrap justify-end max-w-[70%]">
-							@for (t of memoData.neutral; track t) { <span class="w-2 h-2 rounded-full"
-								[ngClass]="'bg-type-' + t + '-500'"></span> }
+					<div class="history-row">
+						<div class="history-label text-gray">⚪</div>
+						<div class="history-separator"></div>
+						<div class="history-chips">
+							@for (t of memoData.neutral; track t) {
+							<span class="mini-chip" [attr.data-type]="t"></span>
+							}
 						</div>
 					</div>
 					<!-- Resisted -->
-					<div class="flex items-center gap-xs">
-						<div class="w-[16px] text-center text-xs leading-none">🔺</div>
-						<div class="flex-1 min-h-[1px] bg-gray-100"></div>
-						<div class="flex gap-[2px] flex-wrap justify-end max-w-[70%]">
-							@for (t of memoData.resisted; track t) { <span class="w-2 h-2 rounded-full"
-								[ngClass]="'bg-type-' + t + '-500'"></span> }
+					<div class="history-row">
+						<div class="history-label">🔺</div>
+						<div class="history-separator"></div>
+						<div class="history-chips">
+							@for (t of memoData.resisted; track t) {
+							<span class="mini-chip" [attr.data-type]="t"></span>
+							}
 						</div>
 					</div>
 					<!-- Immune -->
-					<div class="flex items-center gap-xs">
-						<div class="w-[16px] text-center text-xs leading-none">✖</div>
-						<div class="flex-1 min-h-[1px] bg-gray-100"></div>
-						<div class="flex gap-[2px] flex-wrap justify-end max-w-[70%]">
-							@for (t of memoData.immune; track t) { <span class="w-2 h-2 rounded-full"
-								[ngClass]="'bg-type-' + t + '-500'"></span> }
+					<div class="history-row">
+						<div class="history-label">✖</div>
+						<div class="history-separator"></div>
+						<div class="history-chips">
+							@for (t of memoData.immune; track t) {
+							<span class="mini-chip" [attr.data-type]="t"></span>
+							}
 						</div>
 					</div>
 				</div>
 
 				<!-- Bottom: Manual Memo Chips -->
-				<div class="flex-1">
-					<h3
-						class="text-center text-xs font-bold text-gray-400 mb-xs uppercase tracking-widest leading-none">
-						Memo</h3>
-					<div class="grid grid-cols-9 gap-[2px]">
+				<div class="memo-section">
+					<h3 class="memo-section-title">Memo</h3>
+					<div class="memo-grid">
 						@for (t of types; track t) {
-						<div class="relative w-full aspect-square flex items-center justify-center">
+						<div class="memo-item">
 							<button pb-action-chip [type]="t" [iconOnly]="true" [label]="typeLabels[t]" size="s"
-								class="w-full h-full" (action)="toggleChipState(t)">
+								class="memo-chip" (action)="toggleChipState(t)">
 							</button>
-
 
 							<!-- Overlay Icon -->
 							@if (chipStates[t] === 'cross') {
-							<div
-								class="absolute inset-0 z-10 bg-transparent flex items-center justify-center pointer-events-none">
-								<img src="assets/icons/ui/x.svg" alt="Cross mark"
-									class="w-[65%] h-[65%] brightness-200 contrast-200 drop-shadow-md">
+							<div class="memo-overlay">
+								<img src="assets/icons/ui/x.svg" alt="Cross mark" class="memo-overlay-icon">
 							</div>
 							} @else if (chipStates[t] === 'circle') {
-							<div
-								class="absolute inset-0 z-10 bg-transparent flex items-center justify-center pointer-events-none">
-								<img src="assets/icons/ui/circle.svg" alt="Circle mark"
-									class="w-[65%] h-[65%] brightness-200 contrast-200 drop-shadow-md">
+							<div class="memo-overlay">
+								<img src="assets/icons/ui/circle.svg" alt="Circle mark" class="memo-overlay-icon">
 							</div>
 							}
 						</div>
