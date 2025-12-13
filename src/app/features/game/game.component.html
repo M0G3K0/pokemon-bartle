@@ -31,17 +31,17 @@
 	<div class="w-full max-w-md mx-auto px-xs py-xs flex flex-col gap-sm">
 
 		<!-- 2. History Area -->
-		<div class="flex flex-col gap-xs min-h-[200px]">
+		<div class="history-area">
 			<!-- Grid Flow Column for Vertical First Filling -->
-			<div class="grid grid-cols-2 grid-rows-5 grid-flow-col gap-x-sm gap-y-xs">
+			<div class="history-grid">
 				@for (item of history; track $index) {
 				@if (item) {
 				<pb-card type="compact-row" padding="auto">
 					<!-- Container with relative positioning -->
-					<div class="relative w-full h-full">
-						<!-- Left: Mode Icon (absolutely positioned) -->
-						<div class="absolute top-1/2 -translate-y-1/2 left-xs">
-							<div class="text-lg leading-none">
+					<div class="history-item-content">
+						<!-- Left: Mode Icon -->
+						<div class="history-mode-icon">
+							<div>
 								{{ item.mode === 'attack' ? '⚔️' : '❓' }}
 							</div>
 						</div>
@@ -59,28 +59,27 @@
 							[label]="getTypeLabel(item.type)" size="s"></pb-label-chip>
 						}
 
-						<!-- Center: Divider Arrow (absolutely centered) -->
-						<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+						<!-- Center: Divider Arrow -->
+						<div class="history-divider">
 							<pb-icon name="chevron-right" size="sm"></pb-icon>
 						</div>
 
 						<!-- Right: Outcome at 16% from center -->
-						<div class="absolute top-1/2 -translate-y-1/2" style="left: calc(50% + 16%);">
+						<div class="history-outcome">
 							@if (item.mode === 'solve') {
 							<!-- Solve Outcomes -->
-							<span class="text-lg leading-none">{{ item.outcome }}</span>
+							<span>{{ item.outcome }}</span>
 							} @else {
 							<!-- Attack Outcomes -->
 							@if (item.outcome === 'critical') {
-							<span class="text-lg leading-none">⭕</span>
+							<span>⭕</span>
 							}
 							@else if (item.outcome === 'effective') {
-							<span class="text-lg leading-none">⭕</span>
+							<span>⭕</span>
 							}
-							@else if (item.outcome === 'neutral') { <span
-								class="text-lg leading-none text-gray-300">⚪</span> }
-							@else if (item.outcome === 'resisted') { <span class="text-lg leading-none">🔺</span> }
-							@else if (item.outcome === 'immune') { <span class="text-lg leading-none">✖</span> }
+							@else if (item.outcome === 'neutral') { <span class="text-neutral">⚪</span> }
+							@else if (item.outcome === 'resisted') { <span>🔺</span> }
+							@else if (item.outcome === 'immune') { <span>✖</span> }
 							}
 						</div>
 					</div>
@@ -89,9 +88,9 @@
 				<!-- Standard Empty State: Standard Card with Placeholders -->
 				<pb-card type="compact-row" padding="auto" background="white">
 					<!-- Container with relative positioning -->
-					<div class="relative w-full h-full">
+					<div class="history-item-content">
 						<!-- Center: Divider Arrow (visible) -->
-						<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20">
+						<div class="history-empty-divider">
 							<pb-icon name="chevron-right" size="sm"></pb-icon>
 						</div>
 					</div>

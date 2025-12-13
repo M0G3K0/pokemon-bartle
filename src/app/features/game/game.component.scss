@@ -238,13 +238,84 @@ pb-card[type="compact-row"] {
 
 	/* Reduce all emoji/icon sizes (mode icons, outcome emojis) */
 	pb-card[type="compact-row"] {
-		.text-lg {
+		.history-mode-icon div {
 			font-size: 14px !important;
 		}
 
 		/* Specifically target outcome emojis */
-		span.text-lg.leading-none {
+		.history-outcome span {
 			font-size: 14px !important;
 		}
 	}
+}
+
+/* ============================================
+ * HISTORY AREA STYLES (REFACTOR PHASE 3-2)
+ * ============================================ */
+
+.history-area {
+	display: flex;
+	flex-direction: column;
+	gap: var(--pb-spacing-xs);
+	min-height: 200px;
+}
+
+.history-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(5, 1fr);
+	grid-auto-flow: column;
+	column-gap: var(--pb-spacing-sm);
+	row-gap: var(--pb-spacing-xs);
+}
+
+/* History Item Internal Layout */
+.history-item-content {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.history-mode-icon {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: var(--pb-spacing-xs);
+
+	div {
+		font-size: var(--pb-font-size-lg);
+		line-height: 1;
+	}
+}
+
+.history-divider {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.history-outcome {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: calc(50% + 16%);
+
+	span {
+		font-size: var(--pb-font-size-lg);
+		line-height: 1;
+
+		&.text-neutral {
+			color: var(--pb-color-gray-300);
+		}
+	}
+}
+
+/* Empty State Styles */
+.history-empty-divider {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	opacity: 0.2;
 }
