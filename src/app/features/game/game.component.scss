@@ -238,13 +238,224 @@ pb-card[type="compact-row"] {
 
 	/* Reduce all emoji/icon sizes (mode icons, outcome emojis) */
 	pb-card[type="compact-row"] {
-		.text-lg {
+		.history-mode-icon div {
 			font-size: 14px !important;
 		}
 
 		/* Specifically target outcome emojis */
-		span.text-lg.leading-none {
+		.history-outcome span {
 			font-size: 14px !important;
 		}
 	}
+}
+
+/* ============================================
+ * HISTORY AREA STYLES (REFACTOR PHASE 3-2)
+ * ============================================ */
+
+.history-area {
+	display: flex;
+	flex-direction: column;
+	gap: var(--pb-spacing-xs);
+	min-height: 200px;
+}
+
+.history-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(5, 1fr);
+	grid-auto-flow: column;
+	column-gap: var(--pb-spacing-sm);
+	row-gap: var(--pb-spacing-xs);
+}
+
+/* History Item Internal Layout */
+.history-item-content {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.history-mode-icon {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: var(--pb-spacing-xs);
+
+	div {
+		font-size: var(--pb-font-size-lg);
+		line-height: 1;
+	}
+}
+
+.history-divider {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.history-outcome {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: calc(50% + 16%);
+
+	span {
+		font-size: var(--pb-font-size-lg);
+		line-height: 1;
+
+		&.text-neutral {
+			color: var(--pb-color-gray-300);
+		}
+	}
+}
+
+/* Empty State Styles */
+.history-empty-divider {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	opacity: 0.2;
+}
+
+/* ============================================
+ * MAIN CONTENT & CONTROL AREA (REFACTOR PHASE 3-3)
+ * ============================================ */
+
+/* Main Content Wrapper */
+.game-content {
+	width: 100%;
+	max-width: 28rem; // max-w-md
+	margin: 0 auto;
+	padding: var(--pb-spacing-xs);
+	display: flex;
+	flex-direction: column;
+	gap: var(--pb-spacing-sm);
+}
+
+/* Control Area */
+.control-area {
+	display: flex;
+	flex-direction: column;
+	gap: var(--pb-spacing-md);
+}
+
+/* Staging Content (Preview Card) */
+.staging-content {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.staging-mode-icon {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: calc(50% + 84px);
+
+	div {
+		font-size: var(--pb-font-size-lg);
+		line-height: 1;
+	}
+}
+
+.staging-chip-1 {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: calc(50% + 56px);
+}
+
+.staging-chip-2 {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: calc(50% + 20px);
+}
+
+.staging-placeholder {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: var(--pb-font-size-caption);
+	color: var(--pb-text-tertiary);
+	font-weight: var(--pb-font-weight-bold);
+	pointer-events: none;
+	white-space: nowrap;
+}
+
+.staging-arrow {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.staging-outcome {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: calc(50% + 20px);
+
+	span {
+		font-family: var(--pb-font-family-display);
+		line-height: 1;
+		font-weight: var(--pb-font-weight-bold);
+	}
+}
+
+/* Type Keyboard */
+.type-keyboard {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	justify-content: center;
+}
+
+/* Action Row */
+.action-row {
+	display: flex;
+	gap: var(--pb-spacing-md);
+	height: 48px;
+}
+
+.mode-selector {
+	flex: 1;
+	display: flex;
+	background-color: var(--pb-color-gray-100);
+	border-radius: var(--pb-border-radius-sm);
+	padding: 0.25rem;
+	gap: 0.25rem;
+}
+
+.mode-button {
+	flex: 1;
+	border-radius: var(--pb-border-radius-sm);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--pb-spacing-xs);
+	font-size: var(--pb-font-size-body-sm);
+	font-weight: var(--pb-font-weight-bold);
+	transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+
+	// Active State
+	&.active {
+		background-color: var(--pb-color-white);
+		box-shadow: var(--pb-shadow-sm);
+	}
+
+	// Inactive State
+	&.inactive {
+		color: var(--pb-color-gray-400);
+	}
+}
+
+.submit-button {
+	height: 100%;
+	padding-left: var(--pb-spacing-xl);
+	padding-right: var(--pb-spacing-xl);
 }

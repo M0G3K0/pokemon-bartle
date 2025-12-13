@@ -28,20 +28,20 @@
 	</div>
 
 	<!-- Main Content -->
-	<div class="w-full max-w-md mx-auto px-xs py-xs flex flex-col gap-sm">
+	<div class="game-content">
 
 		<!-- 2. History Area -->
-		<div class="flex flex-col gap-xs min-h-[200px]">
+		<div class="history-area">
 			<!-- Grid Flow Column for Vertical First Filling -->
-			<div class="grid grid-cols-2 grid-rows-5 grid-flow-col gap-x-sm gap-y-xs">
+			<div class="history-grid">
 				@for (item of history; track $index) {
 				@if (item) {
 				<pb-card type="compact-row" padding="auto">
 					<!-- Container with relative positioning -->
-					<div class="relative w-full h-full">
-						<!-- Left: Mode Icon (absolutely positioned) -->
-						<div class="absolute top-1/2 -translate-y-1/2 left-xs">
-							<div class="text-lg leading-none">
+					<div class="history-item-content">
+						<!-- Left: Mode Icon -->
+						<div class="history-mode-icon">
+							<div>
 								{{ item.mode === 'attack' ? '⚔️' : '❓' }}
 							</div>
 						</div>
@@ -59,28 +59,27 @@
 							[label]="getTypeLabel(item.type)" size="s"></pb-label-chip>
 						}
 
-						<!-- Center: Divider Arrow (absolutely centered) -->
-						<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+						<!-- Center: Divider Arrow -->
+						<div class="history-divider">
 							<pb-icon name="chevron-right" size="sm"></pb-icon>
 						</div>
 
 						<!-- Right: Outcome at 16% from center -->
-						<div class="absolute top-1/2 -translate-y-1/2" style="left: calc(50% + 16%);">
+						<div class="history-outcome">
 							@if (item.mode === 'solve') {
 							<!-- Solve Outcomes -->
-							<span class="text-lg leading-none">{{ item.outcome }}</span>
+							<span>{{ item.outcome }}</span>
 							} @else {
 							<!-- Attack Outcomes -->
 							@if (item.outcome === 'critical') {
-							<span class="text-lg leading-none">⭕</span>
+							<span>⭕</span>
 							}
 							@else if (item.outcome === 'effective') {
-							<span class="text-lg leading-none">⭕</span>
+							<span>⭕</span>
 							}
-							@else if (item.outcome === 'neutral') { <span
-								class="text-lg leading-none text-gray-300">⚪</span> }
-							@else if (item.outcome === 'resisted') { <span class="text-lg leading-none">🔺</span> }
-							@else if (item.outcome === 'immune') { <span class="text-lg leading-none">✖</span> }
+							@else if (item.outcome === 'neutral') { <span class="text-neutral">⚪</span> }
+							@else if (item.outcome === 'resisted') { <span>🔺</span> }
+							@else if (item.outcome === 'immune') { <span>✖</span> }
 							}
 						</div>
 					</div>
@@ -89,9 +88,9 @@
 				<!-- Standard Empty State: Standard Card with Placeholders -->
 				<pb-card type="compact-row" padding="auto" background="white">
 					<!-- Container with relative positioning -->
-					<div class="relative w-full h-full">
+					<div class="history-item-content">
 						<!-- Center: Divider Arrow (visible) -->
-						<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20">
+						<div class="history-empty-divider">
 							<pb-icon name="chevron-right" size="sm"></pb-icon>
 						</div>
 					</div>
@@ -102,55 +101,52 @@
 		</div>
 
 		<!-- 3. Control Area -->
-		<div class="flex flex-col gap-md">
+		<div class="control-area">
 
 			<!-- Staging Area (Preview) -->
 			<!-- Using customClass to match history card height and styles exact, but with staging background -->
 			<pb-card type="select-type" background="gray" class="transition-colors duration-300"
 				[style.background-color]="stagingBackgroundColor()">
 				<!-- Container with relative positioning -->
-				<div class="relative w-full h-full">
-					<!-- Left: Mode Icon (absolutely positioned, always visible) -->
-					<div class="absolute top-1/2 -translate-y-1/2" style="right: calc(50% + 84px);">
-						<div class="text-lg leading-none">
+				<div class="staging-content">
+					<!-- Left: Mode Icon -->
+					<div class="staging-mode-icon">
+						<div>
 							{{ mode() === 'attack' ? '⚔️' : '❓' }}
 						</div>
 					</div>
 
-					<!-- Left: Type chips (absolutely positioned, right-aligned from center) -->
+					<!-- Left: Type chips -->
 					@if (selectedType2(); as t2) {
-					<!-- Type 2: right edge at calc(50% - 20px) -->
-					<div class="absolute top-1/2 -translate-y-1/2" style="right: calc(50% + 20px);">
+					<div class="staging-chip-2">
 						<pb-label-chip [type]="t2" [iconOnly]="true" [label]="typeLabels[t2]" size="s"></pb-label-chip>
 					</div>
 					}
 
 					@if (selectedType1(); as t1) {
-					<!-- Type 1: always positioned at 56px from center (next to mode icon) -->
-					<div class="absolute top-1/2 -translate-y-1/2" style="right: calc(50% + 56px);">
+					<div class="staging-chip-1">
 						<pb-label-chip [type]="t1" [iconOnly]="true" [label]="typeLabels[t1]" size="s"></pb-label-chip>
 					</div>
 					}
 
-					<!-- Center: SELECT TYPE text (when empty) - Absolutely centered -->
+					<!-- Center: SELECT TYPE text (when empty) -->
 					@if (!selectedType1() && !selectedType2()) {
-					<span
-						class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xs text-text-tertiary font-bold pointer-events-none whitespace-nowrap">
+					<span class="staging-placeholder">
 						SELECT TYPE
 					</span>
 					}
 
-					<!-- Center: Divider Arrow (when selected) - Absolutely centered -->
+					<!-- Center: Divider Arrow (when selected) -->
 					@if (selectedType1() || selectedType2()) {
-					<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+					<div class="staging-arrow">
 						<pb-icon name="chevron-right" size="sm"></pb-icon>
 					</div>
 					}
 
 					<!-- Right of Arrow: Outcome Icon (when outcome available) -->
 					@if (stagingOutcome(); as outcome) {
-					<div class="absolute top-1/2 -translate-y-1/2" style="left: calc(50% + 20px);">
-						<span class="text-display leading-none font-bold">
+					<div class="staging-outcome">
+						<span>
 							@if (mode() === 'solve') {
 							<!-- Solve mode: 🟩/🟨/⬛ -->
 							@if (outcome === 'perfect') { 🟩 }
@@ -185,7 +181,7 @@
 			</pb-card>
 
 			<!-- Type Keyboard (Flex Wrap) -->
-			<div class="flex flex-wrap gap-[4px] justify-center">
+			<div class="type-keyboard">
 				@for (t of types; track t) {
 				<button pb-action-chip [type]="t" [attr.data-pokemon-type]="t" [label]="typeLabels[t]" size="s"
 					class="type-chip" [class.selected]="selectedType1() === t || selectedType2() === t"
@@ -195,20 +191,16 @@
 			</div>
 
 			<!-- Action Row -->
-			<div class="flex gap-md h-[48px]">
+			<div class="action-row">
 				<!-- Mode Selectors -->
-				<div class="flex-1 flex bg-gray-100 rounded-sm p-1 gap-1">
-					<button
-						class="flex-1 rounded-sm flex items-center justify-center gap-xs text-sm font-bold transition-colors"
-						[class.bg-white]="mode() === 'attack'" [class.shadow-sm]="mode() === 'attack'"
-						[class.text-gray-400]="mode() !== 'attack'" (click)="setMode('attack')">
+				<div class="mode-selector">
+					<button class="mode-button" [class.active]="mode() === 'attack'"
+						[class.inactive]="mode() !== 'attack'" (click)="setMode('attack')">
 						<span>⚔️</span>
 						<span>Attack</span>
 					</button>
-					<button
-						class="flex-1 rounded-sm flex items-center justify-center gap-xs text-sm font-bold transition-colors"
-						[class.bg-white]="mode() === 'solve'" [class.shadow-sm]="mode() === 'solve'"
-						[class.text-gray-400]="mode() !== 'solve'" (click)="setMode('solve')">
+					<button class="mode-button" [class.active]="mode() === 'solve'"
+						[class.inactive]="mode() !== 'solve'" (click)="setMode('solve')">
 						<span>❓</span>
 						<span>Solve</span>
 					</button>
@@ -216,7 +208,7 @@
 
 				<!-- Submit Button -->
 				<button pb-button color="primary" [disabled]="!selectedType1()" (click)="submitAction()"
-					class="h-full px-xl">
+					class="submit-button">
 					決定
 				</button>
 			</div>
