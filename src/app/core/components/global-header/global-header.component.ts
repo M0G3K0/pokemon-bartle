@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'pb-global-header',
@@ -10,4 +10,9 @@ import { Component, Input } from '@angular/core';
 export class GlobalHeaderComponent {
   @Input({ required: true }) title!: string;
   @Input() description?: string;
+  @Input() variant: 'default' | 'sticky' = 'default';
+
+  @HostBinding('class.sticky') get isSticky() {
+    return this.variant === 'sticky';
+  }
 }

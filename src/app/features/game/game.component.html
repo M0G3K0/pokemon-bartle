@@ -1,53 +1,47 @@
 <!-- Layout: Stack (Vertical) -->
-<pb-layout type="stack" gap="none" class="bg-background-canvas min-h-screen relative">
+<pb-layout type="stack" gap="none" class="game-root">
 
 	<!-- 1. Header (Sticky) -->
-	<div class="sticky top-0 z-20 bg-background-canvas/90 backdrop-blur-sm shadow-sm">
-		<pb-global-header title="Pokémon Bartle">
-			<div actions class="flex items-center gap-sm">
-				<!-- Status Indicators - First item -->
-				<div class="hidden sm:flex items-center gap-xs text-text-secondary">
-					<span class="px-sm py-xs bg-gray-100 rounded text-xs font-bold uppercase tracking-wider">{{
-						difficulty() }}</span>
-				</div>
-
-				<!-- Sound Switch with Label (Compact) -->
-				<div class="flex items-center gap-[4px]">
-					<span class="text-text-secondary"
-						style="font-size: var(--pb-font-size-body-sm); font-weight: var(--pb-font-weight-regular);"
-						[style.opacity]="audioService.soundEnabled() ? '1' : '0.5'">Sound</span>
-					<pb-switch size="sm" [checked]="audioService.soundEnabled()"
-						(checkedChange)="audioService.setSoundEnabled($event)">
-					</pb-switch>
-				</div>
-
-				<pb-icon-button icon="help-circle" label="Help" (action)="toggleHelp()"></pb-icon-button>
-				<pb-icon-button icon="settings" label="Settings" (action)="toggleSettings()"></pb-icon-button>
+	<pb-global-header title="Pokémon Bartle" variant="sticky">
+		<div actions class="header-actions">
+			<!-- Status Indicators - Desktop only -->
+			<div class="difficulty-indicator">
+				<span class="difficulty-badge">{{ difficulty() }}</span>
 			</div>
-		</pb-global-header>
 
-		<!-- Mobile Status Bar (Visible only on small screens) -->
-		<div
-			class="sm:hidden flex items-center justify-between px-md py-xs bg-gray-50 border-b border-gray-100 text-xs text-text-secondary">
-			<span class="font-bold uppercase tracking-wider">{{ difficulty() }}</span>
+			<!-- Sound Switch with Label -->
+			<div class="sound-switch-group">
+				<span class="sound-label" [style.opacity]="audioService.soundEnabled() ? '1' : '0.5'">Sound</span>
+				<pb-switch size="sm" [checked]="audioService.soundEnabled()"
+					(checkedChange)="audioService.setSoundEnabled($event)">
+				</pb-switch>
+			</div>
+
+			<pb-icon-button icon="help-circle" label="Help" (action)="toggleHelp()"></pb-icon-button>
+			<pb-icon-button icon="settings" label="Settings" (action)="toggleSettings()"></pb-icon-button>
 		</div>
+	</pb-global-header>
+
+	<!-- Mobile Status Bar -->
+	<div class="mobile-status-bar">
+		<span>{{ difficulty() }}</span>
 	</div>
 
 	<!-- Main Content -->
-	<div class="w-full max-w-md mx-auto px-xs py-xs flex flex-col gap-sm">
+	<div class="game-content">
 
 		<!-- 2. History Area -->
-		<div class="flex flex-col gap-xs min-h-[200px]">
+		<div class="history-area">
 			<!-- Grid Flow Column for Vertical First Filling -->
-			<div class="grid grid-cols-2 grid-rows-5 grid-flow-col gap-x-sm gap-y-xs">
+			<div class="history-grid">
 				@for (item of history; track $index) {
 				@if (item) {
 				<pb-card type="compact-row" padding="auto">
 					<!-- Container with relative positioning -->
-					<div class="relative w-full h-full">
-						<!-- Left: Mode Icon (absolutely positioned) -->
-						<div class="absolute top-1/2 -translate-y-1/2 left-xs">
-							<div class="text-lg leading-none">
+					<div class="history-item-content">
+						<!-- Left: Mode Icon -->
+						<div class="history-mode-icon">
+							<div>
 								{{ item.mode === 'attack' ? '⚔️' : '❓' }}
 							</div>
 						</div>
@@ -65,28 +59,27 @@
 							[label]="getTypeLabel(item.type)" size="s"></pb-label-chip>
 						}
 
-						<!-- Center: Divider Arrow (absolutely centered) -->
-						<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+						<!-- Center: Divider Arrow -->
+						<div class="history-divider">
 							<pb-icon name="chevron-right" size="sm"></pb-icon>
 						</div>
 
 						<!-- Right: Outcome at 16% from center -->
-						<div class="absolute top-1/2 -translate-y-1/2" style="left: calc(50% + 16%);">
+						<div class="history-outcome">
 							@if (item.mode === 'solve') {
 							<!-- Solve Outcomes -->
-							<span class="text-lg leading-none">{{ item.outcome }}</span>
+							<span>{{ item.outcome }}</span>
 							} @else {
 							<!-- Attack Outcomes -->
 							@if (item.outcome === 'critical') {
-							<span class="text-lg leading-none">⭕</span>
+							<span>⭕</span>
 							}
 							@else if (item.outcome === 'effective') {
-							<span class="text-lg leading-none">⭕</span>
+							<span>⭕</span>
 							}
-							@else if (item.outcome === 'neutral') { <span
-								class="text-lg leading-none text-gray-300">⚪</span> }
-							@else if (item.outcome === 'resisted') { <span class="text-lg leading-none">🔺</span> }
-							@else if (item.outcome === 'immune') { <span class="text-lg leading-none">✖</span> }
+							@else if (item.outcome === 'neutral') { <span class="text-neutral">⚪</span> }
+							@else if (item.outcome === 'resisted') { <span>🔺</span> }
+							@else if (item.outcome === 'immune') { <span>✖</span> }
 							}
 						</div>
 					</div>
@@ -95,9 +88,9 @@
 				<!-- Standard Empty State: Standard Card with Placeholders -->
 				<pb-card type="compact-row" padding="auto" background="white">
 					<!-- Container with relative positioning -->
-					<div class="relative w-full h-full">
+					<div class="history-item-content">
 						<!-- Center: Divider Arrow (visible) -->
-						<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20">
+						<div class="history-empty-divider">
 							<pb-icon name="chevron-right" size="sm"></pb-icon>
 						</div>
 					</div>
@@ -108,55 +101,52 @@
 		</div>
 
 		<!-- 3. Control Area -->
-		<div class="flex flex-col gap-md">
+		<div class="control-area">
 
 			<!-- Staging Area (Preview) -->
 			<!-- Using customClass to match history card height and styles exact, but with staging background -->
 			<pb-card type="select-type" background="gray" class="transition-colors duration-300"
 				[style.background-color]="stagingBackgroundColor()">
 				<!-- Container with relative positioning -->
-				<div class="relative w-full h-full">
-					<!-- Left: Mode Icon (absolutely positioned, always visible) -->
-					<div class="absolute top-1/2 -translate-y-1/2" style="right: calc(50% + 84px);">
-						<div class="text-lg leading-none">
+				<div class="staging-content">
+					<!-- Left: Mode Icon -->
+					<div class="staging-mode-icon">
+						<div>
 							{{ mode() === 'attack' ? '⚔️' : '❓' }}
 						</div>
 					</div>
 
-					<!-- Left: Type chips (absolutely positioned, right-aligned from center) -->
+					<!-- Left: Type chips -->
 					@if (selectedType2(); as t2) {
-					<!-- Type 2: right edge at calc(50% - 20px) -->
-					<div class="absolute top-1/2 -translate-y-1/2" style="right: calc(50% + 20px);">
+					<div class="staging-chip-2">
 						<pb-label-chip [type]="t2" [iconOnly]="true" [label]="typeLabels[t2]" size="s"></pb-label-chip>
 					</div>
 					}
 
 					@if (selectedType1(); as t1) {
-					<!-- Type 1: always positioned at 56px from center (next to mode icon) -->
-					<div class="absolute top-1/2 -translate-y-1/2" style="right: calc(50% + 56px);">
+					<div class="staging-chip-1">
 						<pb-label-chip [type]="t1" [iconOnly]="true" [label]="typeLabels[t1]" size="s"></pb-label-chip>
 					</div>
 					}
 
-					<!-- Center: SELECT TYPE text (when empty) - Absolutely centered -->
+					<!-- Center: SELECT TYPE text (when empty) -->
 					@if (!selectedType1() && !selectedType2()) {
-					<span
-						class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xs text-text-tertiary font-bold pointer-events-none whitespace-nowrap">
+					<span class="staging-placeholder">
 						SELECT TYPE
 					</span>
 					}
 
-					<!-- Center: Divider Arrow (when selected) - Absolutely centered -->
+					<!-- Center: Divider Arrow (when selected) -->
 					@if (selectedType1() || selectedType2()) {
-					<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+					<div class="staging-arrow">
 						<pb-icon name="chevron-right" size="sm"></pb-icon>
 					</div>
 					}
 
 					<!-- Right of Arrow: Outcome Icon (when outcome available) -->
 					@if (stagingOutcome(); as outcome) {
-					<div class="absolute top-1/2 -translate-y-1/2" style="left: calc(50% + 20px);">
-						<span class="text-display leading-none font-bold">
+					<div class="staging-outcome">
+						<span>
 							@if (mode() === 'solve') {
 							<!-- Solve mode: 🟩/🟨/⬛ -->
 							@if (outcome === 'perfect') { 🟩 }
@@ -191,7 +181,7 @@
 			</pb-card>
 
 			<!-- Type Keyboard (Flex Wrap) -->
-			<div class="flex flex-wrap gap-[4px] justify-center">
+			<div class="type-keyboard">
 				@for (t of types; track t) {
 				<button pb-action-chip [type]="t" [attr.data-pokemon-type]="t" [label]="typeLabels[t]" size="s"
 					class="type-chip" [class.selected]="selectedType1() === t || selectedType2() === t"
@@ -201,20 +191,16 @@
 			</div>
 
 			<!-- Action Row -->
-			<div class="flex gap-md h-[48px]">
+			<div class="action-row">
 				<!-- Mode Selectors -->
-				<div class="flex-1 flex bg-gray-100 rounded-sm p-1 gap-1">
-					<button
-						class="flex-1 rounded-sm flex items-center justify-center gap-xs text-sm font-bold transition-colors"
-						[class.bg-white]="mode() === 'attack'" [class.shadow-sm]="mode() === 'attack'"
-						[class.text-gray-400]="mode() !== 'attack'" (click)="setMode('attack')">
+				<div class="mode-selector">
+					<button class="mode-button" [class.active]="mode() === 'attack'"
+						[class.inactive]="mode() !== 'attack'" (click)="setMode('attack')">
 						<span>⚔️</span>
 						<span>Attack</span>
 					</button>
-					<button
-						class="flex-1 rounded-sm flex items-center justify-center gap-xs text-sm font-bold transition-colors"
-						[class.bg-white]="mode() === 'solve'" [class.shadow-sm]="mode() === 'solve'"
-						[class.text-gray-400]="mode() !== 'solve'" (click)="setMode('solve')">
+					<button class="mode-button" [class.active]="mode() === 'solve'"
+						[class.inactive]="mode() !== 'solve'" (click)="setMode('solve')">
 						<span>❓</span>
 						<span>Solve</span>
 					</button>
@@ -222,7 +208,7 @@
 
 				<!-- Submit Button -->
 				<button pb-button color="primary" [disabled]="!selectedType1()" (click)="submitAction()"
-					class="h-full px-xl">
+					class="submit-button">
 					決定
 				</button>
 			</div>
@@ -230,78 +216,74 @@
 
 		<!-- 4. Auto-Memo & Manual Memo Area -->
 		<pb-card type="default" background="white" [borderThick]="true" padding="sm">
-			<div class="flex flex-col gap-md">
+			<div class="memo-container">
 				<!-- Top: Validation History lines -->
-				<div class="flex-1 flex flex-col gap-xs pb-sm border-b border-gray-100">
-					<h3
-						class="text-center text-xs font-bold text-gray-400 mb-xs uppercase tracking-widest leading-none">
-						History</h3>
+				<div class="memo-section history-section">
+					<h3 class="memo-section-title">History</h3>
 
 					<!-- Critical/Effective -->
-					<div class="flex items-center gap-xs">
-						<div class="w-[16px] text-center text-xs leading-none">⭕</div>
-						<div class="flex-1 min-h-[1px] bg-gray-100"></div>
-						<div class="flex gap-[2px] flex-wrap justify-end max-w-[70%]">
-							@for (t of memoData.critical; track t) { <span class="w-2 h-2 rounded-full"
-								[ngClass]="'bg-type-' + t + '-500'"></span> }
-							@for (t of memoData.effective; track t) { <span class="w-2 h-2 rounded-full"
-								[ngClass]="'bg-type-' + t + '-500'"></span> }
+					<div class="history-row">
+						<div class="history-label">⭕</div>
+						<div class="history-separator"></div>
+						<div class="history-chips">
+							@for (t of memoData.critical; track t) {
+							<span class="mini-chip" [attr.data-type]="t"></span>
+							}
+							@for (t of memoData.effective; track t) {
+							<span class="mini-chip" [attr.data-type]="t"></span>
+							}
 						</div>
 					</div>
 					<!-- Neutral -->
-					<div class="flex items-center gap-xs">
-						<div class="w-[16px] text-center text-xs text-gray-400 leading-none">⚪</div>
-						<div class="flex-1 min-h-[1px] bg-gray-100"></div>
-						<div class="flex gap-[2px] flex-wrap justify-end max-w-[70%]">
-							@for (t of memoData.neutral; track t) { <span class="w-2 h-2 rounded-full"
-								[ngClass]="'bg-type-' + t + '-500'"></span> }
+					<div class="history-row">
+						<div class="history-label text-gray">⚪</div>
+						<div class="history-separator"></div>
+						<div class="history-chips">
+							@for (t of memoData.neutral; track t) {
+							<span class="mini-chip" [attr.data-type]="t"></span>
+							}
 						</div>
 					</div>
 					<!-- Resisted -->
-					<div class="flex items-center gap-xs">
-						<div class="w-[16px] text-center text-xs leading-none">🔺</div>
-						<div class="flex-1 min-h-[1px] bg-gray-100"></div>
-						<div class="flex gap-[2px] flex-wrap justify-end max-w-[70%]">
-							@for (t of memoData.resisted; track t) { <span class="w-2 h-2 rounded-full"
-								[ngClass]="'bg-type-' + t + '-500'"></span> }
+					<div class="history-row">
+						<div class="history-label">🔺</div>
+						<div class="history-separator"></div>
+						<div class="history-chips">
+							@for (t of memoData.resisted; track t) {
+							<span class="mini-chip" [attr.data-type]="t"></span>
+							}
 						</div>
 					</div>
 					<!-- Immune -->
-					<div class="flex items-center gap-xs">
-						<div class="w-[16px] text-center text-xs leading-none">✖</div>
-						<div class="flex-1 min-h-[1px] bg-gray-100"></div>
-						<div class="flex gap-[2px] flex-wrap justify-end max-w-[70%]">
-							@for (t of memoData.immune; track t) { <span class="w-2 h-2 rounded-full"
-								[ngClass]="'bg-type-' + t + '-500'"></span> }
+					<div class="history-row">
+						<div class="history-label">✖</div>
+						<div class="history-separator"></div>
+						<div class="history-chips">
+							@for (t of memoData.immune; track t) {
+							<span class="mini-chip" [attr.data-type]="t"></span>
+							}
 						</div>
 					</div>
 				</div>
 
 				<!-- Bottom: Manual Memo Chips -->
-				<div class="flex-1">
-					<h3
-						class="text-center text-xs font-bold text-gray-400 mb-xs uppercase tracking-widest leading-none">
-						Memo</h3>
-					<div class="grid grid-cols-9 gap-[2px]">
+				<div class="memo-section">
+					<h3 class="memo-section-title">Memo</h3>
+					<div class="memo-grid">
 						@for (t of types; track t) {
-						<div class="relative w-full aspect-square flex items-center justify-center">
+						<div class="memo-item">
 							<button pb-action-chip [type]="t" [iconOnly]="true" [label]="typeLabels[t]" size="s"
-								class="w-full h-full" (action)="toggleChipState(t)">
+								class="memo-chip" (action)="toggleChipState(t)">
 							</button>
-
 
 							<!-- Overlay Icon -->
 							@if (chipStates[t] === 'cross') {
-							<div
-								class="absolute inset-0 z-10 bg-transparent flex items-center justify-center pointer-events-none">
-								<img src="assets/icons/ui/x.svg" alt="Cross mark"
-									class="w-[65%] h-[65%] brightness-200 contrast-200 drop-shadow-md">
+							<div class="memo-overlay">
+								<img src="assets/icons/ui/x.svg" alt="Cross mark" class="memo-overlay-icon">
 							</div>
 							} @else if (chipStates[t] === 'circle') {
-							<div
-								class="absolute inset-0 z-10 bg-transparent flex items-center justify-center pointer-events-none">
-								<img src="assets/icons/ui/circle.svg" alt="Circle mark"
-									class="w-[65%] h-[65%] brightness-200 contrast-200 drop-shadow-md">
+							<div class="memo-overlay">
+								<img src="assets/icons/ui/circle.svg" alt="Circle mark" class="memo-overlay-icon">
 							</div>
 							}
 						</div>
@@ -318,22 +300,22 @@
 
 <!-- Dialogs -->
 <pb-modal [isOpen]="isHelpOpen()" title="How to Play" (close)="toggleHelp()">
-	<div class="flex flex-col gap-md text-text-primary">
-		<h3 class="text-token-title-s">How To Play</h3>
-		<p class="mb-sm">ポケモンの「タイプ」を当てる論理パズルゲームです、攻撃して相性を確かめ、正解のタイプを特定しましょう。</p>
+	<div class="modal-content">
+		<h3 class="modal-title">How To Play</h3>
+		<p class="modal-text">ポケモンの「タイプ」を当てる論理パズルゲームです、攻撃して相性を確かめ、正解のタイプを特定しましょう。</p>
 
-		<h4 class="font-bold border-b border-gray-200 pb-xs mb-xs">判定方法</h4>
-		<section class="space-y-sm">
+		<h4 class="section-header">判定方法</h4>
+		<section class="help-section">
 			<div>
-				<div class="flex items-center gap-xs font-bold">
-					<span class="text-body-md-bold">e.g.)⚔️Attack</span>
+				<div class="help-example">
+					<span>e.g.)⚔️Attack</span>
 					<pb-label-chip type="water" label="みず" size="s"></pb-label-chip>
 				</div>
-				<div class="text-xs text-text-secondary mt-xs">
+				<div class="help-example-desc">
 					<strong>結果：⭕（こうかは　ばつぐんだ！）</strong><br>
 					<strong>意味：</strong> 相手は「みず」タイプがのわざが弱点のようです。
 				</div>
-				<div class="bg-gray-50 border-l-4 border-gray-400 p-sm mt-xs text-xs flex flex-col gap-xs">
+				<div class="help-callout">
 					<div><strong>⭕（こうかは　ばつぐんだ！）</strong>: ダメージ2倍以上です。</div>
 					<div><strong>⚪（等倍、なにもなし）</strong>: ダメージは1倍です。</div>
 					<div><strong>🔺（こうかは　いまひとつだ）</strong>: ダメージは半減以下です。</div>
@@ -341,19 +323,19 @@
 				</div>
 			</div>
 			<br>
-			<div class="mt-sm">
-				<div class="flex ms-center gap-xs font-bold">
-					<span class="text-body-md-bold">e.g.)❓Solve</span>
-					<div class="flex gap-xs">
+			<div>
+				<div class="help-example">
+					<span>e.g.)❓Solve</span>
+					<div class="result-chips">
 						<pb-label-chip type="dragon" label="ドラゴン" size="s"></pb-label-chip>
 						<pb-label-chip type="fairy" label="フェアリー" size="s"></pb-label-chip>
 					</div>
 				</div>
-				<div class="text-xs text-text-secondary mt-xs">
+				<div class="help-example-desc">
 					<strong>結果：🟨 (Close)</strong><br>
 					<strong>意味：</strong>相手は「ドラゴン」か「フェアリー」の片方だけを持ってます。
 				</div>
-				<div class="bg-gray-50 border-l-4 border-gray-400 p-sm mt-xs text-xs flex flex-col gap-xs">
+				<div class="help-callout">
 					<div><strong>🟩 (Correct)</strong>: すべてのタイプが一致しました。クリアです🎉</div>
 					<div><strong>🟨 (Close)</strong>: ひとつのタイプだけあってます。</div>
 					<div><strong>⬛ (Miss)</strong>: 選んだタイプは含まれません。</div>
@@ -361,8 +343,8 @@
 			</div>
 		</section>
 
-		<h4 class="font-bold border-b border-gray-200 pb-xs mb-xs mt-md">補足ルール</h4>
-		<ul class="list-disc list-inside space-y-xs text-sm">
+		<h4 class="section-header section-header-mt">補足ルール</h4>
+		<ul class="help-list">
 			<li>正解は「単タイプ」また「複合タイプ」全171通りから選ばれます。</li>
 			<li>複合タイプの順番は関係ありません。入れ替えても同じ扱いです。</li>
 			<li>「ふゆう」「ちくでん」などの特性や、「ひかりのこな」などの持ち物による効果は考慮しません。</li>
@@ -371,8 +353,8 @@
 			<li>ふつうの難易度のNORMALモードのほかに、やさしめなEASYモードと、むずかしめなMASTERモードがあります。</li>
 		</ul>
 
-		<div class="bg-gray-50 border-l-4 border-gray-400 p-sm mt-md text-xs">
-			<div class="font-bold mb-xs">難易度による違い</div>
+		<div class="help-callout">
+			<div class="section-header">難易度による違い</div>
 			<p>
 				<strong>NORMALモード</strong>：10回までに正解を当てることがクリアの条件になります。<br>
 				<strong>MASTERモード</strong>：6回が回数上限になります。また、❓Solveで回答できるのがが1回きりになります。<br>
@@ -380,7 +362,7 @@
 			</p>
 		</div>
 
-		<div class="mt-lg pt-md border-t border-gray-200 text-xs text-text-tertiary">
+		<div class="help-footer">
 			<p>©2025 Pokémon. ©1995-2025 Nintendo/Creatures Inc./GAME FREAK inc.</p>
 			<p>本サイトでは、「Pokémon Game Sound Library」の利用規約に同意したうえで、当サイトで配布された音源を利用しています。</p>
 			<p>当サイトは個人が運営するファンサイトであり、株式会社ポケモン様を始めとした公式団体とは一切関係ありません。</p>
@@ -389,37 +371,34 @@
 </pb-modal>
 
 <pb-modal [isOpen]="isSettingsOpen()" title="Settings" [showFooter]="true" (close)="cancelSettings()">
-	<div class="flex flex-col gap-md">
-		<h3 class="text-sm font-bold text-text-secondary uppercase tracking-wider">Difficulty</h3>
-		<div class="flex flex-col gap-sm">
-			<button
-				class="difficulty-card flex items-center justify-between p-md rounded border border-gray-200 hover:bg-gray-50 transition-colors"
-				[class.selected]="tempDifficulty() === 'easy'" (click)="tempDifficulty.set('easy')">
-				<div class="text-left">
-					<div class="font-bold">EASY</div>
-					<div class="text-xs text-text-secondary">Shows exact multipliers (x4, x2). Best for learning.</div>
+	<div class="modal-content">
+		<h3 class="settings-section-title">Difficulty</h3>
+		<div class="settings-options">
+			<button class="difficulty-card" [class.selected]="tempDifficulty() === 'easy'"
+				(click)="tempDifficulty.set('easy')">
+				<div>
+					<div class="difficulty-title">EASY</div>
+					<div class="difficulty-desc">Shows exact multipliers (x4, x2). Best for learning.</div>
 				</div>
 			</button>
-			<button
-				class="difficulty-card flex items-center justify-between p-md rounded border border-gray-200 hover:bg-gray-50 transition-colors"
-				[class.selected]="tempDifficulty() === 'normal'" (click)="tempDifficulty.set('normal')">
-				<div class="text-left">
-					<div class="font-bold">NORMAL</div>
-					<div class="text-xs text-text-secondary">Standard rules. Hides multipliers. 10 Turns.</div>
+			<button class="difficulty-card" [class.selected]="tempDifficulty() === 'normal'"
+				(click)="tempDifficulty.set('normal')">
+				<div>
+					<div class="difficulty-title">NORMAL</div>
+					<div class="difficulty-desc">Standard rules. Hides multipliers. 10 Turns.</div>
 				</div>
 			</button>
-			<button
-				class="difficulty-card flex items-center justify-between p-md rounded border border-gray-200 hover:bg-gray-50 transition-colors"
-				[class.selected]="tempDifficulty() === 'master'" (click)="tempDifficulty.set('master')">
-				<div class="text-left">
-					<div class="font-bold">MASTER</div>
-					<div class="text-xs text-text-secondary">Hardcore. 6 Turns. One-Shot Answer only.</div>
+			<button class="difficulty-card" [class.selected]="tempDifficulty() === 'master'"
+				(click)="tempDifficulty.set('master')">
+				<div>
+					<div class="difficulty-title">MASTER</div>
+					<div class="difficulty-desc">Hardcore. 6 Turns. One-Shot Answer only.</div>
 				</div>
 			</button>
 		</div>
 	</div>
 
-	<div footer class="w-full flex justify-end gap-sm">
+	<div footer class="modal-footer">
 		<button pb-button color="secondary" pattern="filled" (click)="cancelSettings()">Cancel</button>
 		<button pb-button color="primary" pattern="filled" (click)="applySettings()">Apply</button>
 	</div>
@@ -428,27 +407,24 @@
 <!-- Result Modal -->
 <pb-modal [isOpen]="isGameOver()" [title]="gameResult() === 'win' ? 'WINNER!' : 'GAME OVER'" [showHeader]="false"
 	(close)="startGame()">
-	<div class="p-0 overflow-hidden">
+	<div class="result-content">
 		<!-- Header -->
-		<div class="p-xl text-center" [class.bg-result-win-bg]="gameResult() === 'win'"
-			[class.bg-result-lose-bg]="gameResult() === 'lose'">
-			<div class="text-4xl mb-sm transform hover:scale-110 transition-transform cursor-default">
+		<div class="result-header" [class.win]="gameResult() === 'win'" [class.lose]="gameResult() === 'lose'">
+			<div class="result-emoji">
 				{{ gameResult() === 'win' ? '🎉' : '💀' }}
 			</div>
-			<h2 class="text-title-l font-black uppercase tracking-widest"
-				[class.text-result-win-text]="gameResult() === 'win'"
-				[class.text-result-lose-text]="gameResult() === 'lose'">
+			<h2 class="result-title" [class.win]="gameResult() === 'win'" [class.lose]="gameResult() === 'lose'">
 				{{ gameResult() === 'win' ? 'YOU WIN!' : 'GAME OVER' }}
 			</h2>
-			<p class="text-body-sm text-text-secondary mt-xs font-bold">
+			<p class="result-subtitle">
 				{{ gameResult() === 'win' ? 'Target Captured!' : 'Target Escaped...' }}
 			</p>
 		</div>
 
 		<!-- Result Details -->
-		<div class="p-lg border-t border-b border-gray-100 bg-gray-50/50">
-			<p class="text-xs font-bold text-center text-text-tertiary uppercase tracking-widest mb-sm">TARGET WAS</p>
-			<div class="flex justify-center gap-sm">
+		<div class="result-details">
+			<p class="result-label">TARGET WAS</p>
+			<div class="result-chips">
 				@for (t of target; track t) {
 				<pb-label-chip [type]="t" [label]="typeLabels[t]" size="m"></pb-label-chip>
 				}
@@ -456,13 +432,12 @@
 		</div>
 
 		<!-- Actions -->
-		<div class="p-lg flex flex-col gap-sm">
-			<button pb-button color="primary" pattern="filled" class="w-full h-[48px] text-lg shadow-md"
+		<div class="result-actions">
+			<button pb-button color="primary" pattern="filled" class="result-btn result-btn-primary"
 				(click)="startGame()">
 				PLAY AGAIN
 			</button>
-			<button pb-button color="secondary" pattern="outline"
-				class="w-full h-[48px] text-lg shadow-sm flex items-center justify-center gap-xs"
+			<button pb-button color="secondary" pattern="outline" class="result-btn result-btn-secondary"
 				(click)="shareResult()">
 				<pb-icon name="file-copy" size="sm"></pb-icon>
 				<span>Share Result</span>
