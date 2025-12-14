@@ -21,19 +21,24 @@
 例: feat: add sound effects and toggle switch
 
 ## 💡 概要
-Dependabotの設定を見直し、PRの大量生成を防ぐためにグループ化設定を追加。
+`game.component.html` のMemo Area（Historyカードとメモエリア）からTailwind CSSを完全に削除し、SCSSとデザインシステムに置き換えました。
 
 ## 📝 変更内容
-- `dependabot.yml` を更新
-  - **グループ化**: Angular, Testing, TypeScript, ESLint, GitHub Actions関連をそれぞれグループ化
-  - **スケジュール**: 毎週土曜日に実行するように設定
-  - **ラベル**: `chore` (npm), `ci` (actions) を付与
+- **Historyセクション**:
+  - `.memo-section`, `.history-section` を定義
+  - `.memo-section-title` を定義（統一されたタイトルスタイル）
+  - `.history-row`, `.history-label`, `.history-separator`, `.history-chips` を定義
+  - `.mini-chip` + `data-type` 属性で動的なタイプカラーを適用（`@each`ループで生成）
+- **Memoグリッド**:
+  - `.memo-grid`, `.memo-item`, `.memo-chip` を定義
+  - `.memo-overlay`, `.memo-overlay-icon` を定義（オーバーレイアイコン）
+  - `pb-action-chip` を維持しつつ、ラッパー要素のTailwindを削除
 
 ## 🔗 関連Issue
-Closes #18
+Related to #19
 
 ## 📷 スクリーンショット（該当する場合）
-N/A
+ローカル開発サーバーで動作確認済み
 
 ## ✅ チェックリスト
 - [x] ビルドが成功する（`npm run build`）
@@ -56,4 +61,4 @@ N/A
 | **nits** | nitpick | 些細な指摘（重箱の隅をつつくの意味） |
 
 ## 📌 補足事項
-このPRがマージされると、既存のDependabot PRは（次回実行時に）新しいグループ化されたPRに置き換わる形で整理されることが期待されます。
+このPRで `game.component.html` からのTailwind削除がほぼ完了します。残りはモーダル/ダイアログ部分のみです。
