@@ -1,13 +1,9 @@
-<!-- Layout: Stack (Vertical) -->
+﻿<!-- Layout: Stack (Vertical) -->
 <pb-layout type="stack" gap="none" class="game-root">
 
 	<!-- 1. Header (Sticky) -->
 	<pb-global-header title="Pokémon Bartle" variant="sticky">
 		<div actions class="header-actions">
-			<!-- Status Indicators - Desktop only -->
-			<div class="difficulty-indicator">
-				<span class="difficulty-badge">{{ difficulty() }}</span>
-			</div>
 
 			<!-- Sound Switch with Label -->
 			<div class="sound-switch-group">
@@ -21,11 +17,6 @@
 			<pb-icon-button icon="settings" label="Settings" (action)="toggleSettings()"></pb-icon-button>
 		</div>
 	</pb-global-header>
-
-	<!-- Mobile Status Bar -->
-	<div class="mobile-status-bar">
-		<span>{{ difficulty() }}</span>
-	</div>
 
 	<!-- Main Content -->
 	<div class="game-content">
@@ -154,7 +145,7 @@
 							@else { ⬛ }
 							} @else {
 							<!-- Attack mode -->
-							@if (difficulty() === 'easy' && stagingMultiplier() !== null) {
+							@if (difficulty() === 'pichu' && stagingMultiplier() !== null) {
 							<!-- Easy mode: Show multiplier -->
 							@if (stagingMultiplier() === 4) { ×4 }
 							@else if (stagingMultiplier() === 2) { ×2 }
@@ -374,24 +365,24 @@
 	<div class="modal-content">
 		<h3 class="settings-section-title">Difficulty</h3>
 		<div class="settings-options">
-			<button class="difficulty-card" [class.selected]="tempDifficulty() === 'easy'"
-				(click)="tempDifficulty.set('easy')">
+			<button class="difficulty-card" [class.selected]="tempDifficulty() === 'pichu'"
+				(click)="tempDifficulty.set('pichu')">
 				<div>
-					<div class="difficulty-title">EASY</div>
+					<div class="difficulty-title">ピチュー級</div>
 					<div class="difficulty-desc">Shows exact multipliers (x4, x2). Best for learning.</div>
 				</div>
 			</button>
-			<button class="difficulty-card" [class.selected]="tempDifficulty() === 'normal'"
-				(click)="tempDifficulty.set('normal')">
+			<button class="difficulty-card" [class.selected]="tempDifficulty() === 'arcanine'"
+				(click)="tempDifficulty.set('arcanine')">
 				<div>
-					<div class="difficulty-title">NORMAL</div>
+					<div class="difficulty-title">ウインディ級</div>
 					<div class="difficulty-desc">Standard rules. Hides multipliers. 10 Turns.</div>
 				</div>
 			</button>
-			<button class="difficulty-card" [class.selected]="tempDifficulty() === 'master'"
-				(click)="tempDifficulty.set('master')">
+			<button class="difficulty-card" [class.selected]="tempDifficulty() === 'garchomp'"
+				(click)="tempDifficulty.set('garchomp')">
 				<div>
-					<div class="difficulty-title">MASTER</div>
+					<div class="difficulty-title">ガブリアス級</div>
 					<div class="difficulty-desc">Hardcore. 6 Turns. One-Shot Answer only.</div>
 				</div>
 			</button>
