@@ -214,46 +214,54 @@
 
 					<!-- Critical/Effective -->
 					<div class="history-row">
-						<div class="history-label">⭕</div>
-						<div class="history-separator"></div>
-						<div class="history-chips">
-							@for (t of memoData.critical; track t) {
-							<span class="mini-chip" [attr.data-type]="t"></span>
-							}
-							@for (t of memoData.effective; track t) {
-							<span class="mini-chip" [attr.data-type]="t"></span>
-							}
+						<div class="history-content">
+							<div class="history-emoji">⭕</div>
+							<div class="history-chips">
+								@for (t of memoData.critical; track t) {
+								<pb-label-chip [type]="t" [iconOnly]="true" size="s"></pb-label-chip>
+								}
+								@for (t of memoData.effective; track t) {
+								<pb-label-chip [type]="t" [iconOnly]="true" size="s"></pb-label-chip>
+								}
+							</div>
 						</div>
+						<div class="history-separator"></div>
 					</div>
 					<!-- Neutral -->
 					<div class="history-row">
-						<div class="history-label text-gray">⚪</div>
-						<div class="history-separator"></div>
-						<div class="history-chips">
-							@for (t of memoData.neutral; track t) {
-							<span class="mini-chip" [attr.data-type]="t"></span>
-							}
+						<div class="history-content">
+							<div class="history-emoji">⚪</div>
+							<div class="history-chips">
+								@for (t of memoData.neutral; track t) {
+								<pb-label-chip [type]="t" [iconOnly]="true" size="s"></pb-label-chip>
+								}
+							</div>
 						</div>
+						<div class="history-separator"></div>
 					</div>
 					<!-- Resisted -->
 					<div class="history-row">
-						<div class="history-label">🔺</div>
-						<div class="history-separator"></div>
-						<div class="history-chips">
-							@for (t of memoData.resisted; track t) {
-							<span class="mini-chip" [attr.data-type]="t"></span>
-							}
+						<div class="history-content">
+							<div class="history-emoji">🔺</div>
+							<div class="history-chips">
+								@for (t of memoData.resisted; track t) {
+								<pb-label-chip [type]="t" [iconOnly]="true" size="s"></pb-label-chip>
+								}
+							</div>
 						</div>
+						<div class="history-separator"></div>
 					</div>
 					<!-- Immune -->
 					<div class="history-row">
-						<div class="history-label">✖</div>
-						<div class="history-separator"></div>
-						<div class="history-chips">
-							@for (t of memoData.immune; track t) {
-							<span class="mini-chip" [attr.data-type]="t"></span>
-							}
+						<div class="history-content">
+							<div class="history-emoji">✖</div>
+							<div class="history-chips">
+								@for (t of memoData.immune; track t) {
+								<pb-label-chip [type]="t" [iconOnly]="true" size="s"></pb-label-chip>
+								}
+							</div>
 						</div>
+						<div class="history-separator"></div>
 					</div>
 				</div>
 
