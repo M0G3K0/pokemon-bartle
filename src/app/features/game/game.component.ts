@@ -39,18 +39,20 @@ export class GameComponent implements OnInit {
   private cdr = inject(ChangeDetectorRef);
 
   // Game Settings & State
-  difficulty = signal<'pichu' | 'arcanine' | 'garchomp'>('arcanine');
-  tempDifficulty = signal<'pichu' | 'arcanine' | 'garchomp'>('arcanine'); // For Modal state
+  difficulty = signal<'magikarp' | 'pichu' | 'arcanine' | 'garchomp'>('arcanine');
+  tempDifficulty = signal<'magikarp' | 'pichu' | 'arcanine' | 'garchomp'>('arcanine'); // For Modal state
   mode = signal<'attack' | 'solve'>('attack');
 
   // Difficulty display labels and icons
-  difficultyLabels: Record<'pichu' | 'arcanine' | 'garchomp', string> = {
+  difficultyLabels: Record<'magikarp' | 'pichu' | 'arcanine' | 'garchomp', string> = {
+    magikarp: 'コイキング級',
     pichu: 'ピチュー級',
     arcanine: 'ウインディ級',
     garchomp: 'ガブリアス級'
   };
 
-  difficultyEmojis: Record<'pichu' | 'arcanine' | 'garchomp', string> = {
+  difficultyEmojis: Record<'magikarp' | 'pichu' | 'arcanine' | 'garchomp', string> = {
+    magikarp: '🐟',
     pichu: '⚡',
     arcanine: '🔥',
     garchomp: '🐉'
@@ -132,7 +134,7 @@ export class GameComponent implements OnInit {
     // Stop win sound when starting a new game
     this.audioService.stopWinSound();
 
-    this.target = this.gameEngine.generateTarget();
+    this.target = this.gameEngine.generateTarget(this.difficulty() === 'magikarp');
     this.history = Array(this.maxTurns()).fill(null); // Reset history based on max turns
     this.currentTurn.set(1);
     this.isGameOver.set(false);

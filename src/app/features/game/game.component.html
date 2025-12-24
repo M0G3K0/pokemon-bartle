@@ -373,6 +373,13 @@
 	<div class="modal-content">
 		<h3 class="settings-section-title">Difficulty</h3>
 		<div class="settings-options">
+			<button class="difficulty-card" [class.selected]="tempDifficulty() === 'magikarp'"
+				(click)="tempDifficulty.set('magikarp')">
+				<div>
+					<div class="difficulty-title">コイキング級</div>
+					<div class="difficulty-desc">Single Type only. 10 Turns. Great for beginners.</div>
+				</div>
+			</button>
 			<button class="difficulty-card" [class.selected]="tempDifficulty() === 'pichu'"
 				(click)="tempDifficulty.set('pichu')">
 				<div>
