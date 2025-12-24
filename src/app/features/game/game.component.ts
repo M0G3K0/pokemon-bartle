@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal, ChangeDetectorRef } from '@angular/core';
+﻿import { Component, computed, inject, OnInit, signal, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutComponent } from '../../core/components/layout/layout.component';
 import { GlobalHeaderComponent } from '../../core/components/global-header/global-header.component';
@@ -39,13 +39,26 @@ export class GameComponent implements OnInit {
   private cdr = inject(ChangeDetectorRef);
 
   // Game Settings & State
-  difficulty = signal<'easy' | 'normal' | 'master'>('normal');
-  tempDifficulty = signal<'easy' | 'normal' | 'master'>('normal'); // For Modal state
+  difficulty = signal<'pichu' | 'arcanine' | 'garchomp'>('arcanine');
+  tempDifficulty = signal<'pichu' | 'arcanine' | 'garchomp'>('arcanine'); // For Modal state
   mode = signal<'attack' | 'solve'>('attack');
+
+  // Difficulty display labels and icons
+  difficultyLabels: Record<'pichu' | 'arcanine' | 'garchomp', string> = {
+    pichu: 'ピチュー級',
+    arcanine: 'ウインディ級',
+    garchomp: 'ガブリアス級'
+  };
+
+  difficultyEmojis: Record<'pichu' | 'arcanine' | 'garchomp', string> = {
+    pichu: '⚡',
+    arcanine: '🔥',
+    garchomp: '🐉'
+  };
 
   // Turn State
   currentTurn = signal(1);
-  maxTurns = computed(() => this.difficulty() === 'master' ? 6 : 10);
+  maxTurns = computed(() => this.difficulty() === 'garchomp' ? 6 : 10);
   isGameOver = signal(false);
   gameResult = signal<'win' | 'lose' | null>(null);
 
@@ -282,8 +295,8 @@ export class GameComponent implements OnInit {
         this.gameResult.set('win');
         // Play win sound
         this.audioService.playWinSound();
-      } else if (this.difficulty() === 'master') {
-        // Master Mode: One-Shot Answer Rule
+      } else if (this.difficulty() === 'garchomp') {
+        // Garchomp Mode: One-Shot Answer Rule
         this.isGameOver.set(true);
         this.gameResult.set('lose');
       }
