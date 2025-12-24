@@ -44,7 +44,7 @@ export class GameEngineService {
 	 * Valid combinations: 171 total (18 single + 153 dual).
 	 * @param singleTypeOnly If true, only generates single-type configurations (18 total).
 	 */
-	generateTarget(singleTypeOnly: boolean = false): PokemonType[] {
+	generateTarget(singleTypeOnly = false): PokemonType[] {
 		if (singleTypeOnly) {
 			const index = Math.floor(Math.random() * ALL_TYPES.length);
 			return [ALL_TYPES[index]];
