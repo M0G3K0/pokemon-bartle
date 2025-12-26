@@ -73,8 +73,7 @@ export class GameComponent implements OnInit {
   // Staging Preview Outcome
   stagingOutcome = signal<'critical' | 'effective' | 'neutral' | 'resisted' | 'immune' | 'perfect' | 'partial' | 'none' | null>(null);
   stagingMultiplier = signal<number | null>(null); // For easy mode
-  isShowingFeedback = signal(false);
-  isFeedbackFadingOut = signal(false); // Controls fade-out animation
+
 
   // Computed staging background color
   stagingBackgroundColor = computed(() => {
@@ -177,7 +176,7 @@ export class GameComponent implements OnInit {
   // Actions
   selectType(type: PokemonType) {
     if (this.isGameOver()) return;
-    if (this.isShowingFeedback()) return; // Prevent selection during feedback
+
 
     if (this.mode() === 'attack') {
       if (this.selectedType1() === type) {
@@ -205,7 +204,7 @@ export class GameComponent implements OnInit {
 
   setMode(m: 'attack' | 'solve') {
     if (this.isGameOver()) return;
-    if (this.isShowingFeedback()) return; // Prevent mode switch during feedback
+
     this.mode.set(m);
     // Clear second type when switching to attack mode
     if (m === 'attack' && this.selectedType2()) {
@@ -262,17 +261,12 @@ export class GameComponent implements OnInit {
 
   submitAction() {
     if (this.isGameOver()) return;
-    if (this.isShowingFeedback()) return; // Prevent submit during feedback
 
     const type1 = this.selectedType1();
     const type2 = this.selectedType2();
 
     // Check validity
     if (!type1) return; // Both modes require at least type1
-
-    // Show feedback immediately upon submission
-    this.updateStagingPreview();
-    this.cdr.detectChanges();
 
     // Find current empty slot (should correspond to currentTurn - 1)
     const index = this.currentTurn() - 1;
@@ -333,26 +327,11 @@ export class GameComponent implements OnInit {
       }
     }
 
-    // Show feedback for 0.5 second (200ms visible + 300ms fade-out)
-    this.isShowingFeedback.set(true);
-    this.isFeedbackFadingOut.set(false);
-
-    // Start fade-out after 200ms
-    setTimeout(() => {
-      this.isFeedbackFadingOut.set(true);
-      this.cdr.detectChanges();
-    }, 200);
-
-    // Clear after full 0.5 second (including fade-out animation)
-    setTimeout(() => {
-      this.selectedType1.set(null);
-      this.selectedType2.set(null);
-      this.stagingOutcome.set(null);
-      this.stagingMultiplier.set(null);
-      this.isShowingFeedback.set(false);
-      this.isFeedbackFadingOut.set(false);
-      this.cdr.detectChanges();
-    }, 500);
+    // Clear selections immediately after submission
+    this.selectedType1.set(null);
+    this.selectedType2.set(null);
+    this.stagingOutcome.set(null);
+    this.stagingMultiplier.set(null);
   }
 
   updateMemo(type: PokemonType, outcome: string) {

@@ -176,7 +176,7 @@
 				@for (t of types; track t) {
 				<button pb-action-chip [type]="t" [attr.data-pokemon-type]="t" [label]="typeLabels[t]" size="s"
 					class="type-chip" [class.selected]="selectedType1() === t || selectedType2() === t"
-					[class.pointer-events-none]="isShowingFeedback()" (action)="selectType(t)">
+					(action)="selectType(t)">
 				</button>
 				}
 			</div>
