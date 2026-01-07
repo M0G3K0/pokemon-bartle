@@ -132,7 +132,7 @@ export class GameComponent implements OnInit {
     immune: [] as PokemonType[]
   };
 
-  chipStates: Record<string, 'none' | 'cross' | 'circle'> = {};
+  chipStates: Record<string, 'none' | 'cross' | 'circle' | 'double-circle'> = {};
 
   ngOnInit() {
     this.initializeChipStates();
@@ -143,8 +143,10 @@ export class GameComponent implements OnInit {
     this.chipStates = this.types.reduce((acc, t) => {
       acc[t] = 'none';
       return acc;
-    }, {} as Record<string, 'none' | 'cross' | 'circle'>);
+    }, {} as Record<string, 'none' | 'cross' | 'circle' | 'double-circle'>);
   }
+
+
 
   startGame() {
     // Stop win sound when starting a new game
@@ -231,9 +233,10 @@ export class GameComponent implements OnInit {
 
   toggleChipState(type: PokemonType) {
     const current = this.chipStates[type];
-    const sequence: Record<string, 'none' | 'cross' | 'circle'> = {
-      'none': 'circle', // Spec: None -> Circle -> Cross -> None? User said Circle/Cross
-      'circle': 'cross',
+    const sequence: Record<string, 'none' | 'cross' | 'circle' | 'double-circle'> = {
+      'none': 'circle',
+      'circle': 'double-circle',
+      'double-circle': 'cross',
       'cross': 'none'
     };
     // Immutable update to trigger change detection
