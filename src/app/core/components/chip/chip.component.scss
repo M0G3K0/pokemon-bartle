@@ -84,6 +84,22 @@ button:host {
 	padding: 0;
 }
 
+/* Extra Small Size - for compact layouts like type charts */
+:host.size-xs {
+	height: 20px;
+	font-size: var(--pb-font-size-body-xs);
+	/* 10px */
+	line-height: var(--pb-line-height-relaxed);
+	padding: 0 6px;
+	gap: var(--pb-spacing-xs);
+	/* 4px */
+}
+
+:host.size-xs.icon-only {
+	width: 20px;
+	padding: 0;
+}
+
 /* ============================================
  * RADIUS VARIANTS
  * ============================================ */
@@ -115,6 +131,11 @@ button:host {
 :host.size-s .icon-wrapper {
 	width: 16px;
 	height: 16px;
+}
+
+:host.size-xs .icon-wrapper {
+	width: 14px;
+	height: 14px;
 }
 
 /* ============================================

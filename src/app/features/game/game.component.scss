@@ -1,4 +1,4 @@
-﻿/* ============================================
+/* ============================================
  * GAME COMPONENT CUSTOM STYLES
  * Using CSS Variables from Design Tokens
  * ============================================ */
@@ -246,7 +246,7 @@ pb-card[type="compact-row"] {
 	left: var(--pb-spacing-xs);
 
 	div {
-		font-size: var(--pb-font-size-lg);
+
 		line-height: 1;
 	}
 }
@@ -265,7 +265,7 @@ pb-card[type="compact-row"] {
 	left: calc(50% + 16%);
 
 	span {
-		font-size: var(--pb-font-size-lg);
+
 		line-height: 1;
 
 		&.text-neutral {
@@ -319,7 +319,7 @@ pb-card[type="compact-row"] {
 	right: calc(50% + 84px);
 
 	div {
-		font-size: var(--pb-font-size-lg);
+
 		line-height: 1;
 	}
 }
@@ -756,7 +756,7 @@ pb-card[type="compact-row"] {
 .result-btn {
 	width: 100%;
 	height: 48px;
-	font-size: var(--pb-font-size-lg);
+
 }
 
 .result-btn-primary {
@@ -793,4 +793,649 @@ pb-card[type="compact-row"] {
 	font-size: var(--pb-font-size-body-sm);
 	font-weight: var(--pb-font-weight-medium);
 	white-space: nowrap;
+}
+
+/* ============================================
+ * TYPE CHART MODAL STYLES
+ * ============================================ */
+
+.type-chart-content {
+	display: flex;
+	flex-direction: column;
+	gap: var(--pb-spacing-md);
+	max-height: 80vh;
+	overflow: visible;
+}
+
+.type-chart-table-wrapper {
+	overflow-x: auto;
+	border-radius: var(--pb-radius-sm);
+	border: 1px solid var(--pb-border-default);
+	max-width: 90vw;
+}
+
+.type-chart-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: var(--pb-font-size-caption);
+	background-color: var(--pb-background-default);
+
+	// CSS variables for hover tracking
+	--hover-row: -1;
+	--hover-col: -1;
+}
+
+.type-chart-corner {
+	background-color: var(--pb-background-subtle);
+	border: 1px solid var(--pb-border-default);
+	padding: var(--pb-spacing-xs);
+	position: sticky;
+	left: 0;
+	top: 0;
+	z-index: 3;
+	min-width: 40px;
+	width: 40px;
+}
+
+.corner-label {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+	font-size: 9px;
+	color: var(--pb-text-tertiary);
+	font-weight: var(--pb-font-weight-bold);
+}
+
+.type-chart-header {
+	background-color: var(--pb-background-subtle);
+	border: 1px solid var(--pb-border-default);
+	padding: var(--pb-spacing-2xs);
+	text-align: center;
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	min-width: 32px;
+	width: 32px;
+	transition: background-color 0.15s ease;
+	cursor: pointer;
+
+	&:hover {
+		background-color: var(--pb-color-gray-200);
+	}
+}
+
+.type-chart-row-header {
+	background-color: var(--pb-background-subtle);
+	border: 1px solid var(--pb-border-default);
+	padding: var(--pb-spacing-2xs);
+	text-align: center;
+	position: sticky;
+	left: 0;
+	z-index: 1;
+	white-space: nowrap;
+	min-width: 40px;
+	width: 40px;
+	transition: background-color 0.15s ease;
+	cursor: pointer;
+
+	&:hover {
+		background-color: var(--pb-color-gray-200);
+	}
+}
+
+.type-chart-cell {
+	border: 1px solid var(--pb-border-subtle);
+	padding: var(--pb-spacing-2xs);
+	text-align: center;
+	min-width: 32px;
+	width: 32px;
+	height: 32px;
+	transition: all 0.15s ease;
+	cursor: pointer;
+	position: relative;
+
+	// Color coding based on effectiveness
+	&[data-effectiveness="0"] {
+		background-color: var(--pb-color-lose-100);
+		color: var(--pb-color-lose-600);
+	}
+
+	&[data-effectiveness="0.25"],
+	&[data-effectiveness="0.5"] {
+		background-color: var(--pb-color-type-electric-100);
+		color: var(--pb-color-type-electric-700);
+	}
+
+	&[data-effectiveness="1"] {
+		background-color: var(--pb-background-default);
+		color: var(--pb-text-secondary);
+	}
+
+	&[data-effectiveness="2"],
+	&[data-effectiveness="4"] {
+		background-color: var(--pb-color-win-100);
+		color: var(--pb-color-win-700);
+	}
+
+	// Hover effect - darken the cell
+	&:hover {
+		filter: brightness(0.85);
+		transform: scale(1.05);
+		z-index: 10;
+		box-shadow: 0 0 0 2px var(--pb-color-gray-400);
+	}
+}
+
+// Row hover effect
+tbody tr:hover {
+	.type-chart-row-header {
+		background-color: var(--pb-color-gray-200);
+	}
+
+	.type-chart-cell {
+		filter: brightness(0.95);
+	}
+}
+
+// Column hover effect using nth-child
+@for $i from 1 through 18 {
+	.type-chart-header:nth-child(#{$i + 1}):hover~tbody tr .type-chart-cell:nth-child(#{$i + 1}) {
+		filter: brightness(0.95);
+	}
+}
+
+// Cell hover - highlight both row and column
+.type-chart-table tbody tr {
+	@for $i from 1 through 18 {
+		.type-chart-cell:nth-child(#{$i + 1}):hover {
+			~.type-chart-cell {
+				filter: brightness(0.95);
+			}
+		}
+	}
+}
+
+.effectiveness-symbol {
+
+	font-weight: var(--pb-font-weight-bold);
+	display: inline-block;
+	pointer-events: none;
+}
+
+.type-chart-legend {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--pb-spacing-sm);
+	justify-content: center;
+	padding: var(--pb-spacing-sm);
+	background-color: var(--pb-background-subtle);
+	border-radius: var(--pb-radius-sm);
+}
+
+.legend-item {
+	display: flex;
+	align-items: center;
+	gap: var(--pb-spacing-xs);
+}
+
+.legend-symbol {
+
+	font-weight: var(--pb-font-weight-bold);
+	width: 24px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: var(--pb-radius-xs);
+
+	&.super-effective {
+		background-color: #efe;
+		color: #060;
+	}
+
+	&.normal {
+		background-color: var(--pb-background-default);
+		color: var(--pb-text-secondary);
+	}
+
+	&.not-very-effective {
+		background-color: #ffe;
+		color: #c60;
+	}
+
+	&.no-effect {
+		background-color: #fee;
+		color: #c00;
+	}
+}
+
+.legend-text {
+	font-size: var(--pb-font-size-caption);
+	color: var(--pb-text-secondary);
+}
+
+/* ============================================
+ * EMBEDDED TYPE CHART STYLES (in Memo Area)
+ * ============================================ */
+
+.type-chart-locked {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: var(--pb-spacing-2xl) var(--pb-spacing-md);
+	gap: var(--pb-spacing-sm);
+	color: var(--pb-text-secondary);
+	text-align: center;
+}
+
+.locked-icon {
+	opacity: 0.5;
+	color: var(--pb-text-tertiary);
+}
+
+.locked-message {
+	font-size: var(--pb-font-size-body-sm);
+	font-weight: var(--pb-font-weight-bold);
+	line-height: 1.5;
+}
+
+.type-chart-embedded {
+	padding: var(--pb-spacing-xs);
+	background-color: var(--pb-background-default);
+	width: 100%;
+}
+
+.type-chart-header-label {
+	text-align: center;
+	font-size: var(--pb-font-size-body-xs);
+	font-weight: var(--pb-font-weight-bold);
+	color: var(--pb-text-tertiary);
+	margin-bottom: var(--pb-spacing-xs);
+	padding-left: 24px; // Offset for side label
+	letter-spacing: var(--pb-letter-spacing-wide);
+}
+
+.type-chart-wrapper {
+	display: flex;
+	align-items: stretch;
+}
+
+.type-chart-side-label {
+	writing-mode: vertical-rl;
+	text-orientation: mixed;
+	font-size: var(--pb-font-size-body-xs);
+	font-weight: var(--pb-font-weight-bold);
+	color: var(--pb-text-tertiary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-right: var(--pb-spacing-xs);
+	flex-shrink: 0;
+	width: 20px;
+	letter-spacing: var(--pb-letter-spacing-wide);
+}
+
+.type-chart-table-embedded {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
+	background-color: var(--pb-background-default);
+	// Table is square: 19 columns x 19 rows, cells
+}
+
+// Square enforcement hack
+// To make cells square in a table, we make the content square and let the cell shrink-wrap it.
+// setting height: 1px on cells forces them to respect content height (which is determined by aspect-ratio)
+
+.type-chart-corner-embedded {
+	background-color: var(--pb-background-subtle);
+	border: 1px solid var(--pb-border-default);
+	padding: 1px;
+	width: calc(100% / 19);
+}
+
+// Mixin for square cell enforcement using pseudo-element
+@mixin square-cell {
+	position: relative;
+	width: calc(100% / 19);
+	vertical-align: middle;
+	padding: 0; // Padding handled by internal spacing
+
+	// Force aspect ratio 1:1
+	&::before {
+		content: "";
+		display: block;
+		padding-top: 100%;
+	}
+}
+
+// Mixin for absolute centered content ensuring 1:1 aspect ratio
+// We size based on width and force aspect ratio to prevent distortion even if cell isn't perfectly square
+@mixin absolute-square-centered($gap: 1px) {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto; // Centers the element within the absolute bounds
+
+	// Size logic: width determines size, aspect ratio forces square
+	width: calc(100% - #{$gap * 2});
+	aspect-ratio: 1;
+	height: auto; // Allow height to be determined by aspect-ratio
+	max-height: calc(100% - #{$gap * 2}); // Ensure it doesn't overflow vertically
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.type-chart-header-embedded {
+	@include square-cell;
+	background-color: var(--pb-background-subtle);
+	border: 1px solid var(--pb-border-default);
+
+	pb-label-chip {
+		@include absolute-square-centered(1px); // 1px spacing
+		border-radius: var(--pb-radius-sm);
+		font-size: clamp(3px, 1.8vw, 11px);
+
+		// CRITICAL: Override default component styles that enforce padding/gap
+		padding: 0 !important;
+		gap: 0 !important;
+		min-width: 0 !important;
+
+		// Target internal label element
+		::ng-deep .label {
+			padding: 0 !important;
+			margin: 0 !important;
+			line-height: 1 !important;
+
+			// Center label absolutely if needed, or flex handles it (parent host is flex center)
+			display: block;
+			width: 100%;
+			text-align: center;
+		}
+	}
+}
+
+.type-chart-row-header-embedded {
+	@include square-cell;
+	border: 1px solid var(--pb-border-default);
+
+	pb-label-chip {
+		@include absolute-square-centered(1px);
+		border-radius: var(--pb-radius-sm);
+		font-size: clamp(3px, 1.8vw, 11px);
+
+		// CRITICAL: Override default component styles
+		padding: 0 !important;
+		gap: 0 !important;
+		min-width: 0 !important;
+
+		::ng-deep .label {
+			padding: 0 !important;
+			margin: 0 !important;
+			line-height: 1 !important;
+
+			display: block;
+			width: 100%;
+			text-align: center;
+		}
+	}
+}
+
+.type-chart-cell-embedded {
+	@include square-cell;
+	border: 1px solid var(--pb-border-subtle);
+	background-color: transparent;
+
+	// Symbol container styling
+	.effectiveness-symbol {
+		@include absolute-square-centered(0.5px);
+		line-height: 1;
+		font-size: clamp(4px, 2.5vw, 12px);
+	}
+
+	// Symbol colors
+	&[data-effectiveness="0"] {
+		color: var(--pb-color-gray-600);
+
+		.effectiveness-symbol {
+			font-size: clamp(5px, 3vw, 14px);
+		}
+	}
+
+	&[data-effectiveness="0.25"],
+	&[data-effectiveness="0.5"] {
+		color: var(--pb-color-type-water-500);
+	}
+
+	&[data-effectiveness="2"],
+	&[data-effectiveness="4"] {
+		color: var(--pb-color-type-fire-500);
+	}
+}
+
+// Type-based row background colors (like yakkun.com)
+.type-chart-table-embedded tbody tr {
+	&[data-type="normal"] {
+		background-color: var(--pb-color-type-normal-50);
+	}
+
+	&[data-type="fire"] {
+		background-color: var(--pb-color-type-fire-50);
+	}
+
+	&[data-type="water"] {
+		background-color: var(--pb-color-type-water-50);
+	}
+
+	&[data-type="electric"] {
+		background-color: var(--pb-color-type-electric-50);
+	}
+
+	&[data-type="grass"] {
+		background-color: var(--pb-color-type-grass-50);
+	}
+
+	&[data-type="ice"] {
+		background-color: var(--pb-color-type-ice-50);
+	}
+
+	&[data-type="fighting"] {
+		background-color: var(--pb-color-type-fighting-50);
+	}
+
+	&[data-type="poison"] {
+		background-color: var(--pb-color-type-poison-50);
+	}
+
+	&[data-type="ground"] {
+		background-color: var(--pb-color-type-ground-50);
+	}
+
+	&[data-type="flying"] {
+		background-color: var(--pb-color-type-flying-50);
+	}
+
+	&[data-type="psychic"] {
+		background-color: var(--pb-color-type-psychic-50);
+	}
+
+	&[data-type="bug"] {
+		background-color: var(--pb-color-type-bug-50);
+	}
+
+	&[data-type="rock"] {
+		background-color: var(--pb-color-type-rock-50);
+	}
+
+	&[data-type="ghost"] {
+		background-color: var(--pb-color-type-ghost-50);
+	}
+
+	&[data-type="dragon"] {
+		background-color: var(--pb-color-type-dragon-50);
+	}
+
+	&[data-type="dark"] {
+		background-color: var(--pb-color-type-dark-50);
+	}
+
+	&[data-type="steel"] {
+		background-color: var(--pb-color-type-steel-50);
+	}
+
+	&[data-type="fairy"] {
+		background-color: var(--pb-color-type-fairy-50);
+	}
+
+	// Highlighted row - use darker color (-100)
+	&.highlighted[data-type="normal"] {
+		background-color: var(--pb-color-type-normal-100);
+	}
+
+	&.highlighted[data-type="fire"] {
+		background-color: var(--pb-color-type-fire-100);
+	}
+
+	&.highlighted[data-type="water"] {
+		background-color: var(--pb-color-type-water-100);
+	}
+
+	&.highlighted[data-type="electric"] {
+		background-color: var(--pb-color-type-electric-100);
+	}
+
+	&.highlighted[data-type="grass"] {
+		background-color: var(--pb-color-type-grass-100);
+	}
+
+	&.highlighted[data-type="ice"] {
+		background-color: var(--pb-color-type-ice-100);
+	}
+
+	&.highlighted[data-type="fighting"] {
+		background-color: var(--pb-color-type-fighting-100);
+	}
+
+	&.highlighted[data-type="poison"] {
+		background-color: var(--pb-color-type-poison-100);
+	}
+
+	&.highlighted[data-type="ground"] {
+		background-color: var(--pb-color-type-ground-100);
+	}
+
+	&.highlighted[data-type="flying"] {
+		background-color: var(--pb-color-type-flying-100);
+	}
+
+	&.highlighted[data-type="psychic"] {
+		background-color: var(--pb-color-type-psychic-100);
+	}
+
+	&.highlighted[data-type="bug"] {
+		background-color: var(--pb-color-type-bug-100);
+	}
+
+	&.highlighted[data-type="rock"] {
+		background-color: var(--pb-color-type-rock-100);
+	}
+
+	&.highlighted[data-type="ghost"] {
+		background-color: var(--pb-color-type-ghost-100);
+	}
+
+	&.highlighted[data-type="dragon"] {
+		background-color: var(--pb-color-type-dragon-100);
+	}
+
+	&.highlighted[data-type="dark"] {
+		background-color: var(--pb-color-type-dark-100);
+	}
+
+	&.highlighted[data-type="steel"] {
+		background-color: var(--pb-color-type-steel-100);
+	}
+
+	&.highlighted[data-type="fairy"] {
+		background-color: var(--pb-color-type-fairy-100);
+	}
+
+	// Highlighted cell in column - use darker background based on row type
+	&[data-type="normal"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-normal-100);
+	}
+
+	&[data-type="fire"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-fire-100);
+	}
+
+	&[data-type="water"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-water-100);
+	}
+
+	&[data-type="electric"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-electric-100);
+	}
+
+	&[data-type="grass"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-grass-100);
+	}
+
+	&[data-type="ice"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-ice-100);
+	}
+
+	&[data-type="fighting"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-fighting-100);
+	}
+
+	&[data-type="poison"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-poison-100);
+	}
+
+	&[data-type="ground"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-ground-100);
+	}
+
+	&[data-type="flying"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-flying-100);
+	}
+
+	&[data-type="psychic"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-psychic-100);
+	}
+
+	&[data-type="bug"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-bug-100);
+	}
+
+	&[data-type="rock"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-rock-100);
+	}
+
+	&[data-type="ghost"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-ghost-100);
+	}
+
+	&[data-type="dragon"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-dragon-100);
+	}
+
+	&[data-type="dark"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-dark-100);
+	}
+
+	&[data-type="steel"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-steel-100);
+	}
+
+	&[data-type="fairy"] .type-chart-cell-embedded.highlighted {
+		background-color: var(--pb-color-type-fairy-100);
+	}
 }

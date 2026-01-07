@@ -10,9 +10,12 @@ import { ButtonComponent } from '../../core/components/button/button.component';
 import { ToastComponent } from '../../core/components/toast/toast.component';
 
 import { GameEngineService, PokemonType, ALL_TYPES } from '../../core/services/game-engine.service';
+import { TYPE_CHART } from '../../core/services/game-engine.service';
 import { AudioService } from '../../core/services/audio.service';
 import { IconComponent } from "../../core/components/icon/icon.component";
 import { SwitchComponent } from '../../core/components/switch/switch.component';
+import { TabsComponent } from '../../core/components/tabs/tabs.component';
+
 
 @Component({
   selector: 'pb-game',
@@ -28,7 +31,9 @@ import { SwitchComponent } from '../../core/components/switch/switch.component';
     ButtonComponent,
     ToastComponent,
     IconComponent,
-    SwitchComponent
+    SwitchComponent,
+    TabsComponent,
+
   ],
   templateUrl: './game.component.html',
   styleUrl: './game.component.scss'
@@ -93,7 +98,12 @@ export class GameComponent implements OnInit {
   // UI State
   isHelpOpen = signal(false);
   isSettingsOpen = signal(false);
+  activeHistoryTab = signal<'history' | 'type-chart'>('history');
   toastMessage = signal<string | null>(null);
+
+  // Type Chart highlight state (for row/column highlight on hover/tap)
+  highlightedRow = signal<string | null>(null);
+  highlightedCol = signal<string | null>(null);
   toastType = signal<'success' | 'error' | 'info'>('success');
 
   // Data
@@ -103,6 +113,13 @@ export class GameComponent implements OnInit {
     normal: 'ノーマル', fire: 'ほのお', water: 'みず', electric: 'でんき', grass: 'くさ', ice: 'こおり',
     fighting: 'かくとう', poison: 'どく', ground: 'じめん', flying: 'ひこう', psychic: 'エスパー', bug: 'むし',
     rock: 'いわ', ghost: 'ゴースト', dragon: 'ドラゴン', dark: 'あく', steel: 'はがね', fairy: 'フェアリー'
+  };
+
+  // Short labels for type chart (1-2 chars)
+  typeShortLabels: Record<PokemonType, string> = {
+    normal: 'ノ', fire: '炎', water: '水', electric: '電', grass: '草', ice: '氷',
+    fighting: '闘', poison: '毒', ground: '地', flying: '飛', psychic: '超', bug: '虫',
+    rock: '岩', ghost: '霊', dragon: '竜', dark: '悪', steel: '鋼', fairy: '妖'
   };
 
   history: ({ mode: string, type: string, outcome: string } | null)[] = [];
@@ -357,6 +374,43 @@ export class GameComponent implements OnInit {
 
   toggleHelp() {
     this.isHelpOpen.update(v => !v);
+  }
+
+  onHistoryTabChange(tabId: string) {
+    this.activeHistoryTab.set(tabId as 'history' | 'type-chart');
+  }
+
+  getHistoryTabs() {
+    return [
+      { id: 'history', label: 'History', disabled: false },
+      { id: 'type-chart', label: '相性表', disabled: false }
+    ];
+  }
+
+  getTypeEffectiveness(attackType: PokemonType, defenseType: PokemonType): number {
+    return TYPE_CHART[attackType][defenseType];
+  }
+
+  // Type Chart cell hover/tap handlers
+  onCellEnter(row: string, col: string) {
+    this.highlightedRow.set(row);
+    this.highlightedCol.set(col);
+  }
+
+  onCellLeave() {
+    this.highlightedRow.set(null);
+    this.highlightedCol.set(null);
+  }
+
+  onCellTap(row: string, col: string) {
+    // Toggle highlight on tap (for mobile)
+    if (this.highlightedRow() === row && this.highlightedCol() === col) {
+      this.highlightedRow.set(null);
+      this.highlightedCol.set(null);
+    } else {
+      this.highlightedRow.set(row);
+      this.highlightedCol.set(col);
+    }
   }
 
   // Template Helpers
