@@ -1,0 +1,11 @@
+<div class="tabs-container">
+	@for (tab of tabs; track tab.id) {
+	<button class="tab" [class.active]="isActive(tab.id)" [class.disabled]="tab.disabled" [class.has-icon]="tab.icon"
+		[disabled]="tab.disabled" (click)="selectTab(tab.id, tab.disabled)">
+		@if (tab.icon) {
+		<pb-icon [name]="tab.icon" size="sm"></pb-icon>
+		}
+		<span class="tab-label">{{ tab.label }}</span>
+	</button>
+	}
+</div>

@@ -1,0 +1,55 @@
+/* ============================================
+ * TABS COMPONENT STYLES
+ * ============================================ */
+
+.tabs-container {
+	display: flex;
+	gap: var(--pb-spacing-xs);
+	border-bottom: 2px solid var(--pb-border-default);
+	background-color: var(--pb-background-default);
+}
+
+.tab {
+	flex: 1;
+	padding: var(--pb-spacing-sm) var(--pb-spacing-md);
+	border: none;
+	background: none;
+	font-size: var(--pb-font-size-body-sm);
+	font-weight: var(--pb-font-weight-medium);
+	color: var(--pb-text-secondary);
+	cursor: pointer;
+	transition: all 0.2s ease;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--pb-spacing-2xs);
+	border-bottom: 2px solid transparent;
+	margin-bottom: -2px;
+
+	&:hover:not(.disabled) {
+		color: var(--pb-text-primary);
+		background-color: var(--pb-background-hover);
+	}
+
+	&.active {
+		color: var(--pb-text-primary);
+		font-weight: var(--pb-font-weight-bold);
+		border-bottom-color: var(--pb-color-primary-500);
+	}
+
+	&.disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
+
+	&.has-icon {
+		pb-icon {
+			color: var(--pb-text-tertiary);
+		}
+	}
+}
+
+.tab-label {
+	white-space: nowrap;
+}

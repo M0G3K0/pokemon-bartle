@@ -208,6 +208,13 @@
 		<!-- 4. Auto-Memo & Manual Memo Area -->
 		<pb-card type="default" background="white" [borderThick]="true" padding="sm">
 			<div class="memo-container">
+				<!-- Tabs -->
+				<pb-tabs [tabs]="getHistoryTabs()" [activeTabId]="activeHistoryTab()"
+					(tabChange)="onHistoryTabChange($event)">
+				</pb-tabs>
+
+				<!-- History + Memo Tab Content -->
+				@if (activeHistoryTab() === 'history') {
 				<!-- Top: Validation History lines -->
 				<div class="memo-section history-section">
 					<h3 class="memo-section-title">History</h3>
@@ -289,6 +296,77 @@
 						}
 					</div>
 				</div>
+				}
+
+				<!-- Type Chart Tab Content -->
+				@if (activeHistoryTab() === 'type-chart') {
+				@if (difficulty() === 'arcanine' || difficulty() === 'garchomp') {
+				<!-- Locked Message for Hard Modes -->
+				<div class="type-chart-locked">
+					<pb-icon name="lock" size="xl" class="locked-icon"></pb-icon>
+					<p class="locked-message">この難易度では<br>相性表は利用できません</p>
+				</div>
+				} @else {
+				<!-- Type Chart for Easy Modes -->
+				<div class="type-chart-embedded">
+					<!-- Top Header Label -->
+					<div class="type-chart-header-label">防御する側のポケモンのタイプ</div>
+
+					<div class="type-chart-wrapper">
+						<!-- Left Side Label (Vertical) -->
+						<div class="type-chart-side-label">攻撃する側のわざのタイプ</div>
+
+						<table class="type-chart-table-embedded">
+							<thead>
+								<tr>
+									<th class="type-chart-corner-embedded"></th>
+									@for (defenseType of types; track defenseType) {
+									<th class="type-chart-header-embedded" [attr.data-col]="defenseType"
+										[class.highlighted]="highlightedCol() === defenseType"
+										(mouseenter)="highlightedCol.set(defenseType)"
+										(mouseleave)="highlightedCol.set(null)"
+										(click)="highlightedCol() === defenseType ? highlightedCol.set(null) : highlightedCol.set(defenseType)">
+										<pb-label-chip [type]="defenseType" [label]="typeShortLabels[defenseType]"
+											size="xs"></pb-label-chip>
+									</th>
+									}
+								</tr>
+							</thead>
+							<tbody>
+								@for (attackType of types; track attackType) {
+								<tr [attr.data-type]="attackType" [class.highlighted]="highlightedRow() === attackType">
+									<th class="type-chart-row-header-embedded"
+										[class.highlighted]="highlightedRow() === attackType"
+										(mouseenter)="highlightedRow.set(attackType)"
+										(mouseleave)="highlightedRow.set(null)"
+										(click)="highlightedRow() === attackType ? highlightedRow.set(null) : highlightedRow.set(attackType)">
+										<pb-label-chip [type]="attackType" [label]="typeShortLabels[attackType]"
+											size="xs"></pb-label-chip>
+									</th>
+									@for (defenseType of types; track defenseType) {
+									<td class="type-chart-cell-embedded"
+										[attr.data-effectiveness]="getTypeEffectiveness(attackType, defenseType)"
+										[attr.data-col]="defenseType"
+										[class.highlighted]="highlightedRow() === attackType || highlightedCol() === defenseType"
+										(mouseenter)="onCellEnter(attackType, defenseType)" (mouseleave)="onCellLeave()"
+										(click)="onCellTap(attackType, defenseType)">
+										@if (getTypeEffectiveness(attackType, defenseType) === 0) {
+										<span class="effectiveness-symbol zero">×</span>
+										} @else if (getTypeEffectiveness(attackType, defenseType) >= 2) {
+										<span class="effectiveness-symbol effective">●</span>
+										} @else if (getTypeEffectiveness(attackType, defenseType) < 1) { <span
+											class="effectiveness-symbol not-effective">▲</span>
+											}
+									</td>
+									}
+								</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				}
+				}
 			</div>
 		</pb-card>
 

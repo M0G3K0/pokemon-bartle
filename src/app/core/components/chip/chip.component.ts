@@ -20,7 +20,7 @@ export class ChipComponent {
 	@Input() withIcon = false;
 	@Input() iconOnly = false;
 	@Input() radius: 'sm' | 'full' = 'sm';
-	@Input() size: 's' | 'm' = 's';
+	@Input() size: 'xs' | 's' | 'm' = 's';
 
 	@Input() set type(value: string | undefined) {
 		if (value) this._type.set(value.toLowerCase());
