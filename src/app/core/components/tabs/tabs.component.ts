@@ -18,10 +18,10 @@ export interface TabItem {
 })
 export class TabsComponent {
 	@Input() tabs: TabItem[] = [];
-	@Input() activeTabId: string = '';
+	@Input() activeTabId = '';
 	@Output() tabChange = new EventEmitter<string>();
 
-	selectTab(tabId: string, disabled: boolean = false) {
+	selectTab(tabId: string, disabled = false) {
 		if (disabled) {
 			return;
 		}
