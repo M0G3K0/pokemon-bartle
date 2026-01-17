@@ -46,15 +46,16 @@ jobs:
           fi
           
           # Check if branch name follows the pattern: <type>/<description>
-          if [[ ! "$BRANCH_NAME" =~ ^(feature|fix|hotfix|refactor|docs|test|chore|style|perf|ci)/[a-z0-9-]+$ ]]; then
+          # Updated to match PR title conventions (feat, fix, etc.)
+          if [[ ! "$BRANCH_NAME" =~ ^(feat|fix|hotfix|refactor|docs|test|chore|style|perf|ci|build|revert)/[a-z0-9-]+$ ]]; then
             echo "❌ Branch name does not follow the naming convention!"
             echo ""
             echo "Expected format: <type>/<description>"
-            echo "Valid types: feature, fix, hotfix, refactor, docs, test, chore, style, perf, ci"
+            echo "Valid types: feat, fix, hotfix, refactor, docs, test, chore, style, perf, ci, build, revert"
             echo "Description: lowercase letters, numbers, and hyphens only"
             echo ""
             echo "Examples:"
-            echo "  ✅ feature/add-sound-effects"
+            echo "  ✅ feat/add-sound-effects"
             echo "  ✅ fix/button-alignment"
             echo "  ✅ refactor/design-tokens"
             echo ""
@@ -73,5 +74,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '## ⚠️ PR Validation Failed\n\nPlease check the following:\n\n1. **PR Title**: Must follow the format `<type>: <description>`\n   - Valid types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`\n   - Example: `feat: add sound effects`\n\n2. **Branch Name**: Must follow the format `<type>/<description>`\n   - Valid types: `feature`, `fix`, `hotfix`, `refactor`, `docs`, `test`, `chore`, `style`, `perf`, `ci`\n   - Example: `feature/add-sound-effects`\n\nPlease refer to [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for more details.'
+              body: '## ⚠️ PR Validation Failed\n\nPlease check the following:\n\n1. **PR Title**: Must follow the format `<type>: <description>`\n   - Valid types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`\n   - Example: `feat: add sound effects`\n\n2. **Branch Name**: Must follow the format `<type>/<description>`\n   - Valid types: `feat`, `fix`, `hotfix`, `refactor`, `docs`, `test`, `chore`, `style`, `perf`, `ci`, `build`, `revert`\n   - Example: `feat/add-sound-effects`\n\nPlease refer to [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for more details.'
             })

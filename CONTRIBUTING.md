@@ -85,7 +85,7 @@ graph LR
 
 | タイプ | 用途 | 例 |
 |--------|------|-----|
-| `feature/` | 新機能開発 | `feature/add-sound-effects` |
+| `feat/` | 新機能開発 | `feat/add-sound-effects` |
 | `fix/` | バグ修正 | `fix/button-alignment-issue` |
 | `hotfix/` | 緊急バグ修正 | `hotfix/critical-crash-fix` |
 | `refactor/` | リファクタリング | `refactor/simplify-game-logic` |
@@ -95,20 +95,22 @@ graph LR
 | `style/` | スタイル・デザイン変更 | `style/update-button-colors` |
 | `perf/` | パフォーマンス改善 | `perf/optimize-image-loading` |
 | `ci/` | CI/CD設定変更 | `ci/add-github-actions` |
+| `build/` | ビルド設定変更 | `build/update-angular` |
+| `revert/` | 変更取り消し | `revert/undo-last-change` |
 
 ### 命名ルール
-- **小文字とハイフン**を使用: `feature/add-new-feature` ✅
-- **キャメルケースは使わない**: `feature/addNewFeature` ❌
-- **スペースは使わない**: `feature/add new feature` ❌
+- **小文字とハイフン**を使用: `feat/add-new-feature` ✅
+- **キャメルケースは使わない**: `feat/addNewFeature` ❌
+- **スペースは使わない**: `feat/add new feature` ❌
 - **簡潔で分かりやすく**: 3〜5単語程度
 
 ### 例
 ```bash
-✅ feature/pokemon-type-filter
+✅ feat/pokemon-type-filter
 ✅ fix/history-display-bug
 ✅ refactor/design-system-tokens
 ✅ docs/add-contributing-guide
-❌ feature/AddPokemonTypeFilter
+❌ feat/AddPokemonTypeFilter
 ❌ fix-bug
 ❌ my-branch
 ```
