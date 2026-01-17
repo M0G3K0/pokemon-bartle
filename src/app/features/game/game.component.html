@@ -62,6 +62,18 @@
 							<span>{{ item.outcome }}</span>
 							} @else {
 							<!-- Attack Outcomes -->
+							@if (difficulty() === 'pichu' && item.multiplier !== undefined) {
+							<!-- Pichu mode: Show multiplier -->
+							<span>
+								@if (item.multiplier === 4) { ×4 }
+								@else if (item.multiplier === 2) { ×2 }
+								@else if (item.multiplier === 1) { ×1 }
+								@else if (item.multiplier === 0.5) { ×0.5 }
+								@else if (item.multiplier === 0.25) { ×0.25 }
+								@else if (item.multiplier === 0) { ×0 }
+							</span>
+							} @else {
+							<!-- Other modes: Show icons -->
 							@if (item.outcome === 'critical') {
 							<span>⭕</span>
 							}
@@ -71,6 +83,7 @@
 							@else if (item.outcome === 'neutral') { <span class="text-neutral">⚪</span> }
 							@else if (item.outcome === 'resisted') { <span>🔺</span> }
 							@else if (item.outcome === 'immune') { <span>✖</span> }
+							}
 							}
 						</div>
 					</div>

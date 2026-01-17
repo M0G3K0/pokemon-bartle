@@ -122,7 +122,7 @@ export class GameComponent implements OnInit {
     rock: '岩', ghost: '霊', dragon: '竜', dark: '悪', steel: '鋼', fairy: '妖'
   };
 
-  history: ({ mode: string, type: string, outcome: string } | null)[] = [];
+  history: ({ mode: string, type: string, outcome: string, multiplier?: number } | null)[] = [];
 
   memoData = {
     critical: [] as PokemonType[],
@@ -294,6 +294,7 @@ export class GameComponent implements OnInit {
 
     let typeLabel: string = type1!; // Store raw key
     let outcome = '';
+    let multiplier: number | undefined = undefined;
 
     // Process Logic
     if (this.mode() === 'solve') {
@@ -318,7 +319,7 @@ export class GameComponent implements OnInit {
       }
 
     } else {
-      const multiplier = this.gameEngine.calculateEffectiveness(type1!, this.target);
+      multiplier = this.gameEngine.calculateEffectiveness(type1!, this.target);
       const label = this.gameEngine.getEffectivenessLabel(multiplier);
 
       outcome = label; // critical, effective, etc.
@@ -332,7 +333,8 @@ export class GameComponent implements OnInit {
     newHistory[index] = {
       mode: this.mode(),
       type: typeLabel,
-      outcome: outcome
+      outcome: outcome,
+      multiplier: multiplier
     };
     this.history = newHistory;
 
