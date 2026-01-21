@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TypeIconComponent } from '../type-icon/type-icon.component';
+import { TypeIconComponent } from '../../core/components/type-icon/type-icon.component';
 import { CardComponent } from '../../core/components/card/card.component';
 import { ChipComponent } from '../../core/components/chip/chip.component';
 import { IconButtonComponent } from '../../core/components/icon-button/icon-button.component';
