@@ -1,6 +1,6 @@
 import { Component, Input, signal, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TypeIconComponent } from '../../../features/type-icon/type-icon.component';
+import { TypeIconComponent } from '../type-icon/type-icon.component';
 
 @Component({
 	selector: 'pb-label-chip, button[pb-action-chip]',

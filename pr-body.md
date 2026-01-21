@@ -1,3 +1,4 @@
+
 📝 PRタイトルの命名規則:
 [type]: [description]
 
@@ -21,24 +22,22 @@
 例: feat: add sound effects and toggle switch
 
 ## 💡 概要
-`game.component.html` のMemo Area（Historyカードとメモエリア）からTailwind CSSを完全に削除し、SCSSとデザインシステムに置き換えました。
+dependency-cruiserを導入し、レイヤー境界の自動チェックを実装。
+
+### ガードレール（構造の憲法）
+- `core → features` の依存を禁止
+- 循環参照を禁止
 
 ## 📝 変更内容
-- **Historyセクション**:
-  - `.memo-section`, `.history-section` を定義
-  - `.memo-section-title` を定義（統一されたタイトルスタイル）
-  - `.history-row`, `.history-label`, `.history-separator`, `.history-chips` を定義
-  - `.mini-chip` + `data-type` 属性で動的なタイプカラーを適用（`@each`ループで生成）
-- **Memoグリッド**:
-  - `.memo-grid`, `.memo-item`, `.memo-chip` を定義
-  - `.memo-overlay`, `.memo-overlay-icon` を定義（オーバーレイアイコン）
-  - `pb-action-chip` を維持しつつ、ラッパー要素のTailwindを削除
+- `.dependency-cruiser.js` 新規作成: レイヤー境界ルール設定
+- `package.json` 更新: `npm run dep-check` スクリプト追加
+- `package-lock.json` 更新: dependency-cruiserパッケージ追加
 
 ## 🔗 関連Issue
-Related to #19
+Related to #63
 
 ## 📷 スクリーンショット（該当する場合）
-ローカル開発サーバーで動作確認済み
+N/A
 
 ## ✅ チェックリスト
 - [x] ビルドが成功する（`npm run build`）
@@ -61,4 +60,4 @@ Related to #19
 | **nits** | nitpick | 些細な指摘（重箱の隅をつつくの意味） |
 
 ## 📌 補足事項
-このPRで `game.component.html` からのTailwind削除がほぼ完了します。残りはモーダル/ダイアログ部分のみです。
+現時点で1件の違反を検出（`chip.component.ts → type-icon.component.ts`）。これは別PRで修正予定。
