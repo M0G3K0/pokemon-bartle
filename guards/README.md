@@ -49,8 +49,14 @@ AIがルールを修正するとき、この3つがあると「なぜこのル�
 
 **これが最初のガードレールです。**
 
-すべてのガードレールファイルは、冒頭に以下のバッジを付与する：
+すべてのガードレールファイルは、以下のルールに従う：
 
+### 1. ファイル名サフィックス
+```
+*.guard.md
+```
+
+### 2. ファイル冒頭バッジ
 ```html
 <!-- 🛡️ GUARDRAIL -->
 ```
@@ -61,6 +67,10 @@ AIがルールを修正するとき、この3つがあると「なぜこのル�
 
 ### 検索方法
 ```bash
+# ファイル名で検索
+find guards/ -name "*.guard.md"
+
+# バッジで検索
 grep -r "🛡️ GUARDRAIL" guards/
 ```
 
@@ -70,12 +80,12 @@ grep -r "🛡️ GUARDRAIL" guards/
 
 ```
 guards/
-├── README.md           # このファイル
-├── architecture/       # 構造の憲法
-│   └── layer-boundaries.md
-├── code-quality/       # コード品質の憲法（今後）
-├── design/             # デザインの憲法（今後）
-└── scripts/            # カスタムガードレールスクリプト（今後）
+├── README.md                           # このファイル（ガードレールの説明）
+├── architecture/                       # 構造の憲法
+│   └── layer-boundaries.guard.md       # レイヤー境界ルール
+├── code-quality/                       # コード品質の憲法（今後）
+├── design/                             # デザインの憲法（今後）
+└── scripts/                            # カスタムガードレールスクリプト（今後）
 ```
 
 ---
