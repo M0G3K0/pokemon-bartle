@@ -67,11 +67,12 @@ jobs:
 
       - name: Validate PR Body (Template Usage)
         run: |
-          BODY="${{ github.event.pull_request.body }}"
+          # Store body in a file to avoid shell interpretation issues
+          cat > /tmp/pr_body.txt << 'EOF'
+          ${{ github.event.pull_request.body }}
+          EOF
           
-      - name: Validate PR Body (Template Usage)
-        run: |
-          BODY="${{ github.event.pull_request.body }}"
+          BODY=$(cat /tmp/pr_body.txt)
           MISSING=false
           
           # Check for ALL key sections from the template
