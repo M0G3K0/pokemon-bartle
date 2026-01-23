@@ -65,8 +65,17 @@
     "typescript-eslint": "8.46.4"
   },
   "lint-staged": {
-    "*.ts": [
+    "src/**/*.{ts,html}": [
       "eslint --fix"
+    ],
+    "src/**/*.scss": [
+      "stylelint --fix"
+    ],
+    "app.routes.ts": [
+      "npm run lint:ux"
+    ],
+    "src/**/*.html": [
+      "npm run lint:value"
     ]
   }
 }

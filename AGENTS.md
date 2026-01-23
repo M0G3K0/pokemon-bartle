@@ -23,7 +23,11 @@
 | PR作成 | `gh pr create --body-file pr-body.md` |
 | Issue作成 | `gh issue create --body-file issue-body.md` |
 
-**重要**: PR/Issueを作成する際は、必ず本文をファイル (`pr-body.md`, `issue-body.md`) に保存してから `--body-file` オプションを使用すること。コマンドライン引数 (`--body`) で直接渡すと日本語や絵文字が文字化けする。
+**重要ルール**: 
+1. PR/Issue作成時は必ず `--body-file` を使用すること（文字化け防止）。
+2. 本文ファイル名は **`pr-body.md`** または **`issue-body.md`** に固定すること。`issue-body-01.md` 等の別名は禁止。
+3. ファイルは毎回 **上書き** して使用すること。
+
 
 ## 📚 参照ドキュメント
 
