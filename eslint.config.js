@@ -4,6 +4,9 @@ const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
 
+/** @type {import("eslint").Linter.RulesRecord} */
+const codingStandardsRules = require("./guards/code-quality/rules/coding-standards.rules");
+
 module.exports = defineConfig([
   {
     files: ["**/*.ts"],
@@ -15,6 +18,7 @@ module.exports = defineConfig([
     ],
     processor: angular.processInlineTemplates,
     rules: {
+      ...codingStandardsRules,
       "@angular-eslint/directive-selector": [
         "error",
         {
@@ -31,6 +35,14 @@ module.exports = defineConfig([
           style: "kebab-case",
         },
       ],
+    },
+  },
+  // 特定のファイルに対するルール無効化
+  {
+    // See: guards/code-quality/guard/coding-standards.guard.md#例外と理由
+    files: ["**/*.spec.ts", "src/design-system/**", "src/styles/**"],
+    rules: {
+      "@typescript-eslint/no-magic-numbers": "off",
     },
   },
   {
