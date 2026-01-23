@@ -64,6 +64,39 @@ jobs:
           fi
           
           echo "✅ Branch name is valid!"
+
+      - name: Validate PR Body (Template Usage)
+        run: |
+          BODY="${{ github.event.pull_request.body }}"
+          
+      - name: Validate PR Body (Template Usage)
+        run: |
+          BODY="${{ github.event.pull_request.body }}"
+          MISSING=false
+          
+          # Check for ALL key sections from the template
+          # This ensures no section is omitted by the AI agent
+          
+          # 1. Main Sections
+          if [[ "$BODY" != *"## 💡 概要"* ]]; then echo "❌ Missing: '## 💡 概要'"; MISSING=true; fi
+          if [[ "$BODY" != *"## 📝 変更内容"* ]]; then echo "❌ Missing: '## 📝 変更内容'"; MISSING=true; fi
+          if [[ "$BODY" != *"## 🔗 関連Issue"* ]]; then echo "❌ Missing: '## 🔗 関連Issue'"; MISSING=true; fi
+          
+          # 2. Reference Sections
+          if [[ "$BODY" != *"📝 PRタイトルの命名規則:"* ]]; then echo "❌ Missing: '📝 PRタイトルの命名規則:'"; MISSING=true; fi
+          if [[ "$BODY" != *"## ✅ チェックリスト"* ]]; then echo "❌ Missing: '## ✅ チェックリスト'"; MISSING=true; fi
+          if [[ "$BODY" != *"## 📖 レビュー用語集"* ]]; then echo "❌ Missing: '## 📖 レビュー用語集'"; MISSING=true; fi
+          if [[ "$BODY" != *"## 📌 補足事項"* ]]; then echo "❌ Missing: '## 📌 補足事項'"; MISSING=true; fi
+          
+          if [[ "$MISSING" == "true" ]]; then
+            echo ""
+            echo "❌ PR description is incomplete!"
+            echo "Please use the FULL PR template defined in .github/PULL_REQUEST_TEMPLATE.md"
+            echo "Do not omit any sections. Write 'None' if not applicable."
+            exit 1
+          fi
+          
+          echo "✅ PR description looks valid (Full template used)!"
       
       - name: Comment on PR (if validation fails)
         if: failure()
@@ -74,5 +107,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '## ⚠️ PR Validation Failed\n\nPlease check the following:\n\n1. **PR Title**: Must follow the format `<type>: <description>`\n   - Valid types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`\n   - Example: `feat: add sound effects`\n\n2. **Branch Name**: Must follow the format `<type>/<description>`\n   - Valid types: `feat`, `fix`, `hotfix`, `refactor`, `docs`, `test`, `chore`, `style`, `perf`, `ci`, `build`, `revert`\n   - Example: `feat/add-sound-effects`\n\nPlease refer to [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for more details.'
+              body: '## ⚠️ PR Validation Failed\n\nPlease check the following:\n\n1. **PR Title**: Must follow the format `<type>: <description>`\n   - Valid types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`\n   - Example: `feat: add sound effects`\n\n2. **Branch Name**: Must follow the format `<type>/<description>`\n   - Valid types: `feat`, `fix`, `hotfix`, `refactor`, `docs`, `test`, `chore`, `style`, `perf`, `ci`, `build`, `revert`\n   - Example: `feat/add-sound-effects`\n\n3. **PR Description**: Must use the PR template (include `## 💡 概要` or similar headers).\n\nPlease refer to [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for more details.'
             })
