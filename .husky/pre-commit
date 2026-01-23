@@ -1,1 +1,16 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Pre-commit Guardrails
+
+# 1. Commit Size Check
+node guards/process/rules/commit-size.rules.js
+
+# 2. Guardrails Metadata Validation
+npm run guards:validate
+
+# 3. Test Existence Check (Lightweight)
+npm run lint:test-existence
+
+# 4. Lint Staged Files (ESLint, Stylelint, Custom Rules)
 npx lint-staged
