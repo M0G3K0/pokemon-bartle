@@ -8,7 +8,16 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "dep-check": "depcruise src/app --config .dependency-cruiser.js"
+    "lint:style": "stylelint \"src/**/*.scss\"",
+    "lint:knip": "knip",
+    "lint:duplication": "jscpd src/app --config guards/maintenance/rules/duplication.rules.json",
+    "lint:test-existence": "node guards/maintenance/rules/test-existence.rules.js",
+    "lint:perf": "npm run build && lhci autorun",
+    "lint:ux": "node guards/ux/rules/lazy-loading.rules.js",
+    "lint:value": "node guards/value/rules/analytics.rules.js",
+    "dep-check": "depcruise src/app --config .dependency-cruiser.js",
+    "guards:validate": "node guards/meta/rules/guardrail-format.rules.js",
+    "prepare": "husky"
   },
   "private": true,
   "dependencies": {
@@ -30,21 +39,34 @@
     "@angular-devkit/build-angular": "^21.0.0",
     "@angular/cli": "^21.0.0",
     "@angular/compiler-cli": "^21.0.0",
+    "@lhci/cli": "^0.15.1",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "21.0.1",
     "autoprefixer": "^10.4.22",
     "dependency-cruiser": "^17.3.6",
     "eslint": "^9.39.1",
+    "glob": "^13.0.0",
+    "husky": "^9.1.7",
     "jasmine-core": "^5.13.0",
+    "jscpd": "^4.0.7",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "knip": "^5.82.1",
+    "lint-staged": "^16.2.7",
     "postcss": "^8.5.6",
+    "stylelint": "^17.0.0",
+    "stylelint-config-standard-scss": "^17.0.0",
     "tailwindcss": "^3.4.18",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.0",
+    "typescript": "^5.9.3",
     "typescript-eslint": "8.46.4"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix"
+    ]
   }
 }
