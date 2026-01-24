@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 export type ToastType = 'success' | 'error' | 'info' | 'warning';
 
@@ -10,6 +11,17 @@ export type ToastType = 'success' | 'error' | 'info' | 'warning';
 	imports: [CommonModule, IconButtonComponent],
 	templateUrl: './toast.component.html',
 	styleUrl: './toast.component.scss',
+	animations: [
+		trigger('slideIn', [
+			transition(':enter', [
+				style({ transform: 'translateY(100%)', opacity: 0 }),
+				animate('300ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))
+			]),
+			transition(':leave', [
+				animate('200ms ease-in', style({ transform: 'translateY(100%)', opacity: 0 }))
+			])
+		])
+	],
 	host: {
 		'[class]': 'hostClasses',
 		'[@slideIn]': 'true'
@@ -18,6 +30,7 @@ export type ToastType = 'success' | 'error' | 'info' | 'warning';
 export class ToastComponent implements OnInit {
 	@Input() message = '';
 	@Input() type: ToastType = 'info';
+	// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 	@Input() duration = 3000; // Auto-dismiss after 3 seconds
 	@Input() dismissible = true;
 
