@@ -1,0 +1,36 @@
+﻿
+> pokemon-bartle@0.0.0 test
+> ng test --watch=false --browsers=ChromeHeadless
+
+[32m24 01 2026 14:20:09.780:INFO [karma-server]: [39mKarma v6.4.4 server started at http://localhost:9876/
+[32m24 01 2026 14:20:09.782:INFO [launcher]: [39mLaunching browsers ChromeHeadless with concurrency unlimited
+[32m24 01 2026 14:20:09.821:INFO [launcher]: [39mStarting browser ChromeHeadless
+[32m24 01 2026 14:20:11.843:INFO [Chrome Headless 144.0.0.0 (Windows 10)]: [39mConnected on socket PiuqVvtMb2DY1WNaAAAB with id 99198284
+Chrome Headless 144.0.0.0 (Windows 10): Executed 0 of 22[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 1 of 22[32m SUCCESS[39m (0 secs / 0.022 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 2 of 22[32m SUCCESS[39m (0 secs / 0.072 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 3 of 22[32m SUCCESS[39m (0 secs / 0.091 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 4 of 22[32m SUCCESS[39m (0 secs / 0.095 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 5 of 22[32m SUCCESS[39m (0 secs / 0.171 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 6 of 22[32m SUCCESS[39m (0 secs / 0.173 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 7 of 22[32m SUCCESS[39m (0 secs / 0.178 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 8 of 22[32m SUCCESS[39m (0 secs / 0.189 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 9 of 22[32m SUCCESS[39m (0 secs / 0.195 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 10 of 22[32m SUCCESS[39m (0 secs / 0.21 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 11 of 22[32m SUCCESS[39m (0 secs / 0.215 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 12 of 22[32m SUCCESS[39m (0 secs / 0.224 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 13 of 22[32m SUCCESS[39m (0 secs / 0.232 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 14 of 22[32m SUCCESS[39m (0 secs / 0.237 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 15 of 22[32m SUCCESS[39m (0 secs / 0.42 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 16 of 22[32m SUCCESS[39m (0 secs / 0.44 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 17 of 22[32m SUCCESS[39m (0 secs / 0.442 secs)
+[1A[2KLOG: [36m'Game Started. Target:', ['poison', 'ghost'][39m
+Chrome Headless 144.0.0.0 (Windows 10): Executed 17 of 22[32m SUCCESS[39m (0 secs / 0.442 secs)
+LOG: 'Game Started. Target:', ['poison', 'ghost']
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 18 of 22[32m SUCCESS[39m (0 secs / 0.538 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 19 of 22[32m SUCCESS[39m (0 secs / 0.541 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 20 of 22[32m SUCCESS[39m (0 secs / 0.544 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 21 of 22[32m SUCCESS[39m (0 secs / 0.547 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 22 of 22[32m SUCCESS[39m (0 secs / 0.549 secs)
+[1A[2KChrome Headless 144.0.0.0 (Windows 10): Executed 22 of 22[32m SUCCESS[39m (0.63 secs / 0.549 secs)
+[32mTOTAL: 22 SUCCESS[39m
