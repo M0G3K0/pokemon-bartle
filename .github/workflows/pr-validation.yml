@@ -84,6 +84,9 @@ jobs:
           if [[ "$BODY" != *"## 📝 変更内容"* ]]; then MISSING_SECTIONS="${MISSING_SECTIONS}- ## 📝 変更内容\n"; fi
           if [[ "$BODY" != *"## 🔗 関連Issue"* ]]; then MISSING_SECTIONS="${MISSING_SECTIONS}- ## 🔗 関連Issue\n"; fi
           if [[ "$BODY" != *"## ✅ チェックリスト"* ]]; then MISSING_SECTIONS="${MISSING_SECTIONS}- ## ✅ チェックリスト\n"; fi
+          if [[ "$BODY" != *"� PRタイトルの命名規則"* ]]; then MISSING_SECTIONS="${MISSING_SECTIONS}- 📝 PRタイトルの命名規則\n"; fi
+          if [[ "$BODY" != *"## 📖 レビュー用語集"* ]]; then MISSING_SECTIONS="${MISSING_SECTIONS}- ## 📖 レビュー用語集\n"; fi
+          if [[ "$BODY" != *"## 📌 補足事項"* ]]; then MISSING_SECTIONS="${MISSING_SECTIONS}- ## 📌 補足事項\n"; fi
           
           if [[ -n "$MISSING_SECTIONS" ]]; then
             echo "status=failure" >> $GITHUB_OUTPUT
