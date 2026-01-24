@@ -4,14 +4,23 @@ on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
 
+permissions:
+  pull-requests: write
+  contents: read
+
 jobs:
   validate-pr:
-    name: Validate PR Title and Branch Name
+    name: Validate PR Compliance
     runs-on: ubuntu-latest
     
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Validate PR Title
-        uses: amannn/action-semantic-pull-request@v6
+        id: validate-title
+        continue-on-error: true
+        uses: amannn/action-semantic-pull-request@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -33,84 +42,111 @@ jobs:
             The subject "{subject}" found in the pull request title "{title}"
             didn't match the configured pattern. Please ensure that the subject
             starts with a lowercase letter.
-      
+
       - name: Validate Branch Name
+        id: validate-branch
+        continue-on-error: true
         run: |
           BRANCH_NAME="${{ github.head_ref }}"
           echo "Validating branch name: $BRANCH_NAME"
           
           # Skip validation for Dependabot branches
           if [[ "$BRANCH_NAME" =~ ^dependabot/ ]]; then
-            echo "✅ Skipping validation for Dependabot branch"
+            echo "status=success" >> $GITHUB_OUTPUT
+            echo "message=Skipped validation for Dependabot branch" >> $GITHUB_OUTPUT
             exit 0
           fi
           
           # Check if branch name follows the pattern: <type>/<description>
-          # Updated to match PR title conventions (feat, fix, etc.)
           if [[ ! "$BRANCH_NAME" =~ ^(feat|fix|hotfix|refactor|docs|test|chore|style|perf|ci|build|revert)/[a-z0-9-]+$ ]]; then
-            echo "❌ Branch name does not follow the naming convention!"
-            echo ""
-            echo "Expected format: <type>/<description>"
-            echo "Valid types: feat, fix, hotfix, refactor, docs, test, chore, style, perf, ci, build, revert"
-            echo "Description: lowercase letters, numbers, and hyphens only"
-            echo ""
-            echo "Examples:"
-            echo "  ✅ feat/add-sound-effects"
-            echo "  ✅ fix/button-alignment"
-            echo "  ✅ refactor/design-tokens"
-            echo ""
-            echo "Your branch: $BRANCH_NAME"
+            echo "status=failure" >> $GITHUB_OUTPUT
+            echo "message=Branch name '$BRANCH_NAME' does not follow the naming convention '<type>/<description>' or contains invalid characters." >> $GITHUB_OUTPUT
             exit 1
           fi
           
-          echo "✅ Branch name is valid!"
+          echo "status=success" >> $GITHUB_OUTPUT
+          echo "message=Branch name is valid." >> $GITHUB_OUTPUT
 
       - name: Validate PR Body (Template Usage)
+        id: validate-body
+        continue-on-error: true
         run: |
           # Store body in a file to avoid shell interpretation issues
-          cat > /tmp/pr_body.txt << 'EOF'
+          cat > pr_body.txt << 'EOF'
           ${{ github.event.pull_request.body }}
           EOF
           
-          BODY=$(cat /tmp/pr_body.txt)
-          MISSING=false
+          BODY=$(cat pr_body.txt)
+          MISSING_SECTIONS=""
           
-          # Check for ALL key sections from the template
-          # This ensures no section is omitted by the AI agent
+          # Check for key sections from the template
+          if [[ "$BODY" != *"## 💡 概要"* ]]; then MISSING_SECTIONS="${MISSING_SECTIONS}- ## 💡 概要\n"; fi
+          if [[ "$BODY" != *"## 📝 変更内容"* ]]; then MISSING_SECTIONS="${MISSING_SECTIONS}- ## 📝 変更内容\n"; fi
+          if [[ "$BODY" != *"## 🔗 関連Issue"* ]]; then MISSING_SECTIONS="${MISSING_SECTIONS}- ## 🔗 関連Issue\n"; fi
+          if [[ "$BODY" != *"## ✅ チェックリスト"* ]]; then MISSING_SECTIONS="${MISSING_SECTIONS}- ## ✅ チェックリスト\n"; fi
+          if [[ "$BODY" != *"� PRタイトルの命名規則"* ]]; then MISSING_SECTIONS="${MISSING_SECTIONS}- 📝 PRタイトルの命名規則\n"; fi
+          if [[ "$BODY" != *"## 📖 レビュー用語集"* ]]; then MISSING_SECTIONS="${MISSING_SECTIONS}- ## 📖 レビュー用語集\n"; fi
+          if [[ "$BODY" != *"## 📌 補足事項"* ]]; then MISSING_SECTIONS="${MISSING_SECTIONS}- ## 📌 補足事項\n"; fi
           
-          # 1. Main Sections
-          if [[ "$BODY" != *"## 💡 概要"* ]]; then echo "❌ Missing: '## 💡 概要'"; MISSING=true; fi
-          if [[ "$BODY" != *"## 📝 変更内容"* ]]; then echo "❌ Missing: '## 📝 変更内容'"; MISSING=true; fi
-          if [[ "$BODY" != *"## 🔗 関連Issue"* ]]; then echo "❌ Missing: '## 🔗 関連Issue'"; MISSING=true; fi
-          
-          # 2. Reference Sections
-          if [[ "$BODY" != *"📝 PRタイトルの命名規則:"* ]]; then echo "❌ Missing: '📝 PRタイトルの命名規則:'"; MISSING=true; fi
-          if [[ "$BODY" != *"## ✅ チェックリスト"* ]]; then echo "❌ Missing: '## ✅ チェックリスト'"; MISSING=true; fi
-          if [[ "$BODY" != *"## 📖 レビュー用語集"* ]]; then echo "❌ Missing: '## 📖 レビュー用語集'"; MISSING=true; fi
-          if [[ "$BODY" != *"## 📌 補足事項"* ]]; then echo "❌ Missing: '## 📌 補足事項'"; MISSING=true; fi
-          
-          if [[ "$MISSING" == "true" ]]; then
-            echo ""
-            echo "❌ PR description is incomplete!"
-            echo "Please copy the FULL PR template and fill in the sections."
-            echo ""
-            echo "Template location: .github/PULL_REQUEST_TEMPLATE.md"
-            echo "View online: https://github.com/M0G3K0/pokemon-bartle/blob/main/.github/PULL_REQUEST_TEMPLATE.md"
-            echo ""
-            echo "Do not omit any sections. Write 'None' or 'N/A' if not applicable."
+          if [[ -n "$MISSING_SECTIONS" ]]; then
+            echo "status=failure" >> $GITHUB_OUTPUT
+            echo "message=PR description is missing the following required sections:\n$MISSING_SECTIONS" >> $GITHUB_OUTPUT
             exit 1
           fi
           
-          echo "✅ PR description looks valid (Full template used)!"
+          echo "status=success" >> $GITHUB_OUTPUT
+          echo "message=PR description looks valid." >> $GITHUB_OUTPUT
       
-      - name: Comment on PR (if validation fails)
-        if: failure()
-        uses: actions/github-script@v8
+      - name: Report Validation Status
+        if: always()
+        uses: actions/github-script@v7
         with:
           script: |
-            github.rest.issues.createComment({
+            const titleStatus = '${{ steps.validate-title.outcome }}';
+            const branchStatus = '${{ steps.validate-branch.outputs.status }}' || ( '${{ steps.validate-branch.outcome }}' === 'success' ? 'success' : 'failure' );
+            const bodyStatus = '${{ steps.validate-body.outputs.status }}' || ( '${{ steps.validate-body.outcome }}' === 'success' ? 'success' : 'failure' );
+            
+            const branchMsg = '${{ steps.validate-branch.outputs.message }}' || 'Branch naming validation failed.';
+            const bodyMsg = '${{ steps.validate-body.outputs.message }}' || 'Template usage validation failed.';
+
+            // If all checks passed, do nothing (or could verify removal of previous error comments)
+            if (titleStatus === 'success' && branchStatus === 'success' && bodyStatus === 'success') {
+              console.log('All validations passed!');
+              return;
+            }
+
+            let commentBody = '## ⚠️ PR Validation Failed\n\nPlease address the following issues:\n\n';
+
+            if (titleStatus !== 'success') {
+              commentBody += '### 🚫 Invalid PR Title\n';
+              commentBody += 'The PR title must follow Conventional Commits (e.g., `feat: add new feature`).\n';
+              commentBody += '- **Format**: `<type>: <description>`\n';
+              commentBody += '- **Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`\n';
+              commentBody += '- **Description**: Start with a lowercase letter.\n\n';
+            }
+
+            if (branchStatus !== 'success') {
+              commentBody += '### 🚫 Invalid Branch Name\n';
+              commentBody += branchMsg + '\n';
+              commentBody += '- **Format**: `<type>/<description>`\n';
+              commentBody += '- **Example**: `feat/user-login`, `fix/header-layout`\n\n';
+            }
+
+            if (bodyStatus !== 'success') {
+              commentBody += '### 🚫 Incomplete PR Description\n';
+              commentBody += bodyMsg.replace(/\\n/g, '\n') + '\n';
+              commentBody += 'Please ensure you are using the [PULL_REQUEST_TEMPLATE](https://github.com/${{ github.repository }}/blob/main/.github/PULL_REQUEST_TEMPLATE.md).\n\n';
+            }
+
+            commentBody += '---\nRead [CONTRIBUTING.md](https://github.com/${{ github.repository }}/blob/main/CONTRIBUTING.md) for more details.';
+
+            // Post the comment
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '## ⚠️ PR Validation Failed\n\nPlease check the following:\n\n1. **PR Title**: Must follow the format `<type>: <description>`\n   - Valid types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`\n   - Example: `feat: add sound effects`\n\n2. **Branch Name**: Must follow the format `<type>/<description>`\n   - Valid types: `feat`, `fix`, `hotfix`, `refactor`, `docs`, `test`, `chore`, `style`, `perf`, `ci`, `build`, `revert`\n   - Example: `feat/add-sound-effects`\n\n3. **PR Description**: Must use the PR template (include `## 💡 概要` or similar headers).\n\nPlease refer to [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for more details.'
-            })
+              body: commentBody
+            });
+
+            // Fail the workflow if any check failed
+            core.setFailed('One or more PR validation checks failed.');
