@@ -40,7 +40,7 @@
     "@angular/cli": "^21.0.0",
     "@angular/compiler-cli": "^21.0.0",
     "@lhci/cli": "^0.15.1",
-    "@types/jasmine": "~5.1.0",
+    "@types/jasmine": "~6.0.0",
     "angular-eslint": "21.0.1",
     "autoprefixer": "^10.4.22",
     "dependency-cruiser": "^17.3.6",
